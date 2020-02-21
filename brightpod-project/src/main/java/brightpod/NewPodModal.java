@@ -1,20 +1,19 @@
 package brightpod;
 
-import core.WebDriverManager;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
 
 public class NewPodModal extends BasePage {
     private String newPodName;
-    private WebDriver webDriver;
 
-    public NewPodModal(String newPodName, String browser, String url) {
-        webDriver = WebDriverManager.getInstance().startBrowser(browser, url);
-        PageFactory.initElements(webDriver, this);
-        this.newPodName = newPodName;
+    public NewPodModal() {
+//        this.newPodName = newPodName;
+    }
+
+    @Override
+    protected void waitUntilPageObjectIsLoaded() {
+
     }
 
     @FindBy(how= How.LINK_TEXT, using="Create a New Pod")
@@ -26,11 +25,13 @@ public class NewPodModal extends BasePage {
     @FindBy(how= How.XPATH, using="//button[@class='btn btn-success btn-primary new-project-button']")
     WebElement createPodAndInvitePeopleButton;
 
-    @Override
-    public void executeAction() {
-        newPodButton.click();
-        blankPodButton.click();
-        projectNameTextBox.sendKeys(newPodName);
-        createPodAndInvitePeopleButton.click();
-    }
+//    newPodButton.click();
+//    blankPodButton.click();
+//    projectNameTextBox.sendKeys(newPodName);
+//    createPodAndInvitePeopleButton.click();
+
+//    @Override
+//    public void executeAction() {
+
+//    }
 }
