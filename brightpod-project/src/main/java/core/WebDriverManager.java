@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.concurrent.TimeUnit;
+
 public class WebDriverManager {
     private WebDriver webDriver;
     private static WebDriverManager webDriverManager = null;
@@ -22,12 +24,18 @@ public class WebDriverManager {
         if (browserName.equalsIgnoreCase("Chrome")) {
             if (webDriverManager.webDriver == null) {
                 webDriver = new ChromeDriver();
+                webDriver.manage().window().maximize();
+                webDriver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+                webDriver.get("https://app.brightpod.com/user");
             }
         }
 
         else if (browserName.equalsIgnoreCase("Firefox")) {
             if (webDriverManager.webDriver == null) {
                 webDriver = new FirefoxDriver();
+                webDriver.manage().window().maximize();
+                webDriver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+                webDriver.get("https://app.brightpod.com/user");
             }
         }
         return webDriver;
