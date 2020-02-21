@@ -20,13 +20,13 @@ public class WebDriverManager {
         return webDriverManager;
     }
 
-    public WebDriver startBrowser(String browserName) {
+    public WebDriver startBrowser(String browserName, String url) {
         if (browserName.equalsIgnoreCase("Chrome")) {
             if (webDriverManager.webDriver == null) {
                 webDriver = new ChromeDriver();
                 webDriver.manage().window().maximize();
                 webDriver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-                webDriver.get("https://app.brightpod.com/user");
+                webDriver.get(url);
             }
         }
 
@@ -35,7 +35,7 @@ public class WebDriverManager {
                 webDriver = new FirefoxDriver();
                 webDriver.manage().window().maximize();
                 webDriver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-                webDriver.get("https://app.brightpod.com/user");
+                webDriver.get(url);
             }
         }
         return webDriver;

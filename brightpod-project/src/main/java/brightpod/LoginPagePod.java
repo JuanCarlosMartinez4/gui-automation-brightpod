@@ -7,13 +7,17 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPagePod  {
+public class LoginPagePod extends BasePage {
     private WebDriver webDriver;
     private static final String URL_SIMPLE = "https://app.brightpod.com/user";
+    private String email;
+    private String password;
 
-    public LoginPagePod() {
-        webDriver = WebDriverManager.getInstance().startBrowser("Firefox");
+    public LoginPagePod(String email, String password, String browser, String url) {
+        webDriver = WebDriverManager.getInstance().startBrowser(browser, url);
         PageFactory.initElements(webDriver, this);
+        this.email = email;
+        this.password = password;
     }
 
     @FindBy(how=How.XPATH, using="//input[@type='text'][@id='username_text']")
@@ -23,19 +27,10 @@ public class LoginPagePod  {
     @FindBy(how=How.XPATH, using="//button[@type='submit'][@class='btn btn-default btn-success signin']")
     WebElement signinButton;
 
-    public void setEmail(String strEmail){
-        emailTextBox.sendKeys(strEmail);
-    }
-
-    public void setPassword(String strPassword) {
-        passwordTextBox.sendKeys(strPassword);
-    }
-
-    public void clickOnLoginButton(){
+    @Override
+    public void executeAction() {
+        emailTextBox.sendKeys(email);
+        passwordTextBox.sendKeys(password);
         signinButton.click();
-    }
-
-    public void quit() {
-        WebDriverManager.getInstance().quitDriver();
     }
 }
