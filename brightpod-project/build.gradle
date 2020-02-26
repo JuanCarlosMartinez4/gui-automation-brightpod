@@ -17,3 +17,8 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '4.0.0-alpha-4'
     compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '3.8.0'
 }
+
+tasks.withType(Test) {
+    systemProperty "browser", browser
+    systemProperty "url", url
+}
