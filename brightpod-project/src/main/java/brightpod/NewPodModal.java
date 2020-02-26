@@ -3,35 +3,50 @@ package brightpod;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.io.IOException;
 
 public class NewPodModal extends BasePage {
-    private String newPodName;
 
-    public NewPodModal() {
-//        this.newPodName = newPodName;
+    @FindBy(how = How.LINK_TEXT, using = "Create a New Pod")
+    WebElement newPodButton;
+    @FindBy(how = How.LINK_TEXT, using = "Create a Blank Pod")
+    WebElement blankPodButton;
+    @FindBy(id = "project-name")
+    WebElement projectNameTextBox;
+    @FindBy(how = How.XPATH, using = "//button[@class='btn btn-success btn-primary new-project-button']")
+    WebElement createPodAndInvitePeopleButton;
+
+    public NewPodModal() throws IOException {
     }
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {
-
+        webDriverWait.until(ExpectedConditions.visibilityOf(newPodButton));
     }
 
-    @FindBy(how= How.LINK_TEXT, using="Create a New Pod")
-    WebElement newPodButton;
-    @FindBy(how= How.LINK_TEXT, using="Create a Blank Pod")
-    WebElement blankPodButton;
-    @FindBy(how= How.XPATH, using="//input[@type='text'][@id='project-name']")
-    WebElement projectNameTextBox;
-    @FindBy(how= How.XPATH, using="//button[@class='btn btn-success btn-primary new-project-button']")
-    WebElement createPodAndInvitePeopleButton;
+    public PodsPage createNewPod(String podName) throws IOException {
+        clickNewPodButton();
+        clickBlankPodButton();
+        setProjectNameTextBox(podName);
+        clickCreatePodAndInvitePeopleButton();
+        return new PodsPage();
+    }
 
-//    newPodButton.click();
-//    blankPodButton.click();
-//    projectNameTextBox.sendKeys(newPodName);
-//    createPodAndInvitePeopleButton.click();
+    private void clickNewPodButton() {
+        newPodButton.click();
+    }
 
-//    @Override
-//    public void executeAction() {
+    private void clickBlankPodButton() {
+        blankPodButton.click();
+    }
 
-//    }
+    private void setProjectNameTextBox(final String podName) {
+        this.projectNameTextBox.sendKeys(podName);
+    }
+
+    private void clickCreatePodAndInvitePeopleButton() {
+        createPodAndInvitePeopleButton.click();
+    }
 }

@@ -1,6 +1,5 @@
 package core;
 
-import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
@@ -26,7 +25,7 @@ public class Firefox implements IDriver {
         //This configuration allows to download multiples files
         firefoxPrefs.put("profile.content_settings.exceptions.automatic_downloads.*.setting", 1);
 
-        String path = "C:\\Users\\Admin\\Download";
+        String path = "Download";
 
         File file = new File(path);
         // String which specifies where to download files to by default.
@@ -35,9 +34,9 @@ public class Firefox implements IDriver {
         firefoxPrefs.put("safebrowsing.enabled", "true");
 
         FirefoxOptions firefoxOptions = new FirefoxOptions();
-        // Passing the disable-infobars ChromeOption to the WebDriver,
-        // prevents Chrome from displaying this notification.
-        // -- Chrome is being controlled by automated test software --
+        // Passing the disable-infobars FirefoxOption to the WebDriver,
+        // prevents Firefox from displaying this notification.
+        // -- Firefox is being controlled by automated test software --
         firefoxOptions.addArguments("disable-infobars");
 
         //Use to ignore ssl errors

@@ -39,6 +39,7 @@ public class Chrome implements IDriver {
         // -- Chrome is being controlled by automated test software --
         chromeOptions.addArguments("disable-infobars");
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
+        chromeOptions.getVersion();
 
         //Use to ignore ssl errors
         chromeOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);

@@ -2,7 +2,10 @@ package core;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.ReadProperties;
 
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverManager {
@@ -12,10 +15,10 @@ public class WebDriverManager {
     private static WebDriverManager webDriverManager = null;
     private WebDriverFactory webDriverFactory = new WebDriverFactory();
 
-    private WebDriverManager() {
-        // Leer del gradle.properties con que browsere va a correr
-        String browser = "Firefox";
-        String url = "https://app.brightpod.com/user";
+    private WebDriverManager() throws IOException {
+        Properties properties = ReadProperties.propertiesFileReader("config.properties");
+        String browser = properties.getProperty("browser");
+        String url = properties.getProperty("url");
         initialize(browser, url);
 
     }
@@ -28,7 +31,7 @@ public class WebDriverManager {
         webDriverWait = new WebDriverWait(webDriver, 30);
     }
 
-    public static WebDriverManager getInstance() {
+    public static WebDriverManager getInstance() throws IOException {
         if (webDriverManager == null) {
             webDriverManager = new WebDriverManager();
         }
