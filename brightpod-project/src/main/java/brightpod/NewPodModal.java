@@ -5,37 +5,26 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.io.IOException;
-
 public class NewPodModal extends BasePage {
 
-    @FindBy(how = How.LINK_TEXT, using = "Create a New Pod")
-    WebElement newPodButton;
+    @FindBy(id = "myModalLabel")
+    WebElement modalLabel;
+
     @FindBy(how = How.LINK_TEXT, using = "Create a Blank Pod")
     WebElement blankPodButton;
+
     @FindBy(id = "project-name")
     WebElement projectNameTextBox;
+
     @FindBy(how = How.XPATH, using = "//button[@class='btn btn-success btn-primary new-project-button']")
     WebElement createPodAndInvitePeopleButton;
 
-    public NewPodModal() throws IOException {
-    }
+    @FindBy(css = "a[title='Go back to Pods']")
+    WebElement goBackToPodsButton;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {
-        webDriverWait.until(ExpectedConditions.visibilityOf(newPodButton));
-    }
-
-    public PodsPage createNewPod(String podName) throws IOException {
-        clickNewPodButton();
-        clickBlankPodButton();
-        setProjectNameTextBox(podName);
-        clickCreatePodAndInvitePeopleButton();
-        return new PodsPage();
-    }
-
-    private void clickNewPodButton() {
-        newPodButton.click();
+        webDriverWait.until(ExpectedConditions.visibilityOf(modalLabel));
     }
 
     private void clickBlankPodButton() {
@@ -48,5 +37,22 @@ public class NewPodModal extends BasePage {
 
     private void clickCreatePodAndInvitePeopleButton() {
         createPodAndInvitePeopleButton.click();
+    }
+
+    private void clickOnGoBackToPodsButton() {
+        goBackToPodsButton.click();
+    }
+
+    public TaskListPage createNewPod(String podName) {
+        clickBlankPodButton();//new_podPage
+        setProjectNameTextBox(podName);
+        clickCreatePodAndInvitePeopleButton();
+        return new TaskListPage();
+    }
+
+    public PodsPage goBackToPodsPage() {
+        clickBlankPodButton();
+        clickOnGoBackToPodsButton();
+        return new PodsPage();
     }
 }

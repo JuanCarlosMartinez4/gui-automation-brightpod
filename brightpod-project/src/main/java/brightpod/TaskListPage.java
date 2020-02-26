@@ -5,8 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.io.IOException;
-
 public class TaskListPage extends BasePage {
 
     @FindBy(how = How.CSS, using = "input[type='button'][value='New Task List']")
@@ -21,15 +19,12 @@ public class TaskListPage extends BasePage {
     @FindBy(how = How.CSS, using = "input[type='submit'][value='Add Task List']")
     WebElement addTaskListButton;
 
-    public TaskListPage() throws IOException {
-    }
-
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         webDriverWait.until(ExpectedConditions.visibilityOf(newTaskListButton));
     }
 
-    public PodsPage addNewTaskList(String listName, String description) throws IOException {
+    public PodsPage addNewTaskList(String listName, String description) {
         clickOnNewTaskListButton();
         setListNameTextBox(listName);
         setDescriptionTextArea(description);

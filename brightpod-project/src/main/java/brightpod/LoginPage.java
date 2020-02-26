@@ -5,8 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.io.IOException;
-
 public class LoginPage extends BasePage {
 
     @FindBy(id = "username_text")
@@ -18,27 +16,9 @@ public class LoginPage extends BasePage {
     @FindBy(how = How.XPATH, using="//button[@type='submit'][@class='btn btn-default btn-success signin']")
     WebElement signInButton;
 
-    public LoginPage() throws IOException {
-    }
-
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         webDriverWait.until(ExpectedConditions.visibilityOf(signInButton));
-    }
-
-    public PodsPage login(final String email, final String password) throws IOException {
-        setEmailTextBox(email);
-        setPasswordTextBox(password);
-        clickSignInButton();
-        return new PodsPage();
-    }
-
-
-    public LoginPage loginWithErrors(final String email, final String password) {
-        setEmailTextBox(email);
-        setPasswordTextBox(password);
-        clickSignInButton();
-        return this;
     }
 
     private void setEmailTextBox(final String email) {
@@ -54,4 +34,21 @@ public class LoginPage extends BasePage {
     private void clickSignInButton() {
         signInButton.click();
     }
+
+    public PodsPage login(final String email, final String password) {
+        setEmailTextBox(email);
+        setPasswordTextBox(password);
+        clickSignInButton();
+        return new PodsPage();
+    }
+
+
+    public LoginPage loginWithErrors(final String email, final String password) {
+        setEmailTextBox(email);
+        setPasswordTextBox(password);
+        clickSignInButton();
+        return this;
+    }
+
+
 }

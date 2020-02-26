@@ -4,8 +4,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.io.IOException;
-
+/**
+ * Manages tasks
+ */
 public class AddTaskPage extends BasePage {
 
     @FindBy(xpath = "//*[contains(text(), 'My tasks')]")
@@ -20,9 +21,10 @@ public class AddTaskPage extends BasePage {
     @FindBy(xpath = "//input[@type='submit'][@value='Add Task']")
     WebElement createTaskButton;
 
-    public AddTaskPage() throws IOException {
-    }
-
+    /**
+     * Adds a new Task
+     * @param taskName to be created
+     */
     public void addNewTask(String taskName) {
         listName.getText();
         addTaskButton.click();
@@ -30,6 +32,9 @@ public class AddTaskPage extends BasePage {
         createTaskButton.click();
     }
 
+    /**
+     * Allows to waits until the page object is loaded
+     */
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         webDriverWait.until(ExpectedConditions.visibilityOf(listName));
