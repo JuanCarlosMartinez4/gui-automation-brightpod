@@ -22,6 +22,9 @@ public class NewPodModal extends BasePage {
     @FindBy(css = "a[title='Go back to Pods']")
     WebElement goBackToPodsButton;
 
+    @FindBy(xpath = "//div[contains(@class,'col-lg-9 col-md-9')]")
+    WebElement projectName;
+
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         webDriverWait.until(ExpectedConditions.visibilityOf(modalLabel));
@@ -39,15 +42,20 @@ public class NewPodModal extends BasePage {
         createPodAndInvitePeopleButton.click();
     }
 
-    private void clickOnGoBackToPodsButton() {
-        goBackToPodsButton.click();
+    private String getProjectName() {
+        return projectName.getText();
     }
 
-    public TaskListPage createNewPod(String podName) {
+    public String createNewPod(String podName) {
         clickBlankPodButton();//new_podPage
         setProjectNameTextBox(podName);
         clickCreatePodAndInvitePeopleButton();
-        return new TaskListPage();
+        return  getProjectName();
+//        return new TaskListPage();
+    }
+
+    private void clickOnGoBackToPodsButton() {
+        goBackToPodsButton.click();
     }
 
     public PodsPage goBackToPodsPage() {

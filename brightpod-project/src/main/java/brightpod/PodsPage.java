@@ -13,8 +13,11 @@ public class PodsPage extends BasePage {
     @FindBy(xpath = "//*[contains(text(),'All Pods')]")
     WebElement podsContainerTitle;
 
-    @FindBy(how = How.LINK_TEXT, using = "Create a New Pod")
+    @FindBy(linkText = "Create a New Pod")
     WebElement newPodButton;
+
+    @FindBy(css = "h3[id='myModalLabel'][class='brown_modal_title']")
+    WebElement modalLabel;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {
@@ -25,22 +28,27 @@ public class PodsPage extends BasePage {
         podsTab.click();
     }
 
-    private void verifyPostContainer() {
-        System.out.println(podsContainerTitle.getText());
+    private String verifyPostContainer() {
+        return newPodButton.getText();
     }
 
-    public PodsPage activePodsTab() {
+    public String activePodsTab() {
         clickOnPodsTab();
-        verifyPostContainer();
-        return this;
+        return verifyPostContainer();
+//        return this;
     }
 
     private void clickOnNewPodButton() {
         newPodButton.click();
     }
 
-    public NewPodModal createNewPod() {
+    private String getModalLabelText() {
+        return modalLabel.getText();
+    }
+
+    public String displayNewPodModal() {
         clickOnNewPodButton();
-        return new NewPodModal();
+        return getModalLabelText();
+//        return new NewPodModal();
     }
 }

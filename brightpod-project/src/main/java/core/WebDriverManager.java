@@ -3,9 +3,6 @@ package core;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import utils.ReadProperties;
-
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverManager {

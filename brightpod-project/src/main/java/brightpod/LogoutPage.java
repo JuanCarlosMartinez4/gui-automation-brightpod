@@ -24,7 +24,6 @@ public class LogoutPage extends BasePage {
 
     public void logout() {
         clickOnReturnInitPageLinkText();
-//        return new LoginPage();
     }
 
     public LogoutPage logoutWithErrors() {

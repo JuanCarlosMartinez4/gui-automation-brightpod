@@ -16,6 +16,9 @@ public class LoginPage extends BasePage {
     @FindBy(how = How.XPATH, using="//button[@type='submit'][@class='btn btn-default btn-success signin']")
     WebElement signInButton;
 
+    @FindBy(css = "a[data-toggle='modal'][class='btn btn-default btn-success']")
+    WebElement createNewPodButton;
+
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         webDriverWait.until(ExpectedConditions.visibilityOf(signInButton));
@@ -35,11 +38,16 @@ public class LoginPage extends BasePage {
         signInButton.click();
     }
 
-    public PodsPage login(final String email, final String password) {
+    private String getCreateANewPodText() {
+        return createNewPodButton.getText();
+    }
+
+    public String login(final String email, final String password) {
         setEmailTextBox(email);
         setPasswordTextBox(password);
         clickSignInButton();
-        return new PodsPage();
+        return getCreateANewPodText();
+//        return new PodsPage();
     }
 
 
