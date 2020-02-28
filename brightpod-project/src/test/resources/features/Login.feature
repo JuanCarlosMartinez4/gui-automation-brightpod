@@ -1,5 +1,5 @@
 Feature: Login
-  It manages login requests
+#  It manages login requests
 
   Scenario: Login
     When It login with user credentials

@@ -14,16 +14,18 @@ public class WebDriverManager {
 
     private WebDriverManager() {
         try {
-            String browser = System.getProperty("browser");
-            String url = System.getProperty("url");//move
+//            String browser = System.getProperty("browser");
+//            String url = System.getProperty("url");
 
-            initialize(browser, url);
+            initialize();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void initialize(String browser, String url) {
+    private void initialize() {
+        String browser = "Chrome";
+        String url = "https://app.brightpod.com/user";
         webDriver = WebDriverFactory.getWebDriver(browser);
         webDriver.manage().window().maximize();
         webDriver.get(url);//move

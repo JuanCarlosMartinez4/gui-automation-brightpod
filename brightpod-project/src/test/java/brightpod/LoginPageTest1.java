@@ -1,18 +1,11 @@
-import brightpod.AddTaskPage;
-import brightpod.LoginPage;
-import brightpod.LogoutPage;
-import brightpod.MenuNavbar;
-import brightpod.NewPodModal;
-import brightpod.PodsPage;
-import brightpod.SearchPod;
-import brightpod.SettingTextLink;
-import brightpod.TaskListPage;
+package brightpod;
+
 import core.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LoginPageTest {
+public class LoginPageTest1 {
 
     @Before
     public void initialize() {
