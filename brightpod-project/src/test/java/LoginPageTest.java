@@ -71,27 +71,8 @@ public class LoginPageTest {
     }
 
     @Test
-    public void test_createANewTask_newTask() {
-        String newPodName = "Empty Pod2";
-        String listName = "My tasks";
-        String listDescription = "This tasks are for week";
-        String taskName = "my new task";
-        String memberName = "juan martinez (Pod Lead)";
-        PodsPage podsPage = new PodsPage();
-        podsPage.displayNewPodModal();
-        NewPodModal podsModal = new NewPodModal();
-        podsModal.createNewPod(newPodName);
-        TaskListPage taskList = new TaskListPage();
-        taskList.addNewTaskList(listName, listDescription);
-        AddTaskPage addTask = new AddTaskPage();
-        String actual = addTask.createNewTask(listName, taskName, memberName);
-
-        assert actual.equals(taskName);
-    }
-
-    @Test
     public void test_archiveAPod_podArchived() {
-        String newPodName = "Empty Pod 001";
+        String newPodName = "EmptyPod001";
         PodsPage podsPage = new PodsPage();
         podsPage.displayNewPodModal();
         NewPodModal podsModal = new NewPodModal();
@@ -111,17 +92,19 @@ public class LoginPageTest {
         PodsPage podsPage = new PodsPage();
         podsPage.displayNewPodModal();
         NewPodModal podsModal = new NewPodModal();
-        podsModal.createNewPod(podName);
+        String podNameText = podsModal.createNewPod(podName);
         SearchPod searchPod = new SearchPod();
-        String actual = searchPod.searchPodByName(podName);
+        String actual = searchPod.searchPodByName(podNameText);
         assert actual.equals(podName);
     }
 
     @Test
     public void test_goBackToPodsPage_returnPodsPage() {
-        NewPodModal podsModal = new NewPodModal();
-        Object actual = podsModal.goBackToPodsPage();
         PodsPage podsPage = new PodsPage();
-        assert actual.getClass() == podsPage.getClass();
+        podsPage.displayNewPodModal();
+        NewPodModal podsModal = new NewPodModal();
+        String actual = podsModal.goBackToPodsPage();
+        String expected = "Create a New Pod";
+        assert actual.equals(expected);
     }
 }

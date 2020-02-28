@@ -10,8 +10,8 @@ public class SearchPod extends BasePage {
 
     private final String POD_FOUND = "//div[@class='search_result']//div[@class='search_link']//a[text()='%s']";
 
-    @FindBy(css = "a[data-original-title='Pods']")
-    WebElement podIcon;
+    @FindBy(css = "a[title='Pods']")
+    WebElement podTab;
 
     @FindBy(css = "input[type='text'][class='search_input form-control']")
     WebElement searchField;
@@ -19,15 +19,9 @@ public class SearchPod extends BasePage {
     @FindBy(css = "p[class='search_error']")
     WebElement searchErrorText;
 
-    ////div[@class='search_result']//p[@class='search_error']
-
     @Override
     protected void waitUntilPageObjectIsLoaded() {
-        webDriverWait.until(ExpectedConditions.visibilityOf(podIcon));
-    }
-
-    private void clickOnPodIcon() {
-        podIcon.click();
+        webDriverWait.until(ExpectedConditions.visibilityOf(searchField));
     }
 
     private void setSearchField(final String podName) {
@@ -40,7 +34,6 @@ public class SearchPod extends BasePage {
     }
 
     public String searchPodByName(final String podName) {
-        clickOnPodIcon();
         setSearchField(podName);
         String podNameText = getPod(podName).getText();
         getPod(podName).click();
@@ -48,8 +41,7 @@ public class SearchPod extends BasePage {
     }
 
     public String verifyDeletedPod(final String podName) {
-//        clickOnPodIcon();
         setSearchField(podName);
-        return searchField.getText();
+        return searchErrorText.getText();
     }
 }

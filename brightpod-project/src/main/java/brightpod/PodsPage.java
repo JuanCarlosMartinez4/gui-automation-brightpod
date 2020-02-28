@@ -10,9 +10,6 @@ public class PodsPage extends BasePage {
     @FindBy(how= How.XPATH, using="//li[@id='pods_tab'][@class='active']")
     WebElement podsTab;
 
-    @FindBy(xpath = "//*[contains(text(),'All Pods')]")
-    WebElement podsContainerTitle;
-
     @FindBy(linkText = "Create a New Pod")
     WebElement newPodButton;
 
@@ -35,7 +32,6 @@ public class PodsPage extends BasePage {
     public String activePodsTab() {
         clickOnPodsTab();
         return verifyPostContainer();
-//        return this;
     }
 
     private void clickOnNewPodButton() {
@@ -49,6 +45,5 @@ public class PodsPage extends BasePage {
     public String displayNewPodModal() {
         clickOnNewPodButton();
         return getModalLabelText();
-//        return new NewPodModal();
     }
 }

@@ -1,6 +1,5 @@
 package brightpod;
 
-import com.sun.scenario.effect.impl.prism.PrImage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

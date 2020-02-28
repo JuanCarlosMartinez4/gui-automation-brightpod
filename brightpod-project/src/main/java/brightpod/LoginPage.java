@@ -19,6 +19,9 @@ public class LoginPage extends BasePage {
     @FindBy(css = "a[data-toggle='modal'][class='btn btn-default btn-success']")
     WebElement createNewPodButton;
 
+    @FindBy(css = "div[class='alert alert-danger']")
+    WebElement invalidLoginMessage;
+
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         webDriverWait.until(ExpectedConditions.visibilityOf(signInButton));
@@ -47,15 +50,14 @@ public class LoginPage extends BasePage {
         setPasswordTextBox(password);
         clickSignInButton();
         return getCreateANewPodText();
-//        return new PodsPage();
     }
 
 
-    public LoginPage loginWithErrors(final String email, final String password) {
+    public String loginWithErrors(final String email, final String password) {
         setEmailTextBox(email);
         setPasswordTextBox(password);
         clickSignInButton();
-        return this;
+        return invalidLoginMessage.getText();
     }
 
 
