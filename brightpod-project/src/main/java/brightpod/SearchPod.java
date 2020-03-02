@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class SearchPod extends BasePage {
 
-    private final String POD_FOUND = "//div[@class='search_result']//div[@class='search_link']//a[text()='%s']";
+    private final String ELEMENT_FOUND = "//div[@class='search_result']//div[@class='search_link']//a[text()='%s']";
 
     @FindBy(css = "a[title='Pods']")
     WebElement podTab;
@@ -29,19 +29,19 @@ public class SearchPod extends BasePage {
         searchField.sendKeys(Keys.ENTER);
     }
 
-    private WebElement getPod(final String podName) {
-        return webDriver.findElement(By.xpath(String.format(POD_FOUND, podName)));
+    private WebElement getFindElement(final String elementName) {
+        return webDriver.findElement(By.xpath(String.format(ELEMENT_FOUND, elementName)));
     }
 
-    public String searchPodByName(final String podName) {
-        setSearchField(podName);
-        String podNameText = getPod(podName).getText();
-        getPod(podName).click();
-        return podNameText;
+    public String searchElementByName(final String elementName) {
+        setSearchField(elementName);
+        String elementNameText = getFindElement(elementName).getText();
+        getFindElement(elementName).click();
+        return elementNameText;
     }
 
-    public String verifyDeletedPod(final String podName) {
-        setSearchField(podName);
+    public String verifyDeletedElement(final String elementName) {
+        setSearchField(elementName);
         return searchErrorText.getText();
     }
 }

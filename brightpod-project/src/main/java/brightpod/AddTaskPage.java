@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.HashMap;
+
 /**
  * Manages tasks
  */
@@ -22,8 +24,18 @@ public class AddTaskPage extends BasePage {
 
     private final String CREATED_TASK_NAME = "//span[text()='%s']//ancestor::li//a[contains(text(),'%s')]";
 
+    private HashMap<String, String> fieldsText;
+
     @FindBy(xpath = "//*[contains(text(), 'Add Task')]")
     WebElement addTaskButton;
+
+    /**
+     * Allows to waits until the page object is loaded
+     */
+    @Override
+    protected void waitUntilPageObjectIsLoaded() {
+        webDriverWait.until(ExpectedConditions.visibilityOf(addTaskButton));
+    }
 
     private WebElement getAddNewTaskButton(final String listName) {
         return webDriver.findElement(By.xpath(String.format(ADD_NEW_TASK_BUTTON, listName)));
@@ -73,20 +85,24 @@ public class AddTaskPage extends BasePage {
         return getCreatedTaskName(listName, taskName).getText();
     }
 
-    public String createNewTask(final String listName, final String taskName, final String memberName) {
+    private Select getProjectLeadComboBox(final String listName) {
+        return new Select(webDriver.findElement(By.xpath(String.format(COMBOBOX_SELECTOR, listName))));
+    }
+
+    private HashMap<String, String> getFieldsText(final String listName) {
+        fieldsText = new HashMap<>();
+        fieldsText.put("name", getTaskTextArea(listName).getAttribute("value"));
+        fieldsText.put("member", getProjectLeadComboBox(listName).getFirstSelectedOption().getText());
+        return fieldsText;
+    }
+
+    public HashMap<String, String> createNewTask(final String listName, final String taskName, final String memberName) {
         clickOnAddNewTaskButton(listName);
         setTaskTextArea(listName, taskName);
         setMemberToTask(listName, memberName);
         setHighPriorityCheckbox(listName);
+        getFieldsText(listName);
         clickOnAddTaskButton(listName);
-        return getCreatedTaskNameText(listName, taskName);
-    }
-
-    /**
-     * Allows to waits until the page object is loaded
-     */
-    @Override
-    protected void waitUntilPageObjectIsLoaded() {
-        webDriverWait.until(ExpectedConditions.visibilityOf(addTaskButton));
+        return fieldsText;
     }
 }

@@ -2,26 +2,45 @@ package brightpod;
 
 import core.WebDriverManager;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.HashMap;
 
 public class AddTaskPageTest {
+    private String podName = "Empty Pod1";
+    private HashMap<String, String> texts;
+    private String listName = "My tasks";
 
     @Before
     public void setUp() {
         String email = "juan.martinez.tacc11@gmail.com";
         String password = "passacction20B";
+        texts = new HashMap<>();
+        texts.put("projectName", podName);
+        texts.put("description", "this a description");
         LoginPage loginPage = new LoginPage();
-        String actual = loginPage.login(email, password);
-        String expected = "Create a New Pod";
+        loginPage.login(email, password);
+        PodsPage podsPage = new PodsPage();
+        podsPage.displayNewPodModal();
+        NewPodModal podsModal = new NewPodModal();
+        podsModal.createNewPod();
+        FormPodPage formPod = new FormPodPage();
+        formPod.createNewPod(texts);
 
-        assert actual.equals(expected);
+        String listDescription = "This tasks are for week";
+        boolean isVisible = true;
+        TaskListPage taskList = new TaskListPage();
+        taskList.addNewTaskList(listName, listDescription, isVisible);
     }
 
     @After
     public void tearDown() {
+        SearchPod searchPod = new SearchPod();
+        searchPod.searchElementByName(podName);
+        SettingTextLink setting = new SettingTextLink();
+        setting.archivePod();
         MenuNavbar navbar = new MenuNavbar();
         navbar.logout();
         LogoutPage logoutPage = new LogoutPage();
@@ -31,20 +50,33 @@ public class AddTaskPageTest {
 
     @Test
     public void createNewTask_returnsNewTask() {
-        String newPodName = "Empty Pod2";
-        String listName = "My tasks";
-        String listDescription = "This tasks are for week";
         String taskName = "my new task";
         String memberName = "juan martinez (Pod Lead)";
-        PodsPage podsPage = new PodsPage();
-        podsPage.displayNewPodModal();
-        NewPodModal podsModal = new NewPodModal();
-        podsModal.createNewPod(newPodName);
-        TaskListPage taskList = new TaskListPage();
-        taskList.addNewTaskList(listName, listDescription);
+        HashMap<String, String> expected = new HashMap<>();
+        expected.put("name", taskName);
+        expected.put("member", "juan martinez (Pod Lead)");
         AddTaskPage addTask = new AddTaskPage();
-        String actual = addTask.createNewTask(listName, taskName, memberName);
+        HashMap<String, String> actual = addTask.createNewTask(listName, taskName, memberName);
 
-        assert actual.equals(taskName);
+        for (String key: actual.keySet()) {
+            Assert.assertEquals("message: ", expected.get(key), actual.get(key));
+        }
+    }
+
+    @Test
+    public void removeTask_removedTask() {
+        String taskName = "myNewTask";
+        String memberName = "juan martinez (Pod Lead)";
+        AddTaskPage addTask = new AddTaskPage();
+        addTask.createNewTask(listName, taskName, memberName);
+        SearchPod search = new SearchPod();
+        search.searchElementByName(taskName);
+        TaskPopup taskPopup = new TaskPopup();
+        taskPopup.removeTask();
+        taskPopup.clickOnPodsTabIcon();
+        String actual = search.verifyDeletedElement(taskName);
+        String expected = "Oops, there is nothing to show here.";
+        assert actual.equals(expected);
+        taskPopup.clickOnPodsTabIcon();
     }
 }

@@ -13,7 +13,7 @@ public class SettingTextLink extends BasePage {
     @FindBy(linkText = "Settings")
     WebElement settingsTextLink;
 
-    @FindBy(linkText = "Archive Pod")
+    @FindBy(css = "a[class='btn btn-default btn-warning archive_pod']")
     WebElement archivePodButton;
 
     @FindBy(xpath = "//div[contains(@class,'col-lg-9 col-md-9')]")
@@ -33,7 +33,7 @@ public class SettingTextLink extends BasePage {
         settingsTextLink.click();
     }
 
-    public void clickOnArchivePod() {
+    private void clickOnArchivePod() {
         archivePodButton.click();
     }
 
@@ -48,5 +48,10 @@ public class SettingTextLink extends BasePage {
         clickOnSettingsTextLink();
         clickOnArchivePod();
         clickOnAcceptAlert();
+    }
+
+    public void editPod() {
+        clickOnOpenSetting();
+        clickOnSettingsTextLink();
     }
 }

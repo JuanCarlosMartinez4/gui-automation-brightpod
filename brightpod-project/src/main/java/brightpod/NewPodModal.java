@@ -13,15 +13,6 @@ public class NewPodModal extends BasePage {
     @FindBy(how = How.LINK_TEXT, using = "Create a Blank Pod")
     WebElement blankPodButton;
 
-    @FindBy(id = "project-name")
-    WebElement projectNameTextBox;
-
-    @FindBy(how = How.XPATH, using = "//button[@class='btn btn-success btn-primary new-project-button']")
-    WebElement createPodAndInvitePeopleButton;
-
-    @FindBy(css = "a[title='Go back to Pods']")
-    WebElement goBackToPodsButton;
-
     @FindBy(xpath = "//div[contains(@class,'col-lg-9 col-md-9')]")
     WebElement projectName;
 
@@ -37,32 +28,12 @@ public class NewPodModal extends BasePage {
         blankPodButton.click();
     }
 
-    private void setProjectNameTextBox(final String podName) {
-        this.projectNameTextBox.sendKeys(podName);
-    }
-
-    private void clickCreatePodAndInvitePeopleButton() {
-        createPodAndInvitePeopleButton.click();
-    }
-
     private String getProjectName() {
         return projectName.getText();
     }
 
-    public String createNewPod(String podName) {
-        clickBlankPodButton();//new_podPage
-        setProjectNameTextBox(podName);
-        clickCreatePodAndInvitePeopleButton();
-        return  getProjectName();
-    }
-
-    private void clickOnGoBackToPodsButton() {
-        goBackToPodsButton.click();
-    }
-
-    public String goBackToPodsPage() {
+    public String createNewPod() {
         clickBlankPodButton();
-        clickOnGoBackToPodsButton();
-        return newPodButton.getText();
+        return  getProjectName();
     }
 }
