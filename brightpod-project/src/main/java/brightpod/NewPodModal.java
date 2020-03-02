@@ -10,14 +10,14 @@ public class NewPodModal extends BasePage {
     @FindBy(id = "myModalLabel")
     WebElement modalLabel;
 
-    @FindBy(how = How.LINK_TEXT, using = "Create a Blank Pod")
+    @FindBy(linkText = "Create a Blank Pod")
     WebElement blankPodButton;
 
-    @FindBy(xpath = "//div[contains(@class,'col-lg-9 col-md-9')]")
-    WebElement projectName;
+//    @FindBy(xpath = "//div[contains(@class,'col-lg-9 col-md-9')]")
+//    WebElement projectName;
 
-    @FindBy(linkText = "Create a New Pod")
-    WebElement newPodButton;
+//    @FindBy(linkText = "Create a New Pod")
+//    WebElement newPodButton;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {
@@ -28,12 +28,12 @@ public class NewPodModal extends BasePage {
         blankPodButton.click();
     }
 
-    private String getProjectName() {
-        return projectName.getText();
-    }
+//    private String getProjectName() {
+//        return projectName.getText();
+//    }
 
-    public String createNewPod() {
+    public FormPodPage createNewPod() {
         clickBlankPodButton();
-        return  getProjectName();
+        return new FormPodPage();
     }
 }

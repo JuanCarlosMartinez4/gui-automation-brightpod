@@ -25,7 +25,7 @@ public class LogoutPageTest {
         MenuNavbar navbar = new MenuNavbar();
         navbar.logout();
         LogoutPage logoutPage = new LogoutPage();
-        logoutPage.logout();
+        logoutPage.returnInitPage();
     }
 
     @Test

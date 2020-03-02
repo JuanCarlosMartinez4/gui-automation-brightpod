@@ -10,14 +10,14 @@ public class PodsPage extends BasePage {
     WebElement podsTab;
 
     @FindBy(linkText = "Create a New Pod")
-    WebElement newPodButton;
+    WebElement createANewPodButton;
 
-    @FindBy(css = "h3[id='myModalLabel'][class='brown_modal_title']")
-    WebElement modalLabel;
+//    @FindBy(css = "h3[id='myModalLabel'][class='brown_modal_title']")
+//    WebElement modalLabel;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {
-        webDriverWait.until(ExpectedConditions.visibilityOf(podsTab));
+        webDriverWait.until(ExpectedConditions.visibilityOf(createANewPodButton));
     }
 
     private void clickOnPodsTab() {
@@ -25,7 +25,7 @@ public class PodsPage extends BasePage {
     }
 
     private String verifyPostContainer() {
-        return newPodButton.getText();
+        return createANewPodButton.getText();
     }
 
     public String activePodsTab() {
@@ -33,16 +33,16 @@ public class PodsPage extends BasePage {
         return verifyPostContainer();
     }
 
-    private void clickOnNewPodButton() {
-        newPodButton.click();
+    private void clickOnCreateANewPodButton() {
+        createANewPodButton.click();
     }
 
-    private String getModalLabelText() {
-        return modalLabel.getText();
-    }
+//    private String getModalLabelText() {
+//        return modalLabel.getText();
+//    }
 
-    public String displayNewPodModal() {
-        clickOnNewPodButton();
-        return getModalLabelText();
+    public NewPodModal displayPodModal() {
+        clickOnCreateANewPodButton();
+        return new NewPodModal();
     }
 }

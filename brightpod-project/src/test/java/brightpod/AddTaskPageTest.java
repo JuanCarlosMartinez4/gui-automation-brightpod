@@ -23,7 +23,7 @@ public class AddTaskPageTest {
         LoginPage loginPage = new LoginPage();
         loginPage.login(email, password);
         PodsPage podsPage = new PodsPage();
-        podsPage.displayNewPodModal();
+        podsPage.displayPodModal();
         NewPodModal podsModal = new NewPodModal();
         podsModal.createNewPod();
         FormPodPage formPod = new FormPodPage();
@@ -44,7 +44,7 @@ public class AddTaskPageTest {
         MenuNavbar navbar = new MenuNavbar();
         navbar.logout();
         LogoutPage logoutPage = new LogoutPage();
-        logoutPage.logout();
+        logoutPage.returnInitPage();
         WebDriverManager.getInstance().quitDriver();
     }
 

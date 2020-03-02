@@ -28,7 +28,7 @@ public class WebDriverManager {
         String url = "https://app.brightpod.com/user";
         webDriver = WebDriverFactory.getWebDriver(browser);
         webDriver.manage().window().maximize();
-        webDriver.get(url);//move
+        webDriver.get(url);
         webDriver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         webDriverWait = new WebDriverWait(webDriver, 30);
     }

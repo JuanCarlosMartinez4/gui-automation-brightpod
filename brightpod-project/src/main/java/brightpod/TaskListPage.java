@@ -21,6 +21,8 @@ public class TaskListPage extends BasePage {
 
     private final String LIST_FOUND_LINK = "//span[text()='%s']";
 
+    private final String TASK_LIST_DESCRIPTION = "//div[contains(text(),'%s')]";
+
     private HashMap<String, String> fieldsText;
 
     @FindBy(css = "input[type='button'][value='New Task List']")
@@ -52,6 +54,9 @@ public class TaskListPage extends BasePage {
 
     @FindBy(xpath = "//a[@class='delete_tasklist tasklist_link_list'][text()='Remove']")
     WebElement removeListLink;
+
+    @FindBy(xpath = "//a[@class='edit_tasklist tasklist_link_list'][text()='Edit']")
+    WebElement editListLink;
 
     @FindBy(css = "li[id='pods_tab']")
     WebElement podsTabIcon;
@@ -90,6 +95,18 @@ public class TaskListPage extends BasePage {
 
     private WebElement getTaskListNameByName(final String listName) {
         return webDriver.findElement(By.xpath(String.format(TASK_LIST_NAME, listName)));
+    }
+
+    private String getTaskListNameText(final String listName) {
+        return getTaskListNameByName(listName).getText();
+    }
+
+    private WebElement getTaskListDescription(final String description) {
+        return webDriver.findElement(By.xpath(String.format(TASK_LIST_DESCRIPTION, description)));
+    }
+
+    private String getTaskListDescriptionText(final String description) {
+        return getTaskListDescription(description).getText();
     }
 
     private WebElement getTaskListDropdownList(final String listName) {
@@ -148,6 +165,10 @@ public class TaskListPage extends BasePage {
         removeListLink.click();
     }
 
+    private void clickOnEditListLink() {
+        editListLink.click();
+    }
+
     private void clickOnUpdateTaskListButton() {
         updateTaskListButton.click();
     }
@@ -160,10 +181,10 @@ public class TaskListPage extends BasePage {
         clickOnPodTabIcon();
     }
 
-    private HashMap<String, String> getFieldsText() {
+    public HashMap<String, String> getFieldsText(final String listName, final String description) {
         fieldsText = new HashMap<>();
-        fieldsText.put("name", listNameTextBox.getAttribute("value"));
-        fieldsText.put("description", descriptionTextArea.getAttribute("value"));
+        fieldsText.put("name", getTaskListNameText(listName));
+        fieldsText.put("description", getTaskListDescriptionText(description));
         return fieldsText;
     }
 
@@ -174,25 +195,25 @@ public class TaskListPage extends BasePage {
         return fieldsText;
     }
 
-    public HashMap<String, String> addNewTaskList(final String listName, final String description, boolean isVisible) {
+    public TaskListPage addNewTaskList(final String listName, final String description, boolean isVisible) {
         clickOnNewTaskListButton();
         setListNameTextBox(listName);
         setDescriptionTextArea(description);
         checkVisibleToClientsCheckBox(isVisible);
-        getFieldsText();
+//        getFieldsText();
         clickOnAddTaskListButton();
-        return fieldsText;
+        return new TaskListPage();
     }
 
-    public HashMap<String, String> updateTaskList(final String listName, HashMap<String, String> values) {
-        clickOnTaskListDropdownList(listName);
-        clickOnEditTaskListLink(listName);
+    public TaskListPage updateTaskList(final String listName, HashMap<String, String> values) {
+//        clickOnTaskListDropdownList(listName);
+//        clickOnEditTaskListLink(listName);
         setUpdateListNameTextBox(values.get("listName"));
         setUpdateDescriptionTextArea(values.get("listDescription"));
         checkUpdateVisibleToClientsCheckBox(Boolean.parseBoolean(values.get("isVisible")));
-        getUpdatedFieldsText();
+//        getUpdatedFieldsText();
         clickOnUpdateTaskListButton();
-        return fieldsText;
+        return new TaskListPage();
     }
 
     private void clickOnAcceptAlert() {
@@ -209,6 +230,12 @@ public class TaskListPage extends BasePage {
     public void removeTaskListSearched(final String listName) {
         mouseOverFoundLink(listName);
         clickOnRemoveListLink();
+        clickOnAcceptAlert();
+    }
+
+    public void editTaskListSearched(final String listName) {
+        mouseOverFoundLink(listName);
+        clickOnEditListLink();
         clickOnAcceptAlert();
     }
 }

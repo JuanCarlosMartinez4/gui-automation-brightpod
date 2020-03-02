@@ -33,11 +33,11 @@ public class SearchPod extends BasePage {
         return webDriver.findElement(By.xpath(String.format(ELEMENT_FOUND, elementName)));
     }
 
-    public String searchElementByName(final String elementName) {
+    public SearchPod searchElementByName(final String elementName) {
         setSearchField(elementName);
-        String elementNameText = getFindElement(elementName).getText();
+//        String elementNameText = getFindElement(elementName).getText();
         getFindElement(elementName).click();
-        return elementNameText;
+        return new SearchPod();
     }
 
     public String verifyDeletedElement(final String elementName) {

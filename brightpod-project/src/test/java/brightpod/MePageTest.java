@@ -20,7 +20,7 @@ public class MePageTest {
         MenuNavbar navbar = new MenuNavbar();
         navbar.logout();
         LogoutPage logoutPage = new LogoutPage();
-        logoutPage.logout();
+        logoutPage.returnInitPage();
         WebDriverManager.getInstance().quitDriver();
 
     }

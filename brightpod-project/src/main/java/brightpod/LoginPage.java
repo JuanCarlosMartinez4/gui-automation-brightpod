@@ -13,7 +13,7 @@ public class LoginPage extends BasePage {
     @FindBy(id = "password")
     WebElement passwordTextBox;
 
-    @FindBy(how = How.XPATH, using="//button[@type='submit'][@class='btn btn-default btn-success signin']")
+    @FindBy(xpath = "//button[@type='submit'][@class='btn btn-default btn-success signin']")
     WebElement signInButton;
 
     @FindBy(css = "a[data-toggle='modal'][class='btn btn-default btn-success']")
@@ -41,24 +41,26 @@ public class LoginPage extends BasePage {
         signInButton.click();
     }
 
-    private String getCreateANewPodText() {
-        return createNewPodButton.getText();
-    }
+//    private String getCreateANewPodText() {
+//        return createNewPodButton.getText();
+//    }
 
-    public String login(final String email, final String password) {
+    public PodsPage login(final String email, final String password) {
         setEmailTextBox(email);
         setPasswordTextBox(password);
         clickSignInButton();
-        return getCreateANewPodText();
+        return new PodsPage();
     }
 
 
-    public String loginWithErrors(final String email, final String password) {
+    public LoginPage loginWithErrors(final String email, final String password) {
         setEmailTextBox(email);
         setPasswordTextBox(password);
         clickSignInButton();
+        return new LoginPage();
+    }
+
+    public String getInvalidLoginMessage() {
         return invalidLoginMessage.getText();
     }
-
-
 }

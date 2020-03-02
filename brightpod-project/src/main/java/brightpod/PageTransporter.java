@@ -1,13 +1,12 @@
 package brightpod;
 
-public class PageTransporter {
+import core.WebDriverManager;
 
-    private static final String BASE_URL = "apps.brightspot.com";
-    // Encargada de leer el url base
-    // almacenar como constantes las variaciones
 
-//    public LoginPage navigateToLoginPage() {
-//        driver.get(BASE_URL + "LOGIN");
-//        return new LoginPage();
-//    }
+public class PageTransporter{
+
+    public static void goToUrl(String pageUrl) {
+        String url = "https://app.brightpod.com" + pageUrl;
+        WebDriverManager.getInstance().getWebDriver().navigate().to(url);
+    }
 }

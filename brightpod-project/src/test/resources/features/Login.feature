@@ -3,11 +3,12 @@ Feature: Login
 
   Scenario: Login
     When It login with user credentials
-    Then The application displays "PodPage" page
+    Then Verify user authenticated
+    And Selects on Logout
 
 
-  Scenario: Logout
-    Given It login with user credentials
-    And The application displays "PodPage" page
-    When Selects on Logout
-    Then The application displays "LogoutPage" page
+#  Scenario: Logout
+#    Given It login with user credentials
+#    And The application displays "/projects" page
+#    When Selects on Logout
+#    Then The application displays "/user" page

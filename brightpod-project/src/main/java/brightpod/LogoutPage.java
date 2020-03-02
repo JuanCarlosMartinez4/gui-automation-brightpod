@@ -10,7 +10,7 @@ public class LogoutPage extends BasePage {
     @FindBy(xpath = "//*[contains(text(),'You have been logged out.')]")
     WebElement loggedOutText;
 
-    @FindBy(how=How.LINK_TEXT, using="Or, get back to the login page...")
+    @FindBy(linkText = "Or, get back to the login page...")
     WebElement returnInitPageLinkText;
 
     @Override
@@ -22,8 +22,9 @@ public class LogoutPage extends BasePage {
         returnInitPageLinkText.click();
     }
 
-    public void logout() {
+    public void returnInitPage() {
         clickOnReturnInitPageLinkText();
+//        return new LoginPage();
     }
 
     public LogoutPage logoutWithErrors() {

@@ -15,7 +15,6 @@ public class LoginPageTest {
 
     @After
     public void tearDown() {
-        WebDriverManager.getInstance().quitDriver();
     }
 
     @Test
@@ -23,16 +22,16 @@ public class LoginPageTest {
         String userName = "juan martinez";
         String email = "juan.martinez.tacc11@gmail.com";
         String password = "passacction20B";
-        loginPage.login(email, password);
+        PodsPage podsPage = loginPage.login(email, password);
         MePage mePage = new MePage();
         String actual = mePage.verifyUserLogged(userName, email);
 
         assert actual.equals(email);
 
         MenuNavbar navbar = new MenuNavbar();
-        navbar.logout();
-        LogoutPage logoutPage = new LogoutPage();
-        logoutPage.logout();
+        LogoutPage logoutPage = navbar.logout();
+        logoutPage.returnInitPage();
+        WebDriverManager.getInstance().quitDriver();
     }
 
     @Test
@@ -40,8 +39,8 @@ public class LoginPageTest {
         String email = "juan.martinez.tacc11@gmail.co";
         String password = "passacction20B";
         String expected = "Oops! Invalid login. Please try again.";
-        String actual = loginPage.loginWithErrors(email, password);
-
-        assert actual.equals(expected);
+        loginPage = loginPage.loginWithErrors(email, password);
+        assert expected.equals(loginPage.getInvalidLoginMessage());
+        WebDriverManager.getInstance().quitDriver();
     }
 }
