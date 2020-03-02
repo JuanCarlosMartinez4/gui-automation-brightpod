@@ -61,6 +61,12 @@ public class TaskListPage extends BasePage {
     @FindBy(css = "li[id='pods_tab']")
     WebElement podsTabIcon;
 
+    @FindBy(css = "span[class='list-name']")
+    WebElement listName;
+
+    @FindBy(css = "div[class='tasklist-desc']")
+    WebElement listDescription;
+
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         webDriverWait.until(ExpectedConditions.visibilityOf(newTaskListButton));
@@ -181,6 +187,14 @@ public class TaskListPage extends BasePage {
         clickOnPodTabIcon();
     }
 
+    private String getListName() {
+        return listName.getText();
+    }
+
+    private String getListDescription() {
+        return listDescription.getText();
+    }
+
     public HashMap<String, String> getFieldsText(final String listName, final String description) {
         fieldsText = new HashMap<>();
         fieldsText.put("name", getTaskListNameText(listName));
@@ -188,10 +202,10 @@ public class TaskListPage extends BasePage {
         return fieldsText;
     }
 
-    private HashMap<String, String> getUpdatedFieldsText() {
+    public HashMap<String, String> getUpdatedFieldsText() {
         fieldsText = new HashMap<>();
-        fieldsText.put("listName", updateListNameTextBox.getAttribute("value"));
-        fieldsText.put("listDescription", updateDescriptionTextArea.getAttribute("value"));
+        fieldsText.put("listName", getListName());
+        fieldsText.put("listDescription", getListDescription());
         return fieldsText;
     }
 
@@ -205,7 +219,7 @@ public class TaskListPage extends BasePage {
         return new TaskListPage();
     }
 
-    public TaskListPage updateTaskList(final String listName, HashMap<String, String> values) {
+    public AddTaskPage updateTaskList(final HashMap<String, String> values) {
 //        clickOnTaskListDropdownList(listName);
 //        clickOnEditTaskListLink(listName);
         setUpdateListNameTextBox(values.get("listName"));
@@ -213,7 +227,7 @@ public class TaskListPage extends BasePage {
         checkUpdateVisibleToClientsCheckBox(Boolean.parseBoolean(values.get("isVisible")));
 //        getUpdatedFieldsText();
         clickOnUpdateTaskListButton();
-        return new TaskListPage();
+        return new AddTaskPage();
     }
 
     private void clickOnAcceptAlert() {
@@ -236,6 +250,5 @@ public class TaskListPage extends BasePage {
     public void editTaskListSearched(final String listName) {
         mouseOverFoundLink(listName);
         clickOnEditListLink();
-        clickOnAcceptAlert();
     }
 }

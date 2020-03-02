@@ -24,6 +24,8 @@ public class AddTaskPage extends BasePage {
 
     private final String CREATED_TASK_NAME = "//span[text()='%s']//ancestor::li//a[contains(text(),'%s')]";
 
+    private final String TASK_NAME_LINK = "//a[contains(text(),'%s')]";
+
     private HashMap<String, String> fieldsText;
 
     @FindBy(xpath = "//*[contains(text(), 'Add Task')]")
@@ -61,6 +63,10 @@ public class AddTaskPage extends BasePage {
         return webDriver.findElement(By.xpath(String.format(CREATED_TASK_NAME, listName, taskName)));
     }
 
+    private WebElement getTaskNameLink(final String taskName) {
+        return webDriver.findElement(By.xpath(String.format(TASK_NAME_LINK, taskName)));
+    }
+
     private void clickOnAddNewTaskButton(final String listName) {
         getAddNewTaskButton(listName).click();
     }
@@ -81,28 +87,26 @@ public class AddTaskPage extends BasePage {
         getAddTaskButton(listName).click();
     }
 
-    private String getCreatedTaskNameText(final String listName, final String taskName) {
-        return getCreatedTaskName(listName, taskName).getText();
+    public TaskPopup clickOnTaskNameLink(final String taskName) {
+        getTaskNameLink(taskName).click();
+        return new TaskPopup();
     }
 
-    private Select getProjectLeadComboBox(final String listName) {
-        return new Select(webDriver.findElement(By.xpath(String.format(COMBOBOX_SELECTOR, listName))));
-    }
+//    private String getCreatedTaskNameText(final String listName, final String taskName) {
+//        return getCreatedTaskName(listName, taskName).getText();
+//    }
+//
+//    private Select getProjectLeadComboBox(final String listName) {
+//        return new Select(webDriver.findElement(By.xpath(String.format(COMBOBOX_SELECTOR, listName))));
+//    }
 
-    private HashMap<String, String> getFieldsText(final String listName) {
-        fieldsText = new HashMap<>();
-        fieldsText.put("name", getTaskTextArea(listName).getAttribute("value"));
-        fieldsText.put("member", getProjectLeadComboBox(listName).getFirstSelectedOption().getText());
-        return fieldsText;
-    }
-
-    public HashMap<String, String> createNewTask(final String listName, final String taskName, final String memberName) {
+    public AddTaskPage createNewTask(final String listName, final String taskName, final String memberName) {
         clickOnAddNewTaskButton(listName);
         setTaskTextArea(listName, taskName);
         setMemberToTask(listName, memberName);
         setHighPriorityCheckbox(listName);
-        getFieldsText(listName);
+//        getFieldsText(listName);
         clickOnAddTaskButton(listName);
-        return fieldsText;
+        return new AddTaskPage();
     }
 }

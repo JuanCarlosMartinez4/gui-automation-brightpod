@@ -79,11 +79,12 @@ public class TaskListPageTest {
         HashMap<String, String> expected = new HashMap<>();
         expected.put("listName", "updated list");
         expected.put("listDescription", "updated description");
-        taskList = taskList.updateTaskList(listName, texts);
-        HashMap<String, String> actual;
-//        for (String key: actual.keySet()) {
-//            Assert.assertEquals("message: ", expected.get(key), actual.get(key));
-//        }
+        AddTaskPage taskPage;
+        taskPage = taskList.updateTaskList(texts);
+        HashMap<String, String> actual = taskList.getUpdatedFieldsText();
+        for (String key: actual.keySet()) {
+            Assert.assertEquals("message: ", expected.get(key), actual.get(key));
+        }
     }
 
     @Test
@@ -91,12 +92,11 @@ public class TaskListPageTest {
         String listName = "MyTasks";
         String listDescription = "This tasks are for week";
         boolean isVisible = false;
-        TaskListPage taskList = new TaskListPage();
-        taskList.addNewTaskList(listName, listDescription, isVisible);
+        taskList = new TaskListPage();
+        taskList = taskList.addNewTaskList(listName, listDescription, isVisible);
         SearchPod search = new SearchPod();
         search.searchElementByName(listName);
         taskList.removeTaskListSearched(listName);
-        taskList.clickOnPodsTabIcon();
         String actual = search.verifyDeletedElement(listName);
         String expected = "Oops, there is nothing to show here.";
         taskList.clickOnPodsTabIcon();

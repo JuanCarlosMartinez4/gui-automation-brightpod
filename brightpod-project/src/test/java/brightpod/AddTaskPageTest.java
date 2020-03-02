@@ -12,6 +12,12 @@ public class AddTaskPageTest {
     private String podName = "Empty Pod1";
     private HashMap<String, String> texts;
     private String listName = "My tasks";
+    private LoginPage loginPage;
+    private PodsPage podsPage;
+    private NewPodModal podsModal;
+    private FormPodPage formPod;
+    private TaskListPage taskList;
+    private AddTaskPage addTask;
 
     @Before
     public void setUp() {
@@ -20,19 +26,16 @@ public class AddTaskPageTest {
         texts = new HashMap<>();
         texts.put("projectName", podName);
         texts.put("description", "this a description");
-        LoginPage loginPage = new LoginPage();
-        loginPage.login(email, password);
-        PodsPage podsPage = new PodsPage();
-        podsPage.displayPodModal();
-        NewPodModal podsModal = new NewPodModal();
-        podsModal.createNewPod();
-        FormPodPage formPod = new FormPodPage();
-        formPod.createNewPod(texts);
+        loginPage = new LoginPage();
+        podsPage = loginPage.login(email, password);
+        podsModal = podsPage.displayPodModal();
+        formPod = podsModal.createNewPod();
+        taskList = formPod.createNewPod(texts);
 
         String listDescription = "This tasks are for week";
         boolean isVisible = true;
-        TaskListPage taskList = new TaskListPage();
-        taskList.addNewTaskList(listName, listDescription, isVisible);
+        taskList = new TaskListPage();
+        taskList = taskList.addNewTaskList(listName, listDescription, isVisible);
     }
 
     @After
@@ -54,10 +57,11 @@ public class AddTaskPageTest {
         String memberName = "juan martinez (Pod Lead)";
         HashMap<String, String> expected = new HashMap<>();
         expected.put("name", taskName);
-        expected.put("member", "juan martinez (Pod Lead)");
-        AddTaskPage addTask = new AddTaskPage();
-        HashMap<String, String> actual = addTask.createNewTask(listName, taskName, memberName);
-
+        expected.put("member", "juan martinez");
+        addTask = new AddTaskPage();
+        addTask = addTask.createNewTask(listName, taskName, memberName);
+        TaskPopup taskPopup = addTask.clickOnTaskNameLink(taskName);
+        HashMap<String, String> actual = taskPopup.getFieldsText();
         for (String key: actual.keySet()) {
             Assert.assertEquals("message: ", expected.get(key), actual.get(key));
         }
