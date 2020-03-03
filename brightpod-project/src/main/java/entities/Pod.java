@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Pod {
     private String podName;
@@ -16,7 +17,7 @@ public class Pod {
      * Gets pod name.
      * @return pod name.
      */
-    public String getPodName() {
+    private String getPodName() {
         return podName;
     }
 
@@ -24,7 +25,7 @@ public class Pod {
      * Gets Start Date.
      * @return Start Date.
      */
-    public String getStartDate() {
+    private String getStartDate() {
         return startDate;
     }
 
@@ -32,7 +33,7 @@ public class Pod {
      * Gets Due Date.
      * @return Due Date.
      */
-    public String getDueDate() {
+    private String getDueDate() {
         return dueDate;
     }
 
@@ -40,7 +41,7 @@ public class Pod {
      * Gets Budgeted Time.
      * @return Budgeted Time.
      */
-    public String getBudgetedTime() {
+    private String getBudgetedTime() {
         return budgetedTime;
     }
 
@@ -48,7 +49,7 @@ public class Pod {
      * Gets Client name.
      * @return Client name.
      */
-    public String getClient() {
+    private String getClient() {
         return client;
     }
 
@@ -56,7 +57,7 @@ public class Pod {
      * Gets Pod Lead Name.
      * @return Pod Lead Name.
      */
-    public String getPodLead() {
+    private String getPodLead() {
         return podLead;
     }
 
@@ -64,7 +65,7 @@ public class Pod {
      * Gets Pod color.
      * @return Pod color.
      */
-    public String getPodColor() {
+    private String getPodColor() {
         return podColor;
     }
 
@@ -72,7 +73,7 @@ public class Pod {
      * Gets pod Description.
      * @return pod Description.
      */
-    public String getDescription() {
+    private String getDescription() {
         return description;
     }
 
@@ -80,7 +81,8 @@ public class Pod {
      * Sets Pot Name.
      * @param podName value.
      */
-    public void setPodName(String podName) {
+    private void setPodName(final String podName) {
+        if (podName == null) return;
         this.podName = podName;
     }
 
@@ -88,7 +90,8 @@ public class Pod {
      * Sets Start Date.
      * @param startDate value.
      */
-    public void setStartDate(String startDate) {
+    private void setStartDate(final String startDate) {
+        if (startDate == null) return;
         this.startDate = startDate;
     }
 
@@ -96,7 +99,8 @@ public class Pod {
      * Sets Due Date.
      * @param dueDate value.
      */
-    public void setDueDate(String dueDate) {
+    private void setDueDate(final String dueDate) {
+        if (dueDate == null) return;
         this.dueDate = dueDate;
     }
 
@@ -104,7 +108,8 @@ public class Pod {
      * Sets Budgeted Time.
      * @param budgetedTime value.
      */
-    public void setBudgetedTime(String budgetedTime) {
+    private void setBudgetedTime(final String budgetedTime) {
+        if (budgetedTime == null) return;
         this.budgetedTime = budgetedTime;
     }
 
@@ -112,7 +117,8 @@ public class Pod {
      * Sets Client name.
      * @param client name value.
      */
-    public void setClient(String client) {
+    private void setClient(final String client) {
+        if (client == null) return;
         this.client = client;
     }
 
@@ -120,7 +126,8 @@ public class Pod {
      * Sets Pod Lead name.
      * @param podLead name value.
      */
-    public void setPodLead(String podLead) {
+    private void setPodLead(final String podLead) {
+        if (podLead == null) return;
         this.podLead = podLead;
     }
 
@@ -128,7 +135,8 @@ public class Pod {
      * Sets Pod Color value.
      * @param podColor value.
      */
-    public void setPodColor(String podColor) {
+    private void setPodColor(final String podColor) {
+        if (podColor == null) return;
         this.podColor = podColor;
     }
 
@@ -136,11 +144,33 @@ public class Pod {
      * Sets pod Description value.
      * @param description value.
      */
-    public void setDescription(String description) {
+    private void setDescription(final String description) {
+        if (description == null) return;
         this.description = description;
     }
 
-    public void setPodInformation(final HashMap<String, String> podInformation) {
+    private Map<String, String> podInformation;
 
+    public void setPodInformation(final Map<String, String> podInformation) {
+        setPodName(podInformation.get("podName"));
+        setStartDate(podInformation.get("startDate"));
+        setDueDate(podInformation.get("dueDate"));
+        setBudgetedTime(podInformation.get("budgetTime"));
+        setClient(podInformation.get("client"));
+        setPodLead(podInformation.get("projectLead"));
+        setPodColor(podInformation.get("color"));
+        setDescription(podInformation.get("description"));
+    }
+
+    public Map<String, String> getPodInformation() {
+        podInformation = new HashMap<>();
+        podInformation.put("podName", getPodName());
+        podInformation.put("startDate", getStartDate());
+        podInformation.put("dueDate", getDueDate());
+        podInformation.put("budgetTime", getBudgetedTime());
+        podInformation.put("client", getClient());
+        podInformation.put("projectLead", getPodLead());
+        podInformation.put("description", getDescription());
+        return podInformation;
     }
 }

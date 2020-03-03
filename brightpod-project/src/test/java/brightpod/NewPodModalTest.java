@@ -32,7 +32,7 @@ public class NewPodModalTest {
     @Test
     public void createNewPod_newPod() {
         PodsPage podsPage = new PodsPage();
-        podsPage.displayPodModal();
+        podsPage.clickNewPodButton();
         NewPodModal podsModal = new NewPodModal();
         podsModal.createNewPod();
 

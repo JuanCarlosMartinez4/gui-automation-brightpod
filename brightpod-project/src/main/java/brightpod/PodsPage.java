@@ -41,7 +41,7 @@ public class PodsPage extends BasePage {
 //        return modalLabel.getText();
 //    }
 
-    public NewPodModal displayPodModal() {
+    public NewPodModal clickNewPodButton() {
         clickOnCreateANewPodButton();
         return new NewPodModal();
     }

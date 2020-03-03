@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class FormPodPageTest {
     private String podName = "Empty Pod1";
@@ -18,12 +19,14 @@ public class FormPodPageTest {
     TaskListPage taskList;
     SettingTextLink setting;
 
+    private Map<String, String> actualPodValues;
+
     @Before
     public void setUp() {
         String email = "juan.martinez.tacc11@gmail.com";
         String password = "passacction20B";
         texts = new HashMap<>();
-        texts.put("projectName", podName);
+        texts.put("podName", podName);
         texts.put("startDate", "29");
         texts.put("dueDate", "1");
         texts.put("budgetTime", "0.30");
@@ -50,11 +53,11 @@ public class FormPodPageTest {
 
     @Test
     public void createNewPod_newPod() {
-        podModal = podsPage.displayPodModal();
+        podModal = podsPage.clickNewPodButton();
         formPod = podModal.createNewPod();
 
         HashMap<String, String> expected = new HashMap<>();
-        expected.put("projectName", podName);
+        expected.put("podName", podName);
         expected.put("startDate", "Feb 29, 2020");
         expected.put("dueDate", "Mar 01, 2020");
         expected.put("budgetTime", "0.30");
@@ -64,16 +67,16 @@ public class FormPodPageTest {
         TaskListPage taskList = formPod.createNewPod(texts);
         SettingTextLink setting = new SettingTextLink();
         setting.editPod();
-        HashMap<String, String> actual = formPod.getValues();
+        actualPodValues = formPod.getPodInformation();
         formPod.goBackToTheDashboardButton();
-        for (String key: actual.keySet()) {
-            Assert.assertEquals("message: ", expected.get(key), actual.get(key));
+        for (String key: actualPodValues.keySet()) {
+            Assert.assertEquals("message: ", expected.get(key), actualPodValues.get(key));
         }
     }
 
     @Test
     public void updatePod_podUpdated() {
-        podModal = podsPage.displayPodModal();
+        podModal = podsPage.clickNewPodButton();
         formPod = podModal.createNewPod();
         taskList = formPod.createNewPod(texts);
         search = new SearchPod();
@@ -81,11 +84,11 @@ public class FormPodPageTest {
         setting = new SettingTextLink();
         setting.editPod();
         texts = new HashMap<>();
-        texts.put("projectName", podName);
+        texts.put("podName", podName);
         texts.put("description", "updated description");
 
         HashMap<String, String> expected = new HashMap<>();
-        expected.put("projectName", podName);
+        expected.put("podName", podName);
         expected.put("startDate", "Feb 29, 2020");
         expected.put("dueDate", "Mar 01, 2020");
         expected.put("budgetTime", "0.30");
@@ -95,10 +98,10 @@ public class FormPodPageTest {
         formPod = new FormPodPage();
         taskList = formPod.updatePod(texts);
         setting.editPod();
-        HashMap<String, String> actual = formPod.getValues();
+        actualPodValues = formPod.getPodInformation();
         formPod.goBackToTheDashboardButton();
-        for (String key: actual.keySet()) {
-            Assert.assertEquals("message: ", expected.get(key), actual.get(key));
+        for (String key: actualPodValues.keySet()) {
+            Assert.assertEquals("message: ", expected.get(key), actualPodValues.get(key));
         }
     }
 }

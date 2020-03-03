@@ -24,11 +24,11 @@ public class AddTaskPageTest {
         String email = "juan.martinez.tacc11@gmail.com";
         String password = "passacction20B";
         texts = new HashMap<>();
-        texts.put("projectName", podName);
+        texts.put("podName", podName);
         texts.put("description", "this a description");
         loginPage = new LoginPage();
         podsPage = loginPage.login(email, password);
-        podsModal = podsPage.displayPodModal();
+        podsModal = podsPage.clickNewPodButton();
         formPod = podsModal.createNewPod();
         taskList = formPod.createNewPod(texts);
 

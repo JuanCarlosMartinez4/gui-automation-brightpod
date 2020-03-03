@@ -22,15 +22,12 @@ public class TaskListPageTest {
         String email = "juan.martinez.tacc11@gmail.com";
         String password = "passacction20B";
         texts = new HashMap<>();
-        texts.put("projectName", podName);
+        texts.put("podName", podName);
         texts.put("description", "this a description");
         loginPage = new LoginPage();
         podsPage = loginPage.login(email, password);
-//        podsPage = new PodsPage();
-        podsModal = podsPage.displayPodModal();
-//        podsModal = new NewPodModal();
+        podsModal = podsPage.clickNewPodButton();
         formPod = podsModal.createNewPod();
-//        FormPodPage formPod = new FormPodPage();
         taskList = formPod.createNewPod(texts);
     }
 
@@ -68,7 +65,6 @@ public class TaskListPageTest {
         String listName = "My tasks";
         String listDescription = "This tasks are for week";
         boolean isVisible = true;
-//        taskList = new TaskListPage();
         taskList = taskList.addNewTaskList(listName, listDescription, isVisible);
         SearchPod search = new SearchPod();
         search.searchElementByName(listName);

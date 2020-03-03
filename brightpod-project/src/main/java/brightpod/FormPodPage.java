@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class FormPodPage extends BasePage {
 
@@ -18,7 +19,7 @@ public class FormPodPage extends BasePage {
 
     private String PROJECT_LEAD_COMBOBOX = "//select[@name='project-lead']";
 
-    private HashMap<String, String> values;
+    private Map<String, String> podValues;
 
     @FindBy(id = "project-name")
     WebElement projectNameTextBox;
@@ -55,6 +56,12 @@ public class FormPodPage extends BasePage {
 
     @FindBy(css = "button[class='btn btn-default']")
     WebElement goBackToTheDashboard;
+
+    @FindBy(css = "i[class='fa fa-user']")
+    WebElement meIcon;
+
+    @FindBy(xpath = "//div[@class='col-lg-10 col-md-10']//h3")
+    WebElement userName;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {
@@ -139,6 +146,20 @@ public class FormPodPage extends BasePage {
         descriptionTextEditor.sendKeys(description);
     }
 
+    private void clickOnMeIcon() {
+        meIcon.click();
+    }
+
+//    private WebElement getUserNameWebElement(final String userName) {
+//        return webDriver.findElement(By.xpath(String.format(USER_NAME, userName)));
+//    }
+
+    private String getUserName() {
+        String user = userName.getText();
+        user = user.replaceAll("[A-Z]", "");
+        return user.substring(0, user.length() - 1);
+    }
+
     private void clickOnCreatePodAndInvitePeopleButton() {
         createPodAndInvitePeopleButton.click();
     }
@@ -151,42 +172,42 @@ public class FormPodPage extends BasePage {
         goBackToPodsButton.click();
     }
 
-    public HashMap<String, String> getValues() {
-        values = new HashMap<>();
-        values.put("projectName", projectNameTextBox.getAttribute("value"));
-        values.put("startDate", startDateTextBox.getAttribute("value"));
-        values.put("dueDate", dueDateTextBox.getAttribute("value"));
-        values.put("budgetTime", budgetTimeTextBox.getAttribute("value"));
-        values.put("client", getClientComboBox().getFirstSelectedOption().getText());
-        values.put("projectLead", getProjectLeadComboBox().getFirstSelectedOption().getText());
-        values.put("description", descriptionTextEditor.getText());
-        return values;
+    public Map<String, String> getPodInformation() {
+        podValues = new HashMap<>();
+        podValues.put("podName", projectNameTextBox.getAttribute("value"));
+        podValues.put("startDate", startDateTextBox.getAttribute("value"));
+        podValues.put("dueDate", dueDateTextBox.getAttribute("value"));
+        podValues.put("budgetTime", budgetTimeTextBox.getAttribute("value"));
+        podValues.put("client", getClientComboBox().getFirstSelectedOption().getText());
+        podValues.put("description", descriptionTextEditor.getText());
+        clickOnMeIcon();
+        podValues.put("projectLead", getUserName());
+        return podValues;
     }
 
-    private void setValuesToFields(HashMap<String, String> inputValues) {
-        clickOnStartDateTextBox(inputValues.get("startDate"));
-        clickOnDueDateTextBox(inputValues.get("dueDate"));
-        setBudgetTimeTextBox(inputValues.get("budgetTime"));
-        selectClientComboBox(inputValues.get("client"));
-        selectProjectLeadComboBox(inputValues.get("projectLead"));
-
-        setDescriptionTextEditor(inputValues.get("description"));
+    private void setPodInformation(final Map<String, String> podInformation) {
+        clickOnStartDateTextBox(podInformation.get("startDate"));
+        clickOnDueDateTextBox(podInformation.get("dueDate"));
+        setBudgetTimeTextBox(podInformation.get("budgetTime"));
+        selectClientComboBox(podInformation.get("client"));
+        selectProjectLeadComboBox(podInformation.get("projectLead"));
+        setDescriptionTextEditor(podInformation.get("description"));
     }
 
-    public TaskListPage createNewPod(HashMap<String, String> inputValues) {
-        setProjectNameTextBox(inputValues.getOrDefault("projectName", " "));
+    public TaskListPage createNewPod(final Map<String, String> podInformation) {
+        setProjectNameTextBox(podInformation.get("podName"));
         clickOnPodColorButton();
-        setColorItem(inputValues.get("color"));
-        setValuesToFields(inputValues);
+        setColorItem(podInformation.get("color"));
+        setPodInformation(podInformation);
         clickOnCreatePodAndInvitePeopleButton();
         return new TaskListPage();
     }
 
-    public TaskListPage updatePod(HashMap<String, String> inputValues) {
+    public TaskListPage updatePod(final Map<String, String> inputValues) {
         setProjectNameTextBox(inputValues.get("projectName"));
         clickOnSelectColorButton();
         setColorItem(inputValues.get("color"));
-        setValuesToFields(inputValues);
+        setPodInformation(inputValues);
         clickOnUpdatePodButton();
         return new TaskListPage();
     }
