@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TaskListPage extends BasePage {
 
@@ -23,7 +24,7 @@ public class TaskListPage extends BasePage {
 
     private final String TASK_LIST_DESCRIPTION = "//div[contains(text(),'%s')]";
 
-    private HashMap<String, String> fieldsText;
+    private Map<String, String> taskListInformation;
 
     @FindBy(css = "input[type='button'][value='New Task List']")
     WebElement newTaskListButton;
@@ -90,7 +91,7 @@ public class TaskListPage extends BasePage {
         descriptionTextArea.sendKeys(description);
     }
 
-    private void checkVisibleToClientsCheckBox(boolean isVisible) {
+    private void checkVisibleToClientsCheckBox(final boolean isVisible) {
         if (isVisible)
             visibleToClientCheckBox.click();
     }
@@ -195,36 +196,35 @@ public class TaskListPage extends BasePage {
         return listDescription.getText();
     }
 
-    public HashMap<String, String> getFieldsText(final String listName, final String description) {
-        fieldsText = new HashMap<>();
-        fieldsText.put("name", getTaskListNameText(listName));
-        fieldsText.put("description", getTaskListDescriptionText(description));
-        return fieldsText;
+    public Map<String, String> getCreatedTaskListInformation(final String listName, final String description) {
+        taskListInformation = new HashMap<>();
+        taskListInformation.put("name", getTaskListNameText(listName));
+        taskListInformation.put("description", getTaskListDescriptionText(description));
+        return taskListInformation;
     }
 
-    public HashMap<String, String> getUpdatedFieldsText() {
-        fieldsText = new HashMap<>();
-        fieldsText.put("listName", getListName());
-        fieldsText.put("listDescription", getListDescription());
-        return fieldsText;
+    public Map<String, String> getUpdatedTaskListInformation() {
+        taskListInformation = new HashMap<>();
+        taskListInformation.put("name", getListName());
+        taskListInformation.put("description", getListDescription());
+        return taskListInformation;
     }
 
-    public TaskListPage addNewTaskList(final String listName, final String description, boolean isVisible) {
+    public TaskListPage addTaskListInformation(final String listName, final String description, boolean isVisible) {
         clickOnNewTaskListButton();
         setListNameTextBox(listName);
         setDescriptionTextArea(description);
         checkVisibleToClientsCheckBox(isVisible);
-//        getFieldsText();
         clickOnAddTaskListButton();
         return new TaskListPage();
     }
 
-    public AddTaskPage updateTaskList(final HashMap<String, String> values) {
+    public AddTaskPage updateTaskListInformation(final Map<String, String> taskListInformation) {
 //        clickOnTaskListDropdownList(listName);
 //        clickOnEditTaskListLink(listName);
-        setUpdateListNameTextBox(values.get("listName"));
-        setUpdateDescriptionTextArea(values.get("listDescription"));
-        checkUpdateVisibleToClientsCheckBox(Boolean.parseBoolean(values.get("isVisible")));
+        setUpdateListNameTextBox(taskListInformation.get("name"));
+        setUpdateDescriptionTextArea(taskListInformation.get("description"));
+        checkUpdateVisibleToClientsCheckBox(Boolean.parseBoolean(taskListInformation.get("isVisible")));
 //        getUpdatedFieldsText();
         clickOnUpdateTaskListButton();
         return new AddTaskPage();

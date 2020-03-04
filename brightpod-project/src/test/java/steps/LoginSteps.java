@@ -1,7 +1,11 @@
 package steps;
 
-import brightpod.*;
-import core.WebDriverManager;
+import brightpod.MenuNavbar;
+import brightpod.LogoutPage;
+import brightpod.LoginPage;
+import brightpod.MePage;
+import brightpod.PageTransporter;
+import brightpod.PodsPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -33,8 +37,8 @@ public class LoginSteps {
         logoutPage.returnInitPage();
     }
 
-    @And("^Quit session$")
-    public void closeSession() {
-        WebDriverManager.getInstance().quitDriver();
-    }
+//    @And("^Quit session$")
+//    public void closeSession() {
+//        WebDriverManager.getInstance().quitDriver();
+//    }
 }

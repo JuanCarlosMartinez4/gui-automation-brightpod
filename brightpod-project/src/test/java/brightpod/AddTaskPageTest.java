@@ -30,12 +30,12 @@ public class AddTaskPageTest {
         podsPage = loginPage.login(email, password);
         podsModal = podsPage.clickNewPodButton();
         formPod = podsModal.createNewPod();
-        taskList = formPod.createNewPod(texts);
+//        taskList = formPod.createNewPod(texts);
 
         String listDescription = "This tasks are for week";
         boolean isVisible = true;
         taskList = new TaskListPage();
-        taskList = taskList.addNewTaskList(listName, listDescription, isVisible);
+        taskList = taskList.addTaskListInformation(listName, listDescription, isVisible);
     }
 
     @After

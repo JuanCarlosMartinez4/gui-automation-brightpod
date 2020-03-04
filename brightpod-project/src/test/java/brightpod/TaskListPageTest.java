@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TaskListPageTest {
     private String podName = "Empty Pod1";
@@ -28,7 +29,7 @@ public class TaskListPageTest {
         podsPage = loginPage.login(email, password);
         podsModal = podsPage.clickNewPodButton();
         formPod = podsModal.createNewPod();
-        taskList = formPod.createNewPod(texts);
+//        taskList = formPod.createNewPod(texts);
     }
 
     @After
@@ -53,8 +54,8 @@ public class TaskListPageTest {
         HashMap<String, String> expected = new HashMap<>();
         expected.put("name", listName);
         expected.put("description", listDescription);
-        taskList = taskList.addNewTaskList(listName, listDescription, isVisible);
-        HashMap<String, String> actual = taskList.getFieldsText(listName, listDescription);
+        taskList = taskList.addTaskListInformation(listName, listDescription, isVisible);
+        Map<String, String> actual = taskList.getCreatedTaskListInformation(listName, listDescription);
         for (String key: actual.keySet()) {
             Assert.assertEquals("message: ", expected.get(key), actual.get(key));
         }
@@ -65,7 +66,7 @@ public class TaskListPageTest {
         String listName = "My tasks";
         String listDescription = "This tasks are for week";
         boolean isVisible = true;
-        taskList = taskList.addNewTaskList(listName, listDescription, isVisible);
+        taskList = taskList.addTaskListInformation(listName, listDescription, isVisible);
         SearchPod search = new SearchPod();
         search.searchElementByName(listName);
         taskList.editTaskListSearched(listName);
@@ -76,8 +77,8 @@ public class TaskListPageTest {
         expected.put("listName", "updated list");
         expected.put("listDescription", "updated description");
         AddTaskPage taskPage;
-        taskPage = taskList.updateTaskList(texts);
-        HashMap<String, String> actual = taskList.getUpdatedFieldsText();
+        taskPage = taskList.updateTaskListInformation(texts);
+        Map<String, String> actual = taskList.getUpdatedTaskListInformation();
         for (String key: actual.keySet()) {
             Assert.assertEquals("message: ", expected.get(key), actual.get(key));
         }
@@ -89,7 +90,7 @@ public class TaskListPageTest {
         String listDescription = "This tasks are for week";
         boolean isVisible = false;
         taskList = new TaskListPage();
-        taskList = taskList.addNewTaskList(listName, listDescription, isVisible);
+        taskList = taskList.addTaskListInformation(listName, listDescription, isVisible);
         SearchPod search = new SearchPod();
         search.searchElementByName(listName);
         taskList.removeTaskListSearched(listName);

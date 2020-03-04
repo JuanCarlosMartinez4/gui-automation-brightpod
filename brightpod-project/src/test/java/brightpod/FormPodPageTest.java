@@ -64,7 +64,7 @@ public class FormPodPageTest {
         expected.put("client", "fundacion");
         expected.put("projectLead", "You");
         expected.put("description", "this a description");
-        TaskListPage taskList = formPod.createNewPod(texts);
+//        TaskListPage taskList = formPod.createNewPod(texts);
         SettingTextLink setting = new SettingTextLink();
         setting.editPod();
         actualPodValues = formPod.getPodInformation();
@@ -78,7 +78,7 @@ public class FormPodPageTest {
     public void updatePod_podUpdated() {
         podModal = podsPage.clickNewPodButton();
         formPod = podModal.createNewPod();
-        taskList = formPod.createNewPod(texts);
+//        taskList = formPod.createNewPod(texts);
         search = new SearchPod();
         search = search.searchElementByName(podName);
         setting = new SettingTextLink();
@@ -96,7 +96,7 @@ public class FormPodPageTest {
         expected.put("projectLead", "You");
         expected.put("description", "updated description");
         formPod = new FormPodPage();
-        taskList = formPod.updatePod(texts);
+//        taskList = formPod.updatePod(texts);
         setting.editPod();
         actualPodValues = formPod.getPodInformation();
         formPod.goBackToTheDashboardButton();

@@ -1,11 +1,14 @@
 package entities;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TaskList {
     private String name;
     private String description;
     private boolean isVisibleToClients;
+
+    private Map<String, String> taskListValues;
 
     /**
      * Gets Task List name.
@@ -35,7 +38,8 @@ public class TaskList {
      * Sets Task List name.
      * @param name value.
      */
-    public void setName(String name) {
+    private void setName(final String name) {
+        if (name == null) return;
         this.name = name;
     }
 
@@ -43,7 +47,8 @@ public class TaskList {
      * Sets Task List description.
      * @param description value.
      */
-    public void setDescription(String description) {
+    private void setDescription(final String description) {
+        if (name == null) return;
         this.description = description;
     }
 
@@ -51,11 +56,22 @@ public class TaskList {
      * Sets visible to client.
      * @param visibleToClients value.
      */
-    public void setVisibleToClients(boolean visibleToClients) {
+    private void setVisibleToClients(final boolean visibleToClients) {
+        if (name == null) return;
         isVisibleToClients = visibleToClients;
     }
 
-    public void setTaskListInformation(final HashMap<String, String> taskListInformation) {
+    public void setTaskListInformation(final Map<String, String> taskListInformation) {
+        setName(taskListInformation.get("name"));
+        setDescription(taskListInformation.get("description"));
+        setVisibleToClients(Boolean.parseBoolean(taskListInformation.get("isVisible")));
+    }
 
+    public Map<String, String> getTaskListInformation() {
+        taskListValues = new HashMap<>();
+        taskListValues.put("name", getName());
+        taskListValues.put("description", getDescription());
+        taskListValues.put("isVisible", Boolean.toString(isVisibleToClients()));
+        return taskListValues;
     }
 }

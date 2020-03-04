@@ -19,7 +19,7 @@ public class Hook {
     }
 
     @Before
-    public void beforeSteps() {
+    public void beforeScenario() {
         String page = "/user";
         String email = "juan.martinez.tacc11@gmail.com";
         String password = "passacction20B";
@@ -29,7 +29,7 @@ public class Hook {
     }
 
     @After
-    public void afterSteps() {
+    public void afterScenario() {
         WebDriverManager.getInstance().quitDriver();
     }
 }

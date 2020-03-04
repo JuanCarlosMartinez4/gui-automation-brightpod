@@ -2,6 +2,8 @@ package entities;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Supplier;
 
 public class Pod {
     private String podName;
@@ -13,11 +15,20 @@ public class Pod {
     private String podColor;
     private String description;
 
+    final private String POD_NAME = "Pod Name";
+    final private String START_DATE = "Start Date";
+    final private String DUE_DATE = "Due Date";
+    final private String BUDGET_TIME = "Budget Time";
+    final private String CLIENT = "Client";
+    final private String POD_LEAD = "Project Lead";
+    final private String POD_COLOR = "Color";
+    final private String DESCRIPTION = "Description";
+
     /**
      * Gets pod name.
      * @return pod name.
      */
-    private String getPodName() {
+    public String getPodName() {
         return podName;
     }
 
@@ -25,7 +36,7 @@ public class Pod {
      * Gets Start Date.
      * @return Start Date.
      */
-    private String getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
@@ -33,7 +44,7 @@ public class Pod {
      * Gets Due Date.
      * @return Due Date.
      */
-    private String getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
@@ -41,7 +52,7 @@ public class Pod {
      * Gets Budgeted Time.
      * @return Budgeted Time.
      */
-    private String getBudgetedTime() {
+    public String getBudgetedTime() {
         return budgetedTime;
     }
 
@@ -49,7 +60,7 @@ public class Pod {
      * Gets Client name.
      * @return Client name.
      */
-    private String getClient() {
+    public String getClient() {
         return client;
     }
 
@@ -57,7 +68,7 @@ public class Pod {
      * Gets Pod Lead Name.
      * @return Pod Lead Name.
      */
-    private String getPodLead() {
+    public String getPodLead() {
         return podLead;
     }
 
@@ -65,7 +76,7 @@ public class Pod {
      * Gets Pod color.
      * @return Pod color.
      */
-    private String getPodColor() {
+    public String getPodColor() {
         return podColor;
     }
 
@@ -73,7 +84,7 @@ public class Pod {
      * Gets pod Description.
      * @return pod Description.
      */
-    private String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -82,7 +93,6 @@ public class Pod {
      * @param podName value.
      */
     private void setPodName(final String podName) {
-        if (podName == null) return;
         this.podName = podName;
     }
 
@@ -91,7 +101,6 @@ public class Pod {
      * @param startDate value.
      */
     private void setStartDate(final String startDate) {
-        if (startDate == null) return;
         this.startDate = startDate;
     }
 
@@ -100,7 +109,6 @@ public class Pod {
      * @param dueDate value.
      */
     private void setDueDate(final String dueDate) {
-        if (dueDate == null) return;
         this.dueDate = dueDate;
     }
 
@@ -109,7 +117,6 @@ public class Pod {
      * @param budgetedTime value.
      */
     private void setBudgetedTime(final String budgetedTime) {
-        if (budgetedTime == null) return;
         this.budgetedTime = budgetedTime;
     }
 
@@ -118,7 +125,6 @@ public class Pod {
      * @param client name value.
      */
     private void setClient(final String client) {
-        if (client == null) return;
         this.client = client;
     }
 
@@ -127,7 +133,6 @@ public class Pod {
      * @param podLead name value.
      */
     private void setPodLead(final String podLead) {
-        if (podLead == null) return;
         this.podLead = podLead;
     }
 
@@ -136,7 +141,6 @@ public class Pod {
      * @param podColor value.
      */
     private void setPodColor(final String podColor) {
-        if (podColor == null) return;
         this.podColor = podColor;
     }
 
@@ -145,32 +149,55 @@ public class Pod {
      * @param description value.
      */
     private void setDescription(final String description) {
-        if (description == null) return;
         this.description = description;
     }
 
     private Map<String, String> podInformation;
 
     public void setPodInformation(final Map<String, String> podInformation) {
-        setPodName(podInformation.get("podName"));
-        setStartDate(podInformation.get("startDate"));
-        setDueDate(podInformation.get("dueDate"));
-        setBudgetedTime(podInformation.get("budgetTime"));
-        setClient(podInformation.get("client"));
-        setPodLead(podInformation.get("projectLead"));
-        setPodColor(podInformation.get("color"));
-        setDescription(podInformation.get("description"));
+        HashMap<String, Runnable> strategyMap = composeStrategyMap(podInformation);
+        podInformation.keySet().forEach(key -> strategyMap.get(key).run());
     }
 
-    public Map<String, String> getPodInformation() {
-        podInformation = new HashMap<>();
-        podInformation.put("podName", getPodName());
-        podInformation.put("startDate", getStartDate());
-        podInformation.put("dueDate", getDueDate());
-        podInformation.put("budgetTime", getBudgetedTime());
-        podInformation.put("client", getClient());
-        podInformation.put("projectLead", getPodLead());
-        podInformation.put("description", getDescription());
-        return podInformation;
+    private HashMap<String, Runnable> composeStrategyMap(Map<String, String> podInformation) {
+        HashMap<String, Runnable> strategyMap = new HashMap<>();
+
+        strategyMap.put(POD_NAME, () -> setPodName(podInformation.get(POD_NAME)));
+        strategyMap.put(START_DATE, () ->  setStartDate(podInformation.get(START_DATE)));
+        strategyMap.put(DUE_DATE, () -> setDueDate(podInformation.get(DUE_DATE)));
+        strategyMap.put(BUDGET_TIME, () -> setBudgetedTime(podInformation.get(BUDGET_TIME)));
+        strategyMap.put(CLIENT, () -> setClient(podInformation.get(CLIENT)));
+        strategyMap.put(POD_LEAD, () -> setPodLead(podInformation.get(POD_LEAD)));
+        strategyMap.put(POD_COLOR, () -> setPodColor(podInformation.get(POD_COLOR)));
+        strategyMap.put(DESCRIPTION, () -> setDescription(podInformation.get(DESCRIPTION)));
+        return strategyMap;
+    }
+
+//    public Map<String, Supplier<String>> getPodInformation(final Map<String, String> podInformation) {
+//        HashMap<String, Supplier<String>> strategySupplier = composeStrategyMapGet(podInformation);
+//        strategySupplier.keySet().forEach(Key -> strategySupplier.get(Key).get());
+//        return strategySupplier;
+//        Supplier<Map<String, String>> supplier = () -> podInformation;
+//        return supplier.get();
+//    }
+
+    public Map<String, Supplier<String>> getPodInformation2(final Set<String> podInformation) {
+        HashMap<String, Supplier<String>> strategySupplier = composeStrategyMapGet(this);
+        podInformation.forEach(value -> strategySupplier.get(value));
+        return strategySupplier;
+    }
+
+    private HashMap<String, Supplier<String>> composeStrategyMapGet(Pod pod) {
+        HashMap<String, Supplier<String>> strategyMap = new HashMap<>();
+
+        strategyMap.put(POD_NAME, () -> pod.getPodName());
+        strategyMap.put(START_DATE, () ->  pod.getStartDate());
+        strategyMap.put(DUE_DATE, () -> pod.getDueDate());
+        strategyMap.put(BUDGET_TIME, () -> pod.getBudgetedTime());
+        strategyMap.put(CLIENT, () -> pod.getClient());
+        strategyMap.put(POD_LEAD, () -> pod.getPodLead());
+        strategyMap.put(POD_COLOR, () -> pod.getPodColor());
+        strategyMap.put(DESCRIPTION, () -> pod.getDescription());
+        return strategyMap;
     }
 }
