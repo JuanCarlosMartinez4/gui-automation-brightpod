@@ -1,5 +1,6 @@
 package brightpod;
 
+import entities.TaskList;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class TaskListPage extends BasePage {
 
@@ -210,24 +212,37 @@ public class TaskListPage extends BasePage {
         return taskListInformation;
     }
 
-    public TaskListPage addTaskListInformation(final String listName, final String description, boolean isVisible) {
+    public TaskListPage addTaskListInformation(final TaskList taskList, final Set<String> fields) {
         clickOnNewTaskListButton();
-        setListNameTextBox(listName);
-        setDescriptionTextArea(description);
-        checkVisibleToClientsCheckBox(isVisible);
+        HashMap<String, Runnable> strategyMap = composeStrategyMap(taskList);
+        fields.forEach(field -> strategyMap.get(field).run());
         clickOnAddTaskListButton();
         return new TaskListPage();
     }
 
-    public AddTaskPage updateTaskListInformation(final Map<String, String> taskListInformation) {
-//        clickOnTaskListDropdownList(listName);
-//        clickOnEditTaskListLink(listName);
-        setUpdateListNameTextBox(taskListInformation.get("name"));
-        setUpdateDescriptionTextArea(taskListInformation.get("description"));
-        checkUpdateVisibleToClientsCheckBox(Boolean.parseBoolean(taskListInformation.get("isVisible")));
-//        getUpdatedFieldsText();
+    private HashMap<String, Runnable> composeStrategyMap(TaskList taskList) {
+        HashMap<String, Runnable> strategyMap = new HashMap<>();
+
+        strategyMap.put("Name", () -> setListNameTextBox(taskList.getName()));
+        strategyMap.put("Description", () ->  setDescriptionTextArea(taskList.getDescription()));
+        strategyMap.put("Is Visible", () -> checkVisibleToClientsCheckBox(taskList.isVisibleToClients()));
+        return strategyMap;
+    }
+
+    public AddTaskPage updateTaskListInformation(final TaskList taskList, final Set<String> fields) {
+        HashMap<String, Runnable> strategyMapUpdate = composeStrategyMapUpdate(taskList);
+        fields.forEach(field -> strategyMapUpdate.get(field).run());
         clickOnUpdateTaskListButton();
         return new AddTaskPage();
+    }
+
+    private HashMap<String, Runnable> composeStrategyMapUpdate(TaskList taskList) {
+        HashMap<String, Runnable> strategyMap = new HashMap<>();
+
+        strategyMap.put("Name", () -> setUpdateListNameTextBox(taskList.getName()));
+        strategyMap.put("Description", () ->  setUpdateDescriptionTextArea(taskList.getDescription()));
+        strategyMap.put("Is Visible", () -> checkUpdateVisibleToClientsCheckBox(taskList.isVisibleToClients()));
+        return strategyMap;
     }
 
     private void clickOnAcceptAlert() {

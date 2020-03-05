@@ -12,13 +12,23 @@ import java.util.Set;
 
 public class FormPodPage extends BasePage {
 
-    private final String CALENDAR_DAY = "//td[contains(text(),'%s')]";
-
     private final String COLOR_ITEM = "//button[@data-value='%s']";
 
     private String CLIENT_COMBOBX = "//select[@id='companies']";
 
     private String PROJECT_LEAD_COMBOBOX = "//select[@name='project-lead']";
+
+    private String SET_YEAR = "//span[text()[. = '%s']]";
+
+    private String SET_MONTH = "//span[text()[. = '%s']]";
+
+    private String SET_DAY = "//td[text()[. = '%s']]";
+
+    private int YEAR_VALUE = 2;
+
+    private int MONTH_VALUE = 0;
+
+    private int DAY_VALUE = 1;
 
     private HashMap<String, String> podValues;
 
@@ -64,6 +74,15 @@ public class FormPodPage extends BasePage {
     @FindBy(xpath = "//div[@class='col-lg-10 col-md-10']//h3")
     WebElement userName;
 
+    @FindBy(xpath = "//div[@class='datepicker-days']/table//th[@class='datepicker-switch']")
+    WebElement onDaysButton;
+
+    @FindBy(xpath = "//div[@class='datepicker-months']/table//th[@class='datepicker-switch']")
+    WebElement onMonthsButton;
+
+    @FindBy(xpath = "//div[@class='datepicker-years']/table//th[@class='datepicker-switch']")
+    WebElement onYearsButton;
+
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         webDriverWait.until(ExpectedConditions.visibilityOf(projectNameTextBox));
@@ -74,19 +93,62 @@ public class FormPodPage extends BasePage {
         projectNameTextBox.sendKeys(podName);
     }
 
-    private WebElement getCalendarDay(final String numberDay) {
-        return webDriver.findElement(By.xpath(String.format(CALENDAR_DAY, numberDay)));
+    private String[] splitDate(final String date) {
+        String dateFull = date;
+        String[] dateValues = dateFull.split("[ ]");
+        String day = dateValues[DAY_VALUE];
+        day = day.substring(0, day.length() - 1);
+
+        if (day.startsWith("0"))
+            day = day.substring(DAY_VALUE);
+
+        dateValues[DAY_VALUE] = day;
+        return dateValues;
     }
 
+    private WebElement getDate(final String webElementXPath, final String dateValue) {
+        return webDriver.findElement(By.xpath(String.format(webElementXPath, dateValue)));
+    }
 
-    private void clickOnStartDateTextBox(final String numberDay) {
+    private void clickOnDaysButton() {
+        onDaysButton.click();
+    }
+
+    private void clickOnMonthsButton() {
+        onMonthsButton.click();
+    }
+
+    private void clickOnYearsButton() {
+        onYearsButton.click();
+    }
+
+    private void clickOnCalendarPickerButton() {
+        clickOnDaysButton();
+        clickOnMonthsButton();
+        clickOnYearsButton();
+    }
+
+    private void setCalendarValues(final String webElementXPath, final String dateValue) {
+        getDate(webElementXPath, dateValue).click();
+    }
+
+    private void clickOnStartDateTextBox(final String date) {
         startDateTextBox.click();
-        getCalendarDay(numberDay).click();
+        String[] splitDate = splitDate(date);
+        clickOnCalendarPickerButton();
+        setCalendarValues(SET_YEAR, splitDate[YEAR_VALUE]);
+        setCalendarValues(SET_MONTH, splitDate[MONTH_VALUE]);
+        setCalendarValues(SET_DAY, splitDate[DAY_VALUE]);
     }
 
-    private void clickOnDueDateTextBox(final String numberDay) {
+    private void clickOnDueDateTextBox(final String date) {
         dueDateTextBox.click();
-        getCalendarDay(numberDay).click();
+        String[] splitDate = splitDate(date);
+        clickOnCalendarPickerButton();
+
+        setCalendarValues(SET_YEAR, splitDate[YEAR_VALUE]);
+        setCalendarValues(SET_MONTH, splitDate[MONTH_VALUE]);
+        setCalendarValues(SET_DAY, splitDate[DAY_VALUE]);
     }
 
     private void setBudgetTimeTextBox(final String time) {

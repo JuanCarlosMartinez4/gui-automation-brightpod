@@ -5,13 +5,13 @@ Feature: Pod
 #    When Create a Pod with the following data
     When Create a Pod with the following values
       | Pod Name     | Pod01              |
-      | Start Date   | 29                 |
-      | Due Date     | 1                  |
+      | Start Date   | Mar 05, 2020       |
+      | Due Date     | Mar 10, 2020       |
 #      | Budget Time  | 0.30               |
-      | Client      | fundacion          |
+      | Client       | fundacion          |
       | Project Lead | juan martinez      |
-      | Color       | #F83A22            |
-      | Description | this a description |
+      | Color        | #F83A22            |
+      | Description  | this a description |
 #    Then Pod should contains
 #      | startDate   | Feb 29, 2020 |
 #      | dueDate     | Mar 01, 2020 |
@@ -22,7 +22,7 @@ Feature: Pod
 
   Scenario: Archive a Pod
     Given Create a Pod with the following values
-      | Pod Name     | Pod02              |
+      | Pod Name    | Pod02              |
       | Description | this a description |
     And Search pod by name "Pod02"
     When Remove pod
@@ -38,8 +38,8 @@ Feature: Pod
       | Pod Name    | PodUpdated          |
       | Description | description updated |
 #    Then Pod should contains
-#      | StartDate   | Mar 04, 2020  |
-#      | dueDate     |               |
+#      | StartDate   | Mar 05, 2020   |
+#      | dueDate     |  Mar 10, 2020             |
 #      | budgetTime  | 0.00          |
 #      | client      | None          |
 #      | projectLead | juan martinez |

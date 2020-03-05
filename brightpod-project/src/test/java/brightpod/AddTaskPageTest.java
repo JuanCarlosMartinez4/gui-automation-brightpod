@@ -35,7 +35,7 @@ public class AddTaskPageTest {
         String listDescription = "This tasks are for week";
         boolean isVisible = true;
         taskList = new TaskListPage();
-        taskList = taskList.addTaskListInformation(listName, listDescription, isVisible);
+//        taskList = taskList.addTaskListInformation(listName, listDescription, isVisible);
     }
 
     @After

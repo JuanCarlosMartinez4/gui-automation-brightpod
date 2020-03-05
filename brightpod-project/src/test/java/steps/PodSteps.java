@@ -47,7 +47,7 @@ public class PodSteps {
     }
 
     @When("Create a Pod with the following values$")
-    public void createAPodWithTheFollowing(final Map<String, String> podInformation) {
+    public void createAPodWithTheFollowingValues(final Map<String, String> podInformation) {
         pod.setPodInformation(podInformation);
         podsPage = new PodsPage();
         newPodModal = podsPage.clickNewPodButton();

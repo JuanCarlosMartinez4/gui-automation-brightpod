@@ -35,14 +35,12 @@ public class TaskListSteps {
         this.taskList = context.getTaskList();
     }
 
-    @When("^Create a TaskList with the following$")
-    public void createATaskListWithTheFollowing(final Map<String, String> taskListInformation) {
+    @When("^Create a TaskList with the following values$")
+    public void createATaskListWithTheFollowingValues(final Map<String, String> taskListInformation) {
         taskList.setTaskListInformation(taskListInformation);
         taskListPage = new TaskListPage();
 
-        taskListPage = taskListPage.addTaskListInformation(taskList.getTaskListInformation().get("name"),
-                taskList.getTaskListInformation().get("description"),
-                Boolean.parseBoolean(taskList.getTaskListInformation().get("isVisible")));
+        taskListPage = taskListPage.addTaskListInformation(taskList, taskListInformation.keySet());
 
         actualTaskListValues = taskListPage.getCreatedTaskListInformation(taskListInformation.get("name"),
                 taskListInformation.get("description"));
@@ -76,6 +74,6 @@ public class TaskListSteps {
         taskList.setTaskListInformation(taskListInformation);
         addTasKPage = new AddTaskPage();
 
-        addTasKPage = taskListPage.updateTaskListInformation(taskList.getTaskListInformation());
+        addTasKPage = taskListPage.updateTaskListInformation(taskList, taskListInformation.keySet());
     }
 }

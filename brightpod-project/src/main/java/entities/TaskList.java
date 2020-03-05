@@ -8,6 +8,10 @@ public class TaskList {
     private String description;
     private boolean isVisibleToClients;
 
+    final private String NAME = "Name";
+    final private String DESCRIPTION = "Description";
+    final private String IS_VISIBLE = "Is Visible";
+
     private Map<String, String> taskListValues;
 
     /**
@@ -39,7 +43,6 @@ public class TaskList {
      * @param name value.
      */
     private void setName(final String name) {
-        if (name == null) return;
         this.name = name;
     }
 
@@ -48,7 +51,6 @@ public class TaskList {
      * @param description value.
      */
     private void setDescription(final String description) {
-        if (name == null) return;
         this.description = description;
     }
 
@@ -57,21 +59,28 @@ public class TaskList {
      * @param visibleToClients value.
      */
     private void setVisibleToClients(final boolean visibleToClients) {
-        if (name == null) return;
         isVisibleToClients = visibleToClients;
     }
 
     public void setTaskListInformation(final Map<String, String> taskListInformation) {
-        setName(taskListInformation.get("name"));
-        setDescription(taskListInformation.get("description"));
-        setVisibleToClients(Boolean.parseBoolean(taskListInformation.get("isVisible")));
+        HashMap<String, Runnable> strategyMap = composeStrategyMap(taskListInformation);
+        taskListInformation.keySet().forEach(key -> strategyMap.get(key).run());
+    }
+
+    private HashMap<String, Runnable> composeStrategyMap(Map<String, String> taskListInformation) {
+        HashMap<String, Runnable> strategyMap = new HashMap<>();
+
+        strategyMap.put(NAME, () -> setName(taskListInformation.get(NAME)));
+        strategyMap.put(DESCRIPTION, () ->  setDescription(taskListInformation.get(DESCRIPTION)));
+        strategyMap.put(IS_VISIBLE, () -> setVisibleToClients(Boolean.parseBoolean(taskListInformation.get(IS_VISIBLE))));
+        return strategyMap;
     }
 
     public Map<String, String> getTaskListInformation() {
         taskListValues = new HashMap<>();
-        taskListValues.put("name", getName());
-        taskListValues.put("description", getDescription());
-        taskListValues.put("isVisible", Boolean.toString(isVisibleToClients()));
+        taskListValues.put("Name", getName());
+        taskListValues.put("Description", getDescription());
+        taskListValues.put("Is Visible", Boolean.toString(isVisibleToClients()));
         return taskListValues;
     }
 }

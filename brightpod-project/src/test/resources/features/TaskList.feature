@@ -1,26 +1,26 @@
 Feature: Task List
 
   Background: Login
-    When Create a Pod with the following
-      | podName     | Pod04              |
-      | description | this a description |
+    When Create a Pod with the following values
+      | Pod Name    | Pod04              |
+      | Description | this a description |
 
-#  Scenario: Create a Task List
-#    When Create a TaskList with the following
-#      | name        | Task01                |
-#      | description | This is a description |
-#      | isVisible   | true                  |
-#    Then Verify TaskList values
-#    And Search pod by name "Pod04"
-#    And Remove pod
+  Scenario: Create a Task List
+    When Create a TaskList with the following values
+      | Name        | Task01                |
+      | Description | This is a description |
+      | Is Visible  | true                  |
+    Then Verify TaskList values
+    And Search pod by name "Pod04"
+    And Remove pod
 
 #    And Quit session
 
 #  Scenario: Delete a Task List
-#    Given Create a TaskList with the following
-#      | name        | Task02                |
-#      | description | This is a description |
-#      | isVisible   | true                  |
+#    Given Create a TaskList with the following values
+#      | Name        | Task02                |
+#      | Description | This is a description |
+#      | Is Visible  | true                  |
 #    And Search taskList by name "Task02"
 #    When Remove taskList by name "Task02"
 #    Then Search pod by name "Pod04"
@@ -28,15 +28,15 @@ Feature: Task List
 
 #    And Quit session
 
-  Scenario: Edit a Task List
-    Given Create a TaskList with the following
-      | name        | Task 03               |
-      | description | This is a description |
-    And Verify TaskList values
-    When Edit a TaskList with the following
-      | name        | Task 0333           |
-      | description | Description updated |
-    Then Verify TaskList values
+#  Scenario: Edit a Task List
+#    Given Create a TaskList with the following values
+#      | Name        | Task 03               |
+#      | Description | This is a description |
+#    And Verify TaskList values
+#    When Edit a TaskList with the following
+#      | Name        | Task 0333           |
+#      | Description | Description updated |
+#    Then Verify TaskList values
 #
 #  Scenario: Copy a Task List
 #    Given "Create" a "TaskList" with the following
