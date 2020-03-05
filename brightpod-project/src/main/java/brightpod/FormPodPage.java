@@ -9,12 +9,13 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.HashMap;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class FormPodPage extends BasePage {
 
     private final String COLOR_ITEM = "//button[@data-value='%s']";
 
-    private String CLIENT_COMBOBX = "//select[@id='companies']";
+    private String CLIENT_COMBOBOX = "//select[@id='companies']";
 
     private String PROJECT_LEAD_COMBOBOX = "//select[@name='project-lead']";
 
@@ -31,6 +32,17 @@ public class FormPodPage extends BasePage {
     private int DAY_VALUE = 1;
 
     private HashMap<String, String> podValues;
+
+    private String projectLead;
+
+    final private String POD_NAME = "Pod Name";
+    final private String START_DATE = "Start Date";
+    final private String DUE_DATE = "Due Date";
+    final private String BUDGET_TIME = "Budget Time";
+    final private String CLIENT = "Client";
+    final private String POD_LEAD = "Project Lead";
+    final private String POD_COLOR = "Color";
+    final private String DESCRIPTION = "Description";
 
     @FindBy(id = "project-name")
     WebElement projectNameTextBox;
@@ -157,7 +169,7 @@ public class FormPodPage extends BasePage {
     }
 
     private Select getClientComboBox() {
-        return new Select(webDriver.findElement(By.xpath(CLIENT_COMBOBX)));
+        return new Select(webDriver.findElement(By.xpath(CLIENT_COMBOBOX)));
     }
 
     private void selectClientComboBox(final String clientName) {
@@ -221,17 +233,38 @@ public class FormPodPage extends BasePage {
         goBackToPodsButton.click();
     }
 
-    public HashMap<String, String> getPodInformation() {
+    public HashMap<String, String> getPodInformation(final HashMap<String, String> podInformation) {
         podValues = new HashMap<>();
-        podValues.put("podName", projectNameTextBox.getAttribute("value"));
-        podValues.put("startDate", startDateTextBox.getAttribute("value"));
-        podValues.put("dueDate", dueDateTextBox.getAttribute("value"));
-        podValues.put("budgetTime", budgetTimeTextBox.getAttribute("value"));
-        podValues.put("client", getClientComboBox().getFirstSelectedOption().getText());
-        podValues.put("description", descriptionTextEditor.getText());
-        clickOnMeIcon();
-        podValues.put("projectLead", getUserName());
+        projectLead = podInformation.get(POD_LEAD);
+        podInformation.remove(POD_LEAD);
+        HashMap<String, Supplier> strategyMapGet = composeStrategyMapGet();
+
+        for (String field: podInformation.keySet()) {
+            podValues.put(field, strategyMapGet.get(field).get().toString());
+        }
+        if (projectLead != null) {
+            HashMap<String, Supplier> strategyMapGetPodLead = composeStrategyMapGetPodLead();
+            podValues.put(POD_LEAD, strategyMapGetPodLead.get(POD_LEAD).get().toString());
+        }
         return podValues;
+    }
+
+    private HashMap<String, Supplier> composeStrategyMapGetPodLead() {
+        HashMap<String, Supplier> strategyMapGet = new HashMap<>();
+        clickOnMeIcon();
+        strategyMapGet.put(POD_LEAD, () -> getUserName());
+        return strategyMapGet;
+    }
+
+    private HashMap<String, Supplier> composeStrategyMapGet() {
+        HashMap<String, Supplier> strategyMapGet = new HashMap<>();
+        strategyMapGet.put(POD_NAME, () -> projectNameTextBox.getAttribute("value"));
+        strategyMapGet.put(START_DATE, () -> startDateTextBox.getAttribute("value"));
+        strategyMapGet.put(DUE_DATE, () -> dueDateTextBox.getAttribute("value"));
+        strategyMapGet.put(BUDGET_TIME, () -> budgetTimeTextBox.getAttribute("value"));
+        strategyMapGet.put(CLIENT, () -> getClientComboBox().getFirstSelectedOption().getText());
+        strategyMapGet.put(DESCRIPTION, () -> descriptionTextEditor.getText());
+        return strategyMapGet;
     }
 
     public TaskListPage createNewPod(final Pod pod, final Set<String> fields) {
@@ -244,14 +277,14 @@ public class FormPodPage extends BasePage {
     private HashMap<String, Runnable> composeStrategyMap(Pod pod) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
-        strategyMap.put("Pod Name", () -> setProjectNameTextBox(pod.getPodName()));
-        strategyMap.put("Start Date", () ->  clickOnStartDateTextBox(pod.getStartDate()));
-        strategyMap.put("Due Date", () -> clickOnDueDateTextBox(pod.getDueDate()));
-        strategyMap.put("Budget Time", () -> setBudgetTimeTextBox(pod.getBudgetedTime()));
-        strategyMap.put("Client", () -> selectClientComboBox(pod.getClient()));
-        strategyMap.put("Project Lead", () -> selectProjectLeadComboBox(pod.getPodLead()));
-        strategyMap.put("Color", () -> setColorItemAdd(pod.getPodColor()));
-        strategyMap.put("Description", () -> setDescriptionTextEditor(pod.getDescription()));
+        strategyMap.put(POD_NAME, () -> setProjectNameTextBox(pod.getPodName()));
+        strategyMap.put(START_DATE, () ->  clickOnStartDateTextBox(pod.getStartDate()));
+        strategyMap.put(DUE_DATE, () -> clickOnDueDateTextBox(pod.getDueDate()));
+        strategyMap.put(BUDGET_TIME, () -> setBudgetTimeTextBox(pod.getBudgetedTime()));
+        strategyMap.put(CLIENT, () -> selectClientComboBox(pod.getClient()));
+        strategyMap.put(POD_LEAD, () -> selectProjectLeadComboBox(pod.getPodLead()));
+        strategyMap.put(POD_COLOR, () -> setColorItemAdd(pod.getPodColor()));
+        strategyMap.put(DESCRIPTION, () -> setDescriptionTextEditor(pod.getDescription()));
         return strategyMap;
     }
 
@@ -265,14 +298,14 @@ public class FormPodPage extends BasePage {
     private HashMap<String, Runnable> composeStrategyMapUpdate(Pod pod) {
         HashMap<String, Runnable> strategyMapUpdate = new HashMap<>();
 
-        strategyMapUpdate.put("Pod Name", () -> setProjectNameTextBox(pod.getPodName()));
-        strategyMapUpdate.put("Start Date", () ->  clickOnStartDateTextBox(pod.getStartDate()));
-        strategyMapUpdate.put("Due Date", () -> clickOnDueDateTextBox(pod.getDueDate()));
-        strategyMapUpdate.put("Budget Time", () -> setBudgetTimeTextBox(pod.getBudgetedTime()));
-        strategyMapUpdate.put("Client", () -> selectClientComboBox(pod.getClient()));
-        strategyMapUpdate.put("Project Lead", () -> selectProjectLeadComboBox(pod.getPodLead()));
-        strategyMapUpdate.put("Color", () -> setColorItemUpdate(pod.getPodColor()));
-        strategyMapUpdate.put("Description", () -> setDescriptionTextEditor(pod.getDescription()));
+        strategyMapUpdate.put(POD_NAME, () -> setProjectNameTextBox(pod.getPodName()));
+        strategyMapUpdate.put(START_DATE, () ->  clickOnStartDateTextBox(pod.getStartDate()));
+        strategyMapUpdate.put(DUE_DATE, () -> clickOnDueDateTextBox(pod.getDueDate()));
+        strategyMapUpdate.put(BUDGET_TIME, () -> setBudgetTimeTextBox(pod.getBudgetedTime()));
+        strategyMapUpdate.put(CLIENT, () -> selectClientComboBox(pod.getClient()));
+        strategyMapUpdate.put(POD_LEAD, () -> selectProjectLeadComboBox(pod.getPodLead()));
+        strategyMapUpdate.put(POD_COLOR, () -> setColorItemUpdate(pod.getPodColor()));
+        strategyMapUpdate.put(DESCRIPTION, () -> setDescriptionTextEditor(pod.getDescription()));
         return strategyMapUpdate;
     }
 

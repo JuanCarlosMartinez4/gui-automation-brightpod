@@ -1,8 +1,6 @@
 package entities;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
 
 public class Pod {
@@ -14,6 +12,8 @@ public class Pod {
     private String podLead;
     private String podColor;
     private String description;
+
+    private Set<String> modifiedPodFields = new HashSet<>();
 
     final private String POD_NAME = "Pod Name";
     final private String START_DATE = "Start Date";
@@ -89,6 +89,14 @@ public class Pod {
     }
 
     /**
+     * Gets modified pod fields.
+     * @return a list of key.
+     */
+    public Set<String> getModifiedPodFields() {
+        return modifiedPodFields;
+    }
+
+    /**
      * Sets Pot Name.
      * @param podName value.
      */
@@ -152,11 +160,10 @@ public class Pod {
         this.description = description;
     }
 
-    private Map<String, String> podInformation;
-
     public void setPodInformation(final Map<String, String> podInformation) {
         HashMap<String, Runnable> strategyMap = composeStrategyMap(podInformation);
         podInformation.keySet().forEach(key -> strategyMap.get(key).run());
+        modifiedPodFields.addAll(podInformation.keySet());
     }
 
     private HashMap<String, Runnable> composeStrategyMap(Map<String, String> podInformation) {
@@ -173,31 +180,26 @@ public class Pod {
         return strategyMap;
     }
 
-//    public Map<String, Supplier<String>> getPodInformation(final Map<String, String> podInformation) {
-//        HashMap<String, Supplier<String>> strategySupplier = composeStrategyMapGet(podInformation);
-//        strategySupplier.keySet().forEach(Key -> strategySupplier.get(Key).get());
-//        return strategySupplier;
-//        Supplier<Map<String, String>> supplier = () -> podInformation;
-//        return supplier.get();
-//    }
-
-    public Map<String, Supplier<String>> getPodInformation2(final Set<String> podInformation) {
-        HashMap<String, Supplier<String>> strategySupplier = composeStrategyMapGet(this);
-        podInformation.forEach(value -> strategySupplier.get(value));
-        return strategySupplier;
+    public HashMap<String, String> getPodInformation() {
+        HashMap<String, String> values = new HashMap<>();
+        HashMap<String, Supplier> strategyMap = composeStrategyMapGet();
+        for (String field: modifiedPodFields) {
+            values.put(field, strategyMap.get(field).get().toString());
+        }
+        return values;
     }
 
-    private HashMap<String, Supplier<String>> composeStrategyMapGet(Pod pod) {
-        HashMap<String, Supplier<String>> strategyMap = new HashMap<>();
+    private HashMap<String, Supplier> composeStrategyMapGet() {
+        HashMap<String, Supplier> strategyMap = new HashMap<>();
 
-        strategyMap.put(POD_NAME, () -> pod.getPodName());
-        strategyMap.put(START_DATE, () ->  pod.getStartDate());
-        strategyMap.put(DUE_DATE, () -> pod.getDueDate());
-        strategyMap.put(BUDGET_TIME, () -> pod.getBudgetedTime());
-        strategyMap.put(CLIENT, () -> pod.getClient());
-        strategyMap.put(POD_LEAD, () -> pod.getPodLead());
-        strategyMap.put(POD_COLOR, () -> pod.getPodColor());
-        strategyMap.put(DESCRIPTION, () -> pod.getDescription());
+        strategyMap.put(POD_NAME, () -> getPodName());
+        strategyMap.put(START_DATE, () ->  getStartDate());
+        strategyMap.put(DUE_DATE, () -> getDueDate());
+        strategyMap.put(BUDGET_TIME, () -> getBudgetedTime());
+        strategyMap.put(CLIENT, () -> getClient());
+        strategyMap.put(POD_LEAD, () -> getPodLead());
+        strategyMap.put(POD_COLOR, () -> getPodColor());
+        strategyMap.put(DESCRIPTION, () -> getDescription());
         return strategyMap;
     }
 }

@@ -67,7 +67,7 @@ public class FormPodPageTest {
 //        TaskListPage taskList = formPod.createNewPod(texts);
         SettingTextLink setting = new SettingTextLink();
         setting.editPod();
-        actualPodValues = formPod.getPodInformation();
+//        actualPodValues = formPod.getPodInformation();
         formPod.goBackToTheDashboardButton();
         for (String key: actualPodValues.keySet()) {
             Assert.assertEquals("message: ", expected.get(key), actualPodValues.get(key));
@@ -98,7 +98,7 @@ public class FormPodPageTest {
         formPod = new FormPodPage();
 //        taskList = formPod.updatePod(texts);
         setting.editPod();
-        actualPodValues = formPod.getPodInformation();
+//        actualPodValues = formPod.getPodInformation();
         formPod.goBackToTheDashboardButton();
         for (String key: actualPodValues.keySet()) {
             Assert.assertEquals("message: ", expected.get(key), actualPodValues.get(key));

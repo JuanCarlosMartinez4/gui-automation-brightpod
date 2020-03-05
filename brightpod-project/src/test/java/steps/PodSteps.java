@@ -13,6 +13,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import entities.Context;
 import entities.Pod;
+import org.junit.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,9 +54,7 @@ public class PodSteps {
         newPodModal = podsPage.clickNewPodButton();
         formPod = newPodModal.createNewPod();
         taskList = formPod.createNewPod(pod, podInformation.keySet());
-        //test
-        Object value = pod.getPodInformation2(podInformation.keySet());
-        System.out.println(value);
+//        pod.getPodInformation();
     }
 
     @And("^Pod should contains$")
@@ -64,10 +63,10 @@ public class PodSteps {
         setting.editPod();
 //        pod.setPodInformation(podInformation);
         actualPodValues = new HashMap<>();
-        actualPodValues = formPod.getPodInformation();
+        actualPodValues = formPod.getPodInformation(pod.getPodInformation());
         for (String key: actualPodValues.keySet()) {
-//            Assert.assertEquals(key + ":: ", pod.getPodInformation().get(key),
-//                    actualPodValues.get(key));
+            Assert.assertEquals(key + ":: ", pod.getPodInformation().get(key),
+                    actualPodValues.get(key));
         }
     }
 
