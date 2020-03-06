@@ -6,16 +6,18 @@ import brightpod.LoginPage;
 import brightpod.MePage;
 import brightpod.PageTransporter;
 import brightpod.PodsPage;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.When;
+//import cucumber.api.java.en.And;
+//import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class LoginSteps {
 
     @When("^Login with user credentials in \"([^\"]*)\"$")
     public void loginWithUserCredentials(String page) {
-        String email = "juan.martinez.tacc11@gmail.com";
-        String password = "passacction20B";
+        String email = "juan.martinez.at11cc@gmail.com";
+        String password = "at11account2020";
         PageTransporter.goToUrl(page);
         LoginPage loginPage = new LoginPage();
         PodsPage podsPage = loginPage.login(email, password);
@@ -24,7 +26,7 @@ public class LoginSteps {
     @And("^Verify user authenticated$")
     public void verifyUserAuthenticated() {
         String userName = "juan martinez";
-        String email = "juan.martinez.tacc11@gmail.com";
+        String email = "juan.martinez.at11cc@gmail.com";
         MePage mePage = new MePage();
         String actual = mePage.verifyUserLogged(userName, email);
         Assert.assertEquals(": ", email, actual);

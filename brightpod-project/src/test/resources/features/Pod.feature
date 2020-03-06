@@ -7,7 +7,7 @@ Feature: Pod
       | Start Date   | TODAY                                  |
       | Due Date     | 3 DAYS-0 MONTH-0 YEAR-AFTER-FROM TODAY |
       | Budget Time  | 0.30                                   |
-      | Client       | fundacion                              |
+      | Client       | Jala-Fundation                         |
       | Project Lead | juan martinez                          |
 #      | Color        | #F83A22            |
       | Description  | this a description                     |
