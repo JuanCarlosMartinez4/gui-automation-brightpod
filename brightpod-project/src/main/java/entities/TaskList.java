@@ -8,9 +8,9 @@ public class TaskList {
     private String description;
     private boolean isVisibleToClients;
 
-    final private String NAME = "Name";
-    final private String DESCRIPTION = "Description";
-    final private String IS_VISIBLE = "Is Visible";
+    private static final String NAME = "Name";
+    private static final String DESCRIPTION = "Description";
+    private static final String IS_VISIBLE = "Is Visible";
 
     private Map<String, String> taskListValues;
 
@@ -78,9 +78,9 @@ public class TaskList {
 
     public Map<String, String> getTaskListInformation() {
         taskListValues = new HashMap<>();
-        taskListValues.put("Name", getName());
-        taskListValues.put("Description", getDescription());
-        taskListValues.put("Is Visible", Boolean.toString(isVisibleToClients()));
+        taskListValues.put(NAME, getName());
+        taskListValues.put(DESCRIPTION, getDescription());
+        taskListValues.put(IS_VISIBLE, Boolean.toString(isVisibleToClients()));
         return taskListValues;
     }
 }

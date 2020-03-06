@@ -14,17 +14,17 @@ import java.util.Set;
 
 public class TaskListPage extends BasePage {
 
-    private final String TASK_LIST_NAME = "//span[starts-with(@id,'list-name-')][text()='%s']";
+    private static final String TASK_LIST_NAME = "//span[starts-with(@id,'list-name-')][text()='%s']";
 
-    private final String TASK_LIST_DROPDOWN_LIST = "//span[text()='%s']//ancestor::li//a[@id='dropdownMenuLink']";
+    private static final String TASK_LIST_DROPDOWN_LIST = "//span[text()='%s']//ancestor::li//a[@id='dropdownMenuLink']";
 
-    private final String EDIT_TASK_LIST = "//span[text()='%s']//ancestor::li//a[@class='dropdown-item edit_tasklist tasklist_link']";
+    private static final String EDIT_TASK_LIST = "//span[text()='%s']//ancestor::li//a[@class='dropdown-item edit_tasklist tasklist_link']";
 
-    private final String REMOVE_TASK_LIST = "//span[text()='%s']//ancestor::li//a[@class='dropdown-item delete_tasklist tasklist_link']";
+    private static final String REMOVE_TASK_LIST = "//span[text()='%s']//ancestor::li//a[@class='dropdown-item delete_tasklist tasklist_link']";
 
-    private final String LIST_FOUND_LINK = "//span[text()='%s']";
+    private static final String LIST_FOUND_LINK = "//span[text()='%s']";
 
-    private final String TASK_LIST_DESCRIPTION = "//div[contains(text(),'%s')]";
+    private static final String TASK_LIST_DESCRIPTION = "//div[contains(text(),'%s')]";
 
     private Map<String, String> taskListInformation;
 
@@ -224,7 +224,7 @@ public class TaskListPage extends BasePage {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
         strategyMap.put("Name", () -> setListNameTextBox(taskList.getName()));
-        strategyMap.put("Description", () ->  setDescriptionTextArea(taskList.getDescription()));
+        strategyMap.put("Description", () -> setDescriptionTextArea(taskList.getDescription()));
         strategyMap.put("Is Visible", () -> checkVisibleToClientsCheckBox(taskList.isVisibleToClients()));
         return strategyMap;
     }
@@ -240,7 +240,7 @@ public class TaskListPage extends BasePage {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
         strategyMap.put("Name", () -> setUpdateListNameTextBox(taskList.getName()));
-        strategyMap.put("Description", () ->  setUpdateDescriptionTextArea(taskList.getDescription()));
+        strategyMap.put("Description", () -> setUpdateDescriptionTextArea(taskList.getDescription()));
         strategyMap.put("Is Visible", () -> checkUpdateVisibleToClientsCheckBox(taskList.isVisibleToClients()));
         return strategyMap;
     }

@@ -4,8 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Helper {
-    private static SimpleDateFormat formatter= new SimpleDateFormat("MMM dd, yyyy");
+public final class Helper {
+    private Helper() {
+
+    }
+
+    private static SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
     private static Calendar calendar = Calendar.getInstance();
     private static final int DAYS = 0;
     private static final int MONTHS = 1;
@@ -13,7 +17,7 @@ public class Helper {
     private static final String TODAY = "TODAY";
     private static final String BEFORE = "BEFORE";
     private static final String AFTER = "AFTER";
-    private static String [] date;
+    private static String[] date;
     private static Date today = new Date(System.currentTimeMillis());
 
     private static String formatToday() {
@@ -25,7 +29,7 @@ public class Helper {
     }
 
     private static int[] replaceStringsAfter(String[] date) {
-        int [] result = new int[3];
+        int[] result = new int[3];
         result[DAYS] = Integer.parseInt(date[DAYS].replaceAll("[^0-9]+", ""));
         result[MONTHS] = Integer.parseInt(date[MONTHS].replaceAll("[^0-9]+", ""));
         result[YEARS] = Integer.parseInt(date[YEARS].replaceAll("[^0-9]+", ""));
@@ -33,7 +37,7 @@ public class Helper {
     }
 
     private static int[] replaceStringsBefore(String[] date) {
-        int [] result = new int[3];
+        int[] result = new int[3];
         result[DAYS] = -Integer.parseInt(date[DAYS].replaceAll("[^0-9]+", ""));
         result[MONTHS] = -Integer.parseInt(date[MONTHS].replaceAll("[^0-9]+", ""));
         result[YEARS] = -Integer.parseInt(date[YEARS].replaceAll("[^0-9]+", ""));
@@ -50,22 +54,22 @@ public class Helper {
 
     private static String before(String dateString) {
         date = spliter(dateString);
-        String [] dates = new String[3];
+        String[] dates = new String[3];
         dates[DAYS] = date[DAYS];
         dates[MONTHS] = date[MONTHS];
         dates[YEARS] = date[YEARS];
-        int [] dateNumber = replaceStringsBefore(dates);
+        int[] dateNumber = replaceStringsBefore(dates);
         Date dateValue = setValuesToCalendar(dateNumber);
         return formatter.format(dateValue);
     }
 
     private static String after(String dateString) {
         date = spliter(dateString);
-        String [] dates = new String[3];
+        String[] dates = new String[3];
         dates[DAYS] = date[DAYS];
         dates[MONTHS] = date[MONTHS];
         dates[YEARS] = date[YEARS];
-        int [] dateNumber = replaceStringsAfter(dates);
+        int[] dateNumber = replaceStringsAfter(dates);
         Date dateValue = setValuesToCalendar(dateNumber);
         return formatter.format(dateValue);
     }
@@ -74,15 +78,13 @@ public class Helper {
         String value = null;
         if (date.equals(TODAY)) {
             value = formatToday();
-        }
-        else if (date.contains(BEFORE)) {
+        } else if (date.contains(BEFORE)) {
             value = before(date);
-        }
-        else if (date.contains(AFTER)) {
+        } else if (date.contains(AFTER)) {
             value = after(date);
         }
+        assert value != null;
         String replace = value.replaceAll("[.]", "");
-        String output = replace.substring(0, 1).toUpperCase() + replace.substring(1);
-        return output;
+        return replace.substring(0, 1).toUpperCase() + replace.substring(1);
     }
 }

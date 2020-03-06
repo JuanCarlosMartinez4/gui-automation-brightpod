@@ -69,7 +69,7 @@ public class FormPodPageTest {
         setting.editPod();
 //        actualPodValues = formPod.getPodInformation();
         formPod.goBackToTheDashboardButton();
-        for (String key: actualPodValues.keySet()) {
+        for (String key : actualPodValues.keySet()) {
             Assert.assertEquals("message: ", expected.get(key), actualPodValues.get(key));
         }
     }
@@ -100,7 +100,7 @@ public class FormPodPageTest {
         setting.editPod();
 //        actualPodValues = formPod.getPodInformation();
         formPod.goBackToTheDashboardButton();
-        for (String key: actualPodValues.keySet()) {
+        for (String key : actualPodValues.keySet()) {
             Assert.assertEquals("message: ", expected.get(key), actualPodValues.get(key));
         }
     }

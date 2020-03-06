@@ -50,6 +50,6 @@ public class WebDriverManager {
     }
 
     public WebDriver getWebDriver() {
-    return webDriver;
+        return webDriver;
     }
 }

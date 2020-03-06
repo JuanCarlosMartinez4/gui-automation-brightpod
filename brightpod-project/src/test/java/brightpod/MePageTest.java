@@ -8,6 +8,7 @@ import org.junit.Test;
 public class MePageTest {
 
     private String email = "juan.martinez.tacc11@gmail.com";
+
     @Before
     public void setUp() {
         LoginPage loginPage = new LoginPage();

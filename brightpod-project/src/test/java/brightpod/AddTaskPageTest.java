@@ -62,7 +62,7 @@ public class AddTaskPageTest {
         addTask = addTask.createNewTask(listName, taskName, memberName);
         TaskPopup taskPopup = addTask.clickOnTaskNameLink(taskName);
         HashMap<String, String> actual = taskPopup.getFieldsText();
-        for (String key: actual.keySet()) {
+        for (String key : actual.keySet()) {
             Assert.assertEquals("message: ", expected.get(key), actual.get(key));
         }
     }

@@ -2,7 +2,10 @@ package entities;
 
 import utils.Helper;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class Pod {
@@ -17,14 +20,14 @@ public class Pod {
 
     private Set<String> modifiedPodFields = new HashSet<>();
 
-    final private String POD_NAME = "Pod Name";
-    final private String START_DATE = "Start Date";
-    final private String DUE_DATE = "Due Date";
-    final private String BUDGET_TIME = "Budget Time";
-    final private String CLIENT = "Client";
-    final private String POD_LEAD = "Project Lead";
-    final private String POD_COLOR = "Color";
-    final private String DESCRIPTION = "Description";
+    final static private String POD_NAME = "Pod Name";
+    final static private String START_DATE = "Start Date";
+    final static private String DUE_DATE = "Due Date";
+    final static private String BUDGET_TIME = "Budget Time";
+    final static private String CLIENT = "Client";
+    final static private String POD_LEAD = "Project Lead";
+    final static private String POD_COLOR = "Color";
+    final static private String DESCRIPTION = "Description";
 
     /**
      * Gets pod name.

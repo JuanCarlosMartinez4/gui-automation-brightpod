@@ -8,9 +8,10 @@ import org.junit.Test;
 public class NewPodModalTest {
 
     private String podName = "Empty Pod1";
+
     @Before
     public void setUp() {
-        String email = "juan.martinez.tacc11@gmail.com";
+        String email = "juan.martinez.at11cc@gmail.com";
         String password = "passacction20B";
         LoginPage loginPage = new LoginPage();
         loginPage.login(email, password);
@@ -35,8 +36,6 @@ public class NewPodModalTest {
         podsPage.clickNewPodButton();
         NewPodModal podsModal = new NewPodModal();
         podsModal.createNewPod();
-
-//        assert actual.equals(podName);
     }
 
     @Test

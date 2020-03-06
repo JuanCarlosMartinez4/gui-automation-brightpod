@@ -13,36 +13,36 @@ import java.util.function.Supplier;
 
 public class FormPodPage extends BasePage {
 
-    private final String COLOR_ITEM = "//button[@data-value='%s']";
+    private static final String COLOR_ITEM = "//button[@data-value='%s']";
 
-    private String CLIENT_COMBOBOX = "//select[@id='companies']";
+    private static final String CLIENT_COMBOBOX = "//select[@id='companies']";
 
-    private String PROJECT_LEAD_COMBOBOX = "//select[@name='project-lead']";
+    private static final String PROJECT_LEAD_COMBOBOX = "//select[@name='project-lead']";
 
-    private String SET_YEAR = "//span[text()[. = '%s']]";
+    private static final String SET_YEAR = "//span[text()[. = '%s']]";
 
-    private String SET_MONTH = "//span[text()[. = '%s']]";
+    private static final String SET_MONTH = "//span[text()[. = '%s']]";
 
-    private String SET_DAY = "//td[text()[. = '%s']]";
+    private static final String SET_DAY = "//td[text()[. = '%s']]";
 
-    private int YEAR_VALUE = 2;
+    private static final int YEAR_VALUE = 2;
 
-    private int MONTH_VALUE = 0;
+    private static final int MONTH_VALUE = 0;
 
-    private int DAY_VALUE = 1;
+    private static final int DAY_VALUE = 1;
 
     private HashMap<String, String> podValues;
 
     private String projectLead;
 
-    final private String POD_NAME = "Pod Name";
-    final private String START_DATE = "Start Date";
-    final private String DUE_DATE = "Due Date";
-    final private String BUDGET_TIME = "Budget Time";
-    final private String CLIENT = "Client";
-    final private String POD_LEAD = "Project Lead";
-    final private String POD_COLOR = "Color";
-    final private String DESCRIPTION = "Description";
+    private static final String POD_NAME = "Pod Name";
+    private static final String START_DATE = "Start Date";
+    private static final String DUE_DATE = "Due Date";
+    private static final String BUDGET_TIME = "Budget Time";
+    private static final String CLIENT = "Client";
+    private static final String POD_LEAD = "Project Lead";
+    private static final String POD_COLOR = "Color";
+    private static final String DESCRIPTION = "Description";
 
     @FindBy(id = "project-name")
     private WebElement projectNameTextBox;
@@ -239,7 +239,7 @@ public class FormPodPage extends BasePage {
         podInformation.remove(POD_LEAD);
         HashMap<String, Supplier> strategyMapGet = composeStrategyMapGet();
 
-        for (String field: podInformation.keySet()) {
+        for (String field : podInformation.keySet()) {
             podValues.put(field, strategyMapGet.get(field).get().toString());
         }
         if (projectLead != null) {
@@ -278,7 +278,7 @@ public class FormPodPage extends BasePage {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
         strategyMap.put(POD_NAME, () -> setProjectNameTextBox(pod.getPodName()));
-        strategyMap.put(START_DATE, () ->  clickOnStartDateTextBox(pod.getStartDate()));
+        strategyMap.put(START_DATE, () -> clickOnStartDateTextBox(pod.getStartDate()));
         strategyMap.put(DUE_DATE, () -> clickOnDueDateTextBox(pod.getDueDate()));
         strategyMap.put(BUDGET_TIME, () -> setBudgetTimeTextBox(pod.getBudgetedTime()));
         strategyMap.put(CLIENT, () -> selectClientComboBox(pod.getClient()));
@@ -299,7 +299,7 @@ public class FormPodPage extends BasePage {
         HashMap<String, Runnable> strategyMapUpdate = new HashMap<>();
 
         strategyMapUpdate.put(POD_NAME, () -> setProjectNameTextBox(pod.getPodName()));
-        strategyMapUpdate.put(START_DATE, () ->  clickOnStartDateTextBox(pod.getStartDate()));
+        strategyMapUpdate.put(START_DATE, () -> clickOnStartDateTextBox(pod.getStartDate()));
         strategyMapUpdate.put(DUE_DATE, () -> clickOnDueDateTextBox(pod.getDueDate()));
         strategyMapUpdate.put(BUDGET_TIME, () -> setBudgetTimeTextBox(pod.getBudgetedTime()));
         strategyMapUpdate.put(CLIENT, () -> selectClientComboBox(pod.getClient()));

@@ -40,10 +40,6 @@ public class LoginPage extends BasePage {
         signInButton.click();
     }
 
-//    private String getCreateANewPodText() {
-//        return createNewPodButton.getText();
-//    }
-
     public PodsPage login(final String email, final String password) {
         setEmailTextBox(email);
         setPasswordTextBox(password);

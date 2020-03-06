@@ -13,7 +13,6 @@ import entities.TaskList;
 
 import org.junit.Assert;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class TaskListSteps {
@@ -48,7 +47,7 @@ public class TaskListSteps {
 
     @And("^Verify TaskList values$")
     public void verifyTaskListValues() {
-        for (String key: actualTaskListValues.keySet()) {
+        for (String key : actualTaskListValues.keySet()) {
             Assert.assertEquals(key + ": ", taskList.getTaskListInformation().get(key),
                     actualTaskListValues.get(key));
         }

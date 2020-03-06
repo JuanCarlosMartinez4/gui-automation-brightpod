@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ReadProperties {
-    public static Properties propertiesFileReader(String fileName) throws IOException {
+    public static Properties propertiesFileReader(final String fileName) throws IOException {
         FileInputStream inputStream = null;
         Properties properties = null;
         try {

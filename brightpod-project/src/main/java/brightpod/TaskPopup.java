@@ -9,6 +9,11 @@ import java.util.HashMap;
 
 public class TaskPopup extends BasePage {
     private HashMap<String, String> fieldsText;
+
+    private static final String NAME = "Name";
+
+    private static final String MEMBER = "Member";
+
     @FindBy(css = "a[class='task_delete_sidebar']")
     private WebElement removeTaskLink;
 
@@ -59,8 +64,8 @@ public class TaskPopup extends BasePage {
 
     public HashMap<String, String> getFieldsText() {
         fieldsText = new HashMap<>();
-        fieldsText.put("name", getTaskName());
-        fieldsText.put("member", getAssignedName());
+        fieldsText.put(NAME, getTaskName());
+        fieldsText.put(MEMBER, getAssignedName());
         return fieldsText;
     }
 }

@@ -6,27 +6,23 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.HashMap;
-
 /**
  * Manages tasks
  */
 public class AddTaskPage extends BasePage {
-    private final String ADD_NEW_TASK_BUTTON = "//span[text()='%s']//ancestor::li//a[contains(@class,'add_new_task')]";
+    private static final String ADD_NEW_TASK_BUTTON = "//span[text()='%s']//ancestor::li//a[contains(@class,'add_new_task')]";
 
-    private final String TASK_TEXTAREA = "//span[text()='%s']//ancestor::li//textarea[contains(@name,'task_name')]";
+    private static final String TASK_TEXTAREA = "//span[text()='%s']//ancestor::li//textarea[contains(@name,'task_name')]";
 
-    private final String COMBOBOX_SELECTOR = "//span[text()='%s']//ancestor::li//select[starts-with(@id,'task_assign_to_')]";
+    private static final String COMBOBOX_SELECTOR = "//span[text()='%s']//ancestor::li//select[starts-with(@id,'task_assign_to_')]";
 
-    private final String HIGH_PRIORITY_CHECKBOX = "//span[text()='%s']//ancestor::li//label[@class='checkbox-inline']";
+    private static final String HIGH_PRIORITY_CHECKBOX = "//span[text()='%s']//ancestor::li//label[@class='checkbox-inline']";
 
-    private final String ADD_TASK_BUTTON = "//span[text()='%s']//ancestor::li//input[contains(@class,'add-task-button')]";
+    private static final String ADD_TASK_BUTTON = "//span[text()='%s']//ancestor::li//input[contains(@class,'add-task-button')]";
 
-    private final String CREATED_TASK_NAME = "//span[text()='%s']//ancestor::li//a[contains(text(),'%s')]";
+    private static final String CREATED_TASK_NAME = "//span[text()='%s']//ancestor::li//a[contains(text(),'%s')]";
 
-    private final String TASK_NAME_LINK = "//a[contains(text(),'%s')]";
-
-    private HashMap<String, String> fieldsText;
+    private static final String TASK_NAME_LINK = "//a[contains(text(),'%s')]";
 
     @FindBy(xpath = "//*[contains(text(), 'Add Task')]")
     WebElement addTaskButton;
@@ -59,10 +55,6 @@ public class AddTaskPage extends BasePage {
         return webDriver.findElement(By.xpath(String.format(ADD_TASK_BUTTON, listName)));
     }
 
-    private WebElement getCreatedTaskName(final String listName, final String taskName) {
-        return webDriver.findElement(By.xpath(String.format(CREATED_TASK_NAME, listName, taskName)));
-    }
-
     private WebElement getTaskNameLink(final String taskName) {
         return webDriver.findElement(By.xpath(String.format(TASK_NAME_LINK, taskName)));
     }
@@ -92,20 +84,11 @@ public class AddTaskPage extends BasePage {
         return new TaskPopup();
     }
 
-//    private String getCreatedTaskNameText(final String listName, final String taskName) {
-//        return getCreatedTaskName(listName, taskName).getText();
-//    }
-//
-//    private Select getProjectLeadComboBox(final String listName) {
-//        return new Select(webDriver.findElement(By.xpath(String.format(COMBOBOX_SELECTOR, listName))));
-//    }
-
     public AddTaskPage createNewTask(final String listName, final String taskName, final String memberName) {
         clickOnAddNewTaskButton(listName);
         setTaskTextArea(listName, taskName);
         setMemberToTask(listName, memberName);
         setHighPriorityCheckbox(listName);
-//        getFieldsText(listName);
         clickOnAddTaskButton(listName);
         return new AddTaskPage();
     }

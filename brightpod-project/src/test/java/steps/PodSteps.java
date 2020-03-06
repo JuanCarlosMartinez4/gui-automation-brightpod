@@ -54,14 +54,12 @@ public class PodSteps {
         newPodModal = podsPage.clickNewPodButton();
         formPod = newPodModal.createNewPod();
         taskList = formPod.createNewPod(pod, podInformation.keySet());
-//        pod.getPodInformation();
     }
 
     @And("^Pod should contains$")
     public void podShouldContains() {
         setting = new SettingTextLink();
         setting.editPod();
-//        pod.setPodInformation(podInformation);
         actualPodValues = new HashMap<>();
         actualPodValues = formPod.getPodInformation(pod.getPodInformation());
         for (String key: actualPodValues.keySet()) {

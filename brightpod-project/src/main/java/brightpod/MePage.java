@@ -7,9 +7,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class MePage extends BasePage {
 
-    private final String USER_NAME = "//h3[contains(text(),'%s')]";
+    private static final String USER_NAME = "//h3[contains(text(),'%s')]";
 
-    private final String USER_EMAIL = "//a[contains(text(),'%s')]";
+    private static final String USER_EMAIL = "//a[contains(text(),'%s')]";
 
     @FindBy(css = "a[title='Me']")
     private WebElement meTab;
@@ -32,7 +32,7 @@ public class MePage extends BasePage {
     }
 
     private WebElement getUserEmail(final String userEmail) {
-        return  webDriver.findElement(By.xpath(String.format(USER_EMAIL, userEmail)));
+        return webDriver.findElement(By.xpath(String.format(USER_EMAIL, userEmail)));
     }
 
     private String matchUserEmail(final String userEmail) {
