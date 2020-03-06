@@ -2,25 +2,24 @@ package brightpod;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
 
     @FindBy(id = "username_text")
-    WebElement emailTextBox;
+    private WebElement emailTextBox;
 
     @FindBy(id = "password")
-    WebElement passwordTextBox;
+    private WebElement passwordTextBox;
 
     @FindBy(xpath = "//button[@type='submit'][@class='btn btn-default btn-success signin']")
-    WebElement signInButton;
+    private WebElement signInButton;
 
     @FindBy(css = "a[data-toggle='modal'][class='btn btn-default btn-success']")
-    WebElement createNewPodButton;
+    private WebElement createNewPodButton;
 
     @FindBy(css = "div[class='alert alert-danger']")
-    WebElement invalidLoginMessage;
+    private WebElement invalidLoginMessage;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {

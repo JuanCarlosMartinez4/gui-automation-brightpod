@@ -10,8 +10,8 @@ import entities.Context;
 import entities.Pod;
 
 public class Hook {
-    Context context;
-    Pod pod;
+    private Context context;
+    private Pod pod;
 
     public Hook(final Context context) {
         this.context = context;

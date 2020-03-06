@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class LoginPageTest {
-    LoginPage loginPage;
+    private LoginPage loginPage;
 
     @Before
     public void setUp() {

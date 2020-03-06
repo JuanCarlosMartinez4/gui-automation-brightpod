@@ -12,7 +12,7 @@ public class MePage extends BasePage {
     private final String USER_EMAIL = "//a[contains(text(),'%s')]";
 
     @FindBy(css = "a[title='Me']")
-    WebElement meTab;
+    private WebElement meTab;
 
     private void clickOnMeTab() {
         meTab.click();

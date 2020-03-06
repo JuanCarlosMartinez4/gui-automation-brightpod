@@ -21,14 +21,14 @@ import java.util.Map;
 public class PodSteps {
 
     // Pages
-    PodsPage podsPage;
-    TaskListPage taskList;
-    SettingTextLink setting;
-    FormPodPage formPod;
-    LogoutPage logoutPage;
+    private PodsPage podsPage;
+    private TaskListPage taskList;
+    private SettingTextLink setting;
+    private FormPodPage formPod;
+    private LogoutPage logoutPage;
 
     // Modals
-    NewPodModal newPodModal;
+    private NewPodModal newPodModal;
 
     // Entities
     Context context;

@@ -12,12 +12,12 @@ import java.util.Map;
 public class FormPodPageTest {
     private String podName = "Empty Pod1";
     private HashMap<String, String> texts;
-    PodsPage podsPage;
-    NewPodModal podModal;
-    FormPodPage formPod;
-    SearchPod search;
-    TaskListPage taskList;
-    SettingTextLink setting;
+    private PodsPage podsPage;
+    private NewPodModal podModal;
+    private FormPodPage formPod;
+    private SearchPod search;
+    private TaskListPage taskList;
+    private SettingTextLink setting;
 
     private Map<String, String> actualPodValues;
 

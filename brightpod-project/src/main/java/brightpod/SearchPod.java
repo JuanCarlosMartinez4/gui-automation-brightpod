@@ -11,13 +11,13 @@ public class SearchPod extends BasePage {
     private final String ELEMENT_FOUND = "//div[@class='search_result']//div[@class='search_link']//a[text()='%s']";
 
     @FindBy(css = "a[title='Pods']")
-    WebElement podTab;
+    private WebElement podTab;
 
     @FindBy(css = "input[type='text'][class='search_input form-control']")
-    WebElement searchField;
+    private WebElement searchField;
 
     @FindBy(css = "p[class='search_error']")
-    WebElement searchErrorText;
+    private WebElement searchErrorText;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {
@@ -35,7 +35,6 @@ public class SearchPod extends BasePage {
 
     public SearchPod searchElementByName(final String elementName) {
         setSearchField(elementName);
-//        String elementNameText = getFindElement(elementName).getText();
         getFindElement(elementName).click();
         return new SearchPod();
     }

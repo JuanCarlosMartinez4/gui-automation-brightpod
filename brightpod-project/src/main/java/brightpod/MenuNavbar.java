@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class MenuNavbar extends BasePage {
 
     @FindBy(how= How.XPATH, using="//a[@title='Logout']")
-    WebElement logoutButton;
+    private WebElement logoutButton;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {

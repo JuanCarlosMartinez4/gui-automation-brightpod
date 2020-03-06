@@ -8,16 +8,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class SettingTextLink extends BasePage {
 
     @FindBy(xpath = "//a[@class='stats_link'][@data-toggle='popover']")
-    WebElement settingIcon;
+    private WebElement settingIcon;
 
     @FindBy(linkText = "Settings")
-    WebElement settingsTextLink;
+    private WebElement settingsTextLink;
 
     @FindBy(css = "a[class='btn btn-default btn-warning archive_pod']")
-    WebElement archivePodButton;
+    private WebElement archivePodButton;
 
     @FindBy(xpath = "//div[contains(@class,'col-lg-9 col-md-9')]")
-    WebElement projectSetting;
+    private WebElement projectSetting;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {

@@ -10,18 +10,16 @@ import java.util.HashMap;
 public class TaskPopup extends BasePage {
     private HashMap<String, String> fieldsText;
     @FindBy(css = "a[class='task_delete_sidebar']")
-    private
-    WebElement removeTaskLink;
+    private WebElement removeTaskLink;
 
     @FindBy(css = "li[id='pods_tab']")
-    private
-    WebElement podsTabIcon;
+    private WebElement podsTabIcon;
 
     @FindBy(xpath = "//div[@class='task_name_header header-title-text']")
-    WebElement taskNameLabel;
+    private WebElement taskNameLabel;
 
     @FindBy(xpath = "//div[contains(@style, 'color:#333;font-size:14px;')]")
-    WebElement assignedName;
+    private WebElement assignedName;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {

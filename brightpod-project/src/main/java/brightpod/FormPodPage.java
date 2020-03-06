@@ -45,55 +45,55 @@ public class FormPodPage extends BasePage {
     final private String DESCRIPTION = "Description";
 
     @FindBy(id = "project-name")
-    WebElement projectNameTextBox;
+    private WebElement projectNameTextBox;
 
     @FindBy(id = "start_date_project")
-    WebElement startDateTextBox;
+    private WebElement startDateTextBox;
 
     @FindBy(id = "end_date_project")
-    WebElement dueDateTextBox;
+    private WebElement dueDateTextBox;
 
     @FindBy(id = "budgeted_hours")
-    WebElement budgetTimeTextBox;
+    private WebElement budgetTimeTextBox;
 
     @FindBy(xpath = "//a[text()='Change color']")
-    WebElement podColorButton;
+    private WebElement podColorButton;
 
     @FindBy(id = "trix_editor_pod_desc")
-    WebElement descriptionTextEditor;
+    private WebElement descriptionTextEditor;
 
     @FindBy(css = "button[class='btn btn-success btn-primary new-project-button']")
-    WebElement createPodAndInvitePeopleButton;
+    private WebElement createPodAndInvitePeopleButton;
 
     @FindBy(css = "button[class='btn btn-primary new-project-button']")
-    WebElement updatePodButton;
+    private WebElement updatePodButton;
 
     @FindBy(css = "a[title='Go back to Pods']")
-    WebElement goBackToPodsButton;
+    private WebElement goBackToPodsButton;
 
     @FindBy(xpath = "//a[text()='Select color']")
-    WebElement selectColorButton;
+    private WebElement selectColorButton;
 
     @FindBy(css = "div[class='col-lg-9 col-md-9']")
-    WebElement podName;
+    private WebElement podName;
 
     @FindBy(css = "button[class='btn btn-default']")
-    WebElement goBackToTheDashboard;
+    private WebElement goBackToTheDashboard;
 
     @FindBy(css = "i[class='fa fa-user']")
-    WebElement meIcon;
+    private WebElement meIcon;
 
     @FindBy(xpath = "//div[@class='col-lg-10 col-md-10']//h3")
-    WebElement userName;
+    private WebElement userName;
 
     @FindBy(xpath = "//div[@class='datepicker-days']/table//th[@class='datepicker-switch']")
-    WebElement onDaysButton;
+    private WebElement onDaysButton;
 
     @FindBy(xpath = "//div[@class='datepicker-months']/table//th[@class='datepicker-switch']")
-    WebElement onMonthsButton;
+    private WebElement onMonthsButton;
 
     @FindBy(xpath = "//div[@class='datepicker-years']/table//th[@class='datepicker-switch']")
-    WebElement onYearsButton;
+    private WebElement onYearsButton;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {
@@ -106,8 +106,8 @@ public class FormPodPage extends BasePage {
     }
 
     private String[] splitDate(final String date) {
-        String dateFull = date;
-        String[] dateValues = dateFull.split("[ ]");
+        String actualDate = date;
+        String[] dateValues = actualDate.split("[ ]");
         String day = dateValues[DAY_VALUE];
         day = day.substring(0, day.length() - 1);
 

@@ -18,13 +18,13 @@ import java.util.Map;
 
 public class TaskListSteps {
 
-    Context context;
-    Pod pod;
-    TaskList taskList;
-    AddTaskPage addTasKPage;
+    private Context context;
+    private Pod pod;
+    private TaskList taskList;
+    private AddTaskPage addTasKPage;
 
     // Pages
-    TaskListPage taskListPage;
+    private TaskListPage taskListPage;
 
     // Task List values.
     private Map<String, String> actualTaskListValues;

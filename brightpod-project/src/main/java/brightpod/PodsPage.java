@@ -12,9 +12,6 @@ public class PodsPage extends BasePage {
     @FindBy(linkText = "Create a New Pod")
     WebElement createANewPodButton;
 
-//    @FindBy(css = "h3[id='myModalLabel'][class='brown_modal_title']")
-//    WebElement modalLabel;
-
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         webDriverWait.until(ExpectedConditions.visibilityOf(createANewPodButton));
@@ -36,10 +33,6 @@ public class PodsPage extends BasePage {
     private void clickOnCreateANewPodButton() {
         createANewPodButton.click();
     }
-
-//    private String getModalLabelText() {
-//        return modalLabel.getText();
-//    }
 
     public NewPodModal clickNewPodButton() {
         clickOnCreateANewPodButton();

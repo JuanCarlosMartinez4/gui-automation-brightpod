@@ -2,16 +2,15 @@ package brightpod;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LogoutPage extends BasePage {
 
     @FindBy(xpath = "//*[contains(text(),'You have been logged out.')]")
-    WebElement loggedOutText;
+    private WebElement loggedOutText;
 
     @FindBy(linkText = "Or, get back to the login page...")
-    WebElement returnInitPageLinkText;
+    private WebElement returnInitPageLinkText;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {
@@ -24,7 +23,6 @@ public class LogoutPage extends BasePage {
 
     public void returnInitPage() {
         clickOnReturnInitPageLinkText();
-//        return new LoginPage();
     }
 
     public LogoutPage logoutWithErrors() {

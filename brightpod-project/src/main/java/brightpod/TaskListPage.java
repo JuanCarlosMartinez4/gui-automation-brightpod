@@ -29,46 +29,46 @@ public class TaskListPage extends BasePage {
     private Map<String, String> taskListInformation;
 
     @FindBy(css = "input[type='button'][value='New Task List']")
-    WebElement newTaskListButton;
+    private WebElement newTaskListButton;
 
     @FindBy(id = "task_list_name")
-    WebElement listNameTextBox;
+    private WebElement listNameTextBox;
 
     @FindBy(id = "description")
-    WebElement descriptionTextArea;
+    private WebElement descriptionTextArea;
 
     @FindBy(id = "client_access")
-    WebElement visibleToClientCheckBox;
+    private WebElement visibleToClientCheckBox;
 
     @FindBy(css = "input[type='submit'][value='Add Task List']")
-    WebElement addTaskListButton;
+    private WebElement addTaskListButton;
 
     @FindBy(css = "input[name='task_list_name'][id^='task_list_name_']")
-    WebElement updateListNameTextBox;
+    private WebElement updateListNameTextBox;
 
     @FindBy(css = "textarea[name='description'][id^='tasklist_description_']")
-    WebElement updateDescriptionTextArea;
+    private WebElement updateDescriptionTextArea;
 
     @FindBy(css = "input[id^='client_access_']")
-    WebElement updateVisibleToClientCheckBox;
+    private WebElement updateVisibleToClientCheckBox;
 
     @FindBy(css = "input[id='update_tasklist_button']")
-    WebElement updateTaskListButton;
+    private WebElement updateTaskListButton;
 
     @FindBy(xpath = "//a[@class='delete_tasklist tasklist_link_list'][text()='Remove']")
-    WebElement removeListLink;
+    private WebElement removeListLink;
 
     @FindBy(xpath = "//a[@class='edit_tasklist tasklist_link_list'][text()='Edit']")
-    WebElement editListLink;
+    private WebElement editListLink;
 
     @FindBy(css = "li[id='pods_tab']")
-    WebElement podsTabIcon;
+    private WebElement podsTabIcon;
 
     @FindBy(css = "span[class='list-name']")
-    WebElement listName;
+    private WebElement listName;
 
     @FindBy(css = "div[class='tasklist-desc']")
-    WebElement listDescription;
+    private WebElement listDescription;
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {

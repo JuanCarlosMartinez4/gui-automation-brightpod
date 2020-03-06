@@ -3,29 +3,28 @@ package utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 
 public class Helper {
-    private SimpleDateFormat formatter= new SimpleDateFormat("MMM dd, yyyy");
-    private Calendar calendar = Calendar.getInstance();
-    private final int DAYS = 0;
-    private final int MONTHS = 1;
-    private final int YEARS = 2;
-    private final String TODAY = "TODAY";
-    private final String BEFORE = "BEFORE";
-    private final String AFTER = "AFTER";
-    private String [] date;
-    private Date today = new Date(System.currentTimeMillis());
+    private static SimpleDateFormat formatter= new SimpleDateFormat("MMM dd, yyyy");
+    private static Calendar calendar = Calendar.getInstance();
+    private static final int DAYS = 0;
+    private static final int MONTHS = 1;
+    private static final int YEARS = 2;
+    private static final String TODAY = "TODAY";
+    private static final String BEFORE = "BEFORE";
+    private static final String AFTER = "AFTER";
+    private static String [] date;
+    private static Date today = new Date(System.currentTimeMillis());
 
-    private String formatToday() {
+    private static String formatToday() {
         return formatter.format(today);
     }
 
-    private String[] spliter(String dateString) {
+    private static String[] spliter(String dateString) {
         return dateString.split("-");
     }
 
-    private int[] replaceStringsAfter(String[] date) {
+    private static int[] replaceStringsAfter(String[] date) {
         int [] result = new int[3];
         result[DAYS] = Integer.parseInt(date[DAYS].replaceAll("[^0-9]+", ""));
         result[MONTHS] = Integer.parseInt(date[MONTHS].replaceAll("[^0-9]+", ""));
@@ -33,7 +32,7 @@ public class Helper {
         return result;
     }
 
-    private int[] replaceStringsBefore(String[] date) {
+    private static int[] replaceStringsBefore(String[] date) {
         int [] result = new int[3];
         result[DAYS] = -Integer.parseInt(date[DAYS].replaceAll("[^0-9]+", ""));
         result[MONTHS] = -Integer.parseInt(date[MONTHS].replaceAll("[^0-9]+", ""));
@@ -41,7 +40,7 @@ public class Helper {
         return result;
     }
 
-    private Date setValuesToCalendar(int[] dateNumber) {
+    private static Date setValuesToCalendar(int[] dateNumber) {
         calendar.setTime(today);
         calendar.add(Calendar.DATE, dateNumber[DAYS]);
         calendar.add(Calendar.MONTH, dateNumber[MONTHS]);
@@ -49,7 +48,7 @@ public class Helper {
         return calendar.getTime();
     }
 
-    private String before(String dateString) {
+    private static String before(String dateString) {
         date = spliter(dateString);
         String [] dates = new String[3];
         dates[DAYS] = date[DAYS];
@@ -60,7 +59,7 @@ public class Helper {
         return formatter.format(dateValue);
     }
 
-    private String after(String dateString) {
+    private static String after(String dateString) {
         date = spliter(dateString);
         String [] dates = new String[3];
         dates[DAYS] = date[DAYS];
@@ -71,9 +70,9 @@ public class Helper {
         return formatter.format(dateValue);
     }
 
-    public String formatDate(String date) {
+    public static String formatDate(String date) {
         String value = null;
-        if (date == TODAY) {
+        if (date.equals(TODAY)) {
             value = formatToday();
         }
         else if (date.contains(BEFORE)) {
@@ -82,11 +81,8 @@ public class Helper {
         else if (date.contains(AFTER)) {
             value = after(date);
         }
-        return value;
-    }
-
-    public static void main(String[] args) {
-        Helper helper = new Helper();
-        System.out.println(helper.formatDate("3 DAYS-0 MONTH-0 YEAR-AFTER-FROM TODAY"));
+        String replace = value.replaceAll("[.]", "");
+        String output = replace.substring(0, 1).toUpperCase() + replace.substring(1);
+        return output;
     }
 }

@@ -12,11 +12,11 @@ import java.util.Map;
 public class TaskListPageTest {
     private String podName = "Empty Pod1";
     private HashMap<String, String> texts;
-    TaskListPage taskList;
-    LoginPage loginPage;
-    PodsPage podsPage;
-    NewPodModal podsModal;
-    FormPodPage formPod;
+    private TaskListPage taskList;
+    private LoginPage loginPage;
+    private PodsPage podsPage;
+    private NewPodModal podsModal;
+    private FormPodPage formPod;
 
     @Before
     public void setUp() {
