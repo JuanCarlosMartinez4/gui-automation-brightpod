@@ -22,13 +22,12 @@ public class Hook {
 
     @Before
     public void beforeScenario() {
-//        String page = "/user";
-//        String email = "juan.martinez.at11cc@gmail.com";
-//        String password = "at11account2020";
-//        PageTransporter.goToUrl(page);
-//        LoginPage loginPage = new LoginPage();
-//        PodsPage podsPage = loginPage.login(email, password);
-        System.out.println("init in this hook");
+        String page = "/user";
+        String email = "juan.martinez.at11cc@gmail.com";
+        String password = "at11account2020";
+        PageTransporter.goToUrl(page);
+        LoginPage loginPage = new LoginPage();
+        PodsPage podsPage = loginPage.login(email, password);
     }
 
     @After

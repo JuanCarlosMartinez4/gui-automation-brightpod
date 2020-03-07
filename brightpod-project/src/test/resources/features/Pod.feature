@@ -9,23 +9,17 @@ Feature: Pod
       | Budget Time  | 0.30                                   |
       | Client       | Jala-Fundation                         |
       | Project Lead | juan martinez                          |
-#      | Color        | #F83A22            |
       | Description  | this a description                     |
     Then Pod should contains
     And Search pod by name "Pod01"
     And Remove pod
 
-
-#      | Start Date   | Mar 05, 2020       | Today
-#      | Due Date     | Mar 10, 2020       | 3 days from now
-#    And Quit session
-
-#  Scenario: Archive a Pod
-#    Given Create a Pod with the following values
-#      | Pod Name    | Pod02              |
-#      | Description | this a description |
-#    And Search pod by name "Pod02"
-#    When Remove pod
+  Scenario: Archive a Pod
+    Given Create a Pod with the following values
+      | Pod Name    | Pod02              |
+      | Description | this a description |
+    And Search pod by name "Pod02"
+    When Remove pod
 #
 ##    Then Quit session
 #

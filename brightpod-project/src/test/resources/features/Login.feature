@@ -10,4 +10,6 @@ Feature: Login
   Scenario: Logout
     Given Login with user credentials in "/user"
     When Selects on Logout
+
+
 #    Then Quit session
