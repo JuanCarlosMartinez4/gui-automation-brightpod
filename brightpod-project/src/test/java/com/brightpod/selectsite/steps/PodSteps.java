@@ -1,12 +1,13 @@
-package steps;
+package com.brightpod.selectsite.steps;
 
 import brightpod.PodsPage;
+import brightpod.ScreenShot;
+import brightpod.SearchPod;
 import brightpod.SettingTextLink;
 import brightpod.TaskListPage;
 import brightpod.FormPodPage;
 import brightpod.NewPodModal;
 import brightpod.PageTransporter;
-import brightpod.MenuNavbar;
 import brightpod.LogoutPage;
 import entities.Context;
 import entities.Pod;
@@ -65,6 +66,7 @@ public class PodSteps {
         for (String key: actualPodValues.keySet()) {
             Assert.assertEquals(key + ":: ", pod.getPodInformation().get(key),
                     actualPodValues.get(key));
+            ScreenShot.captureScreenShot(key);
         }
     }
 
@@ -77,10 +79,6 @@ public class PodSteps {
     public void removePod() {
         setting = new SettingTextLink();
         setting.archivePod();
-        MenuNavbar navbar = new MenuNavbar();
-        navbar.logout();
-        logoutPage = new LogoutPage();
-        logoutPage.returnInitPage();
     }
 
     @When("^Edit a Pod with the following$")
@@ -89,5 +87,15 @@ public class PodSteps {
         setting.editPod();
         pod.setPodInformation(podInformation);
         taskList = formPod.updatePod(pod, podInformation.keySet());
+    }
+
+    @Then("The {string} Pod should not exist")
+    public void thePodShouldNotExist(final String podName) {
+        SearchPod searchPod = new SearchPod();
+        String actual = searchPod.verifyDeletedElement(podName);
+        String expected = "Oops, there is nothing to show here.";
+        assert actual.equals(expected);
+        ScreenShot.captureScreenShot(actual);
+
     }
 }

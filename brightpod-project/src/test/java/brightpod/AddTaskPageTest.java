@@ -59,7 +59,7 @@ public class AddTaskPageTest {
         expected.put("name", taskName);
         expected.put("member", "juan martinez");
         addTask = new AddTaskPage();
-        addTask = addTask.createNewTask(listName, taskName, memberName);
+//        addTask = addTask.createNewTask(listName, taskName, memberName);
         TaskPopup taskPopup = addTask.clickOnTaskNameLink(taskName);
         HashMap<String, String> actual = taskPopup.getFieldsText();
         for (String key : actual.keySet()) {
@@ -72,7 +72,7 @@ public class AddTaskPageTest {
         String taskName = "myNewTask";
         String memberName = "juan martinez (Pod Lead)";
         AddTaskPage addTask = new AddTaskPage();
-        addTask.createNewTask(listName, taskName, memberName);
+//        addTask.createNewTask(listName, taskName, memberName);
         SearchPod search = new SearchPod();
         search.searchElementByName(taskName);
         TaskPopup taskPopup = new TaskPopup();

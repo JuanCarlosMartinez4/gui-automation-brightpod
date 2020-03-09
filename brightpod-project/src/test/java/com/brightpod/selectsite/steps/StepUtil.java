@@ -1,4 +1,4 @@
-package steps;
+package com.brightpod.selectsite.steps;
 
 import brightpod.SearchPod;
 

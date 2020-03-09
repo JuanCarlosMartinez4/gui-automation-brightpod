@@ -31,8 +31,8 @@ task executeFeatures(type: Test) {
     options {
         useDefaultListeners = false
 
-        jvmArgs = ['-Dcucumber.options= --glue steps --plugin pretty '
-                           + '--plugin json:build/cucumber/cucumber.json --plugin rerun:build/cucumber/rerun.txt '
+        jvmArgs = ['-Dcucumber.options= --glue com.brightpod.selectsite --plugin pretty '
+                           + '--plugin json:target/cucumber.json --plugin rerun:build/cucumber/rerun.txt '
                            + 'classpath:' + '']
     }
 }
@@ -47,4 +47,5 @@ dependencies {
     testCompile group: 'io.cucumber', name: 'cucumber-picocontainer', version: '5.4.2'
     compile group: 'io.cucumber', name: 'cucumber-testng', version: '5.4.2'
     testCompile group: 'org.testng', name: 'testng', version: '7.1.0'
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: '4.6.0'
 }

@@ -1,7 +1,10 @@
 package entities;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Supplier;
 
 public class TaskList {
     private String name;
@@ -12,7 +15,7 @@ public class TaskList {
     private static final String DESCRIPTION = "Description";
     private static final String IS_VISIBLE = "Is Visible";
 
-    private Map<String, String> taskListValues;
+    private Set<String> modifiedTaskListFields = new HashSet<>();
 
     /**
      * Gets Task List name.
@@ -65,22 +68,32 @@ public class TaskList {
     public void setTaskListInformation(final Map<String, String> taskListInformation) {
         HashMap<String, Runnable> strategyMap = composeStrategyMap(taskListInformation);
         taskListInformation.keySet().forEach(key -> strategyMap.get(key).run());
+        modifiedTaskListFields.addAll(taskListInformation.keySet());
     }
 
     private HashMap<String, Runnable> composeStrategyMap(Map<String, String> taskListInformation) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
         strategyMap.put(NAME, () -> setName(taskListInformation.get(NAME)));
-        strategyMap.put(DESCRIPTION, () ->  setDescription(taskListInformation.get(DESCRIPTION)));
+        strategyMap.put(DESCRIPTION, () -> setDescription(taskListInformation.get(DESCRIPTION)));
         strategyMap.put(IS_VISIBLE, () -> setVisibleToClients(Boolean.parseBoolean(taskListInformation.get(IS_VISIBLE))));
         return strategyMap;
     }
 
-    public Map<String, String> getTaskListInformation() {
-        taskListValues = new HashMap<>();
-        taskListValues.put(NAME, getName());
-        taskListValues.put(DESCRIPTION, getDescription());
-        taskListValues.put(IS_VISIBLE, Boolean.toString(isVisibleToClients()));
+    public HashMap<String, String> getTaskListInformation() {
+        HashMap<String, String> taskListValues = new HashMap<>();
+        HashMap<String, Supplier> strategyMap = composeStrategyMapGet();
+        for (String field : modifiedTaskListFields) {
+            taskListValues.put(field, strategyMap.get(field).get().toString());
+        }
         return taskListValues;
+    }
+
+    private HashMap<String, Supplier> composeStrategyMapGet() {
+        HashMap<String, Supplier> strategyMap = new HashMap<>();
+        strategyMap.put(NAME, () -> getName());
+        strategyMap.put(DESCRIPTION, () -> getDescription());
+        strategyMap.put(IS_VISIBLE, () -> Boolean.toString(isVisibleToClients()));
+        return strategyMap;
     }
 }

@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class TaskListPage extends BasePage {
 
@@ -26,7 +27,11 @@ public class TaskListPage extends BasePage {
 
     private static final String TASK_LIST_DESCRIPTION = "//div[contains(text(),'%s')]";
 
-    private Map<String, String> taskListInformation;
+    private HashMap<String, String> taskListInformation;
+
+    private static final String NAME = "Name";
+    private static final String DESCRIPTION = "Description";
+    private static final String IS_VISIBLE = "Is Visible";
 
     @FindBy(css = "input[type='button'][value='New Task List']")
     private WebElement newTaskListButton;
@@ -198,17 +203,28 @@ public class TaskListPage extends BasePage {
         return listDescription.getText();
     }
 
-    public Map<String, String> getCreatedTaskListInformation(final String listName, final String description) {
+    public HashMap<String, String> getCreatedTaskListInformation(final HashMap<String, String> listInformation) {
         taskListInformation = new HashMap<>();
-        taskListInformation.put("name", getTaskListNameText(listName));
-        taskListInformation.put("description", getTaskListDescriptionText(description));
+        HashMap<String, Supplier> strategyMapGet = composeStrategyMapGet(listInformation);
+
+        for (String field : listInformation.keySet()) {
+            taskListInformation.put(field, strategyMapGet.get(field).get().toString());
+        }
         return taskListInformation;
+    }
+
+    private HashMap<String, Supplier> composeStrategyMapGet(final HashMap<String, String>listInformation) {
+        HashMap<String, Supplier> strategyMapGet = new HashMap<>();
+        strategyMapGet.put(NAME, () -> getTaskListNameText(listInformation.get(NAME)));
+        strategyMapGet.put(DESCRIPTION, () -> getTaskListDescriptionText(listInformation.get(DESCRIPTION)));
+        strategyMapGet.put(IS_VISIBLE, () -> listInformation.get(IS_VISIBLE));
+        return strategyMapGet;
     }
 
     public Map<String, String> getUpdatedTaskListInformation() {
         taskListInformation = new HashMap<>();
-        taskListInformation.put("name", getListName());
-        taskListInformation.put("description", getListDescription());
+        taskListInformation.put(NAME, getListName());
+        taskListInformation.put(DESCRIPTION, getListDescription());
         return taskListInformation;
     }
 
@@ -223,9 +239,9 @@ public class TaskListPage extends BasePage {
     private HashMap<String, Runnable> composeStrategyMap(TaskList taskList) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
-        strategyMap.put("Name", () -> setListNameTextBox(taskList.getName()));
-        strategyMap.put("Description", () -> setDescriptionTextArea(taskList.getDescription()));
-        strategyMap.put("Is Visible", () -> checkVisibleToClientsCheckBox(taskList.isVisibleToClients()));
+        strategyMap.put(NAME, () -> setListNameTextBox(taskList.getName()));
+        strategyMap.put(DESCRIPTION, () -> setDescriptionTextArea(taskList.getDescription()));
+        strategyMap.put(IS_VISIBLE, () -> checkVisibleToClientsCheckBox(taskList.isVisibleToClients()));
         return strategyMap;
     }
 
@@ -239,9 +255,9 @@ public class TaskListPage extends BasePage {
     private HashMap<String, Runnable> composeStrategyMapUpdate(TaskList taskList) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
-        strategyMap.put("Name", () -> setUpdateListNameTextBox(taskList.getName()));
-        strategyMap.put("Description", () -> setUpdateDescriptionTextArea(taskList.getDescription()));
-        strategyMap.put("Is Visible", () -> checkUpdateVisibleToClientsCheckBox(taskList.isVisibleToClients()));
+        strategyMap.put(NAME, () -> setUpdateListNameTextBox(taskList.getName()));
+        strategyMap.put(DESCRIPTION, () -> setUpdateDescriptionTextArea(taskList.getDescription()));
+        strategyMap.put(IS_VISIBLE, () -> checkUpdateVisibleToClientsCheckBox(taskList.isVisibleToClients()));
         return strategyMap;
     }
 

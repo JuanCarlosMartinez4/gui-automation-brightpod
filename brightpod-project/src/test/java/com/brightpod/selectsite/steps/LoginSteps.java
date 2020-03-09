@@ -1,4 +1,4 @@
-package steps;
+package com.brightpod.selectsite.steps;
 
 import brightpod.MenuNavbar;
 import brightpod.LogoutPage;
@@ -6,6 +6,7 @@ import brightpod.LoginPage;
 import brightpod.MePage;
 import brightpod.PageTransporter;
 import brightpod.PodsPage;
+import brightpod.ScreenShot;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -28,6 +29,7 @@ public class LoginSteps {
         MePage mePage = new MePage();
         String actual = mePage.verifyUserLogged(userName, email);
         Assert.assertEquals(": ", email, actual);
+        ScreenShot.captureScreenShot(actual);
     }
 
     @When("^Selects on Logout$")
@@ -36,9 +38,4 @@ public class LoginSteps {
         LogoutPage logoutPage = navbar.logout();
         logoutPage.returnInitPage();
     }
-
-//    @And("^Quit session$")
-//    public void closeSession() {
-//        WebDriverManager.getInstance().quitDriver();
-//    }
 }

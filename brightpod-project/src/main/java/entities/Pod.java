@@ -167,8 +167,10 @@ public class Pod {
 
     public void setPodInformation(final Map<String, String> podInformation) {
         Map<String, String> currentPodInformation = new HashMap<>(podInformation);
-        currentPodInformation.put(START_DATE, Helper.formatDate(podInformation.get(START_DATE)));
-        currentPodInformation.put(DUE_DATE, Helper.formatDate(podInformation.get(DUE_DATE)));
+        if (podInformation.get(START_DATE) != null)
+            currentPodInformation.put(START_DATE, Helper.formatDate(podInformation.get(START_DATE)));
+        if (podInformation.get(DUE_DATE) != null)
+            currentPodInformation.put(DUE_DATE, Helper.formatDate(podInformation.get(DUE_DATE)));
         HashMap<String, Runnable> strategyMap = composeStrategyMap(currentPodInformation);
         currentPodInformation.keySet().forEach(key -> strategyMap.get(key).run());
         modifiedPodFields.addAll(currentPodInformation.keySet());

@@ -76,6 +76,8 @@ public final class Helper {
 
     public static String formatDate(String date) {
         String value = null;
+        if (date == null)
+            return date;
         if (date.equals(TODAY)) {
             value = formatToday();
         } else if (date.contains(BEFORE)) {
