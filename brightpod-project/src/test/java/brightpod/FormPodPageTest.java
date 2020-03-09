@@ -1,6 +1,8 @@
 package brightpod;
 
 import core.WebDriverManager;
+import entities.Context;
+import entities.Pod;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,31 +12,49 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FormPodPageTest {
-    private String podName = "Empty Pod1";
-    private HashMap<String, String> texts;
+    private String podName = "Pod1";
+    private Map<String, String> podInformation;
     private PodsPage podsPage;
-    private NewPodModal podModal;
     private FormPodPage formPod;
     private SearchPod search;
     private TaskListPage taskList;
     private SettingTextLink setting;
+    private NewPodModal newPodModal;
+
+    Context context;
+    Pod pod;
+
+    public FormPodPageTest(final Context context) {
+        this.context = context;
+        this.pod = context.getPod();
+    }
+
+    final static private String POD_NAME = "Pod Name";
+    final static private String START_DATE = "Start Date";
+    final static private String DUE_DATE = "Due Date";
+    final static private String BUDGET_TIME = "Budget Time";
+    final static private String CLIENT = "Client";
+    final static private String POD_LEAD = "Project Lead";
+    final static private String POD_COLOR = "Color";
+    final static private String DESCRIPTION = "Description";
 
     private Map<String, String> actualPodValues;
 
     @Before
     public void setUp() {
-        String email = "juan.martinez.tacc11@gmail.com";
-        String password = "passacction20B";
-        texts = new HashMap<>();
-        texts.put("podName", podName);
-        texts.put("startDate", "29");
-        texts.put("dueDate", "1");
-        texts.put("budgetTime", "0.30");
-        texts.put("client", "fundacion");
-        texts.put("projectLead", "juan martinez");
-        texts.put("color", "#F83A22");
-        texts.put("description", "this a description");
+        String email = "juan.martinez.at11cc@gmail.com";
+        String password = "at11account2020";
+        podInformation = new HashMap<>();
+        podInformation.put(POD_NAME, podName);
+        podInformation.put(START_DATE, "TODAY");
+        podInformation.put(DUE_DATE, "TODAY");
+        podInformation.put(BUDGET_TIME, "0.30");
+        podInformation.put(CLIENT, "Jala-Fundation");
+        podInformation.put(POD_LEAD, "juan martinez");
+        podInformation.put(DESCRIPTION, "this is a description");
         LoginPage loginPage = new LoginPage();
+        String page = "/user";
+        PageTransporter.goToUrl(page);
         podsPage = loginPage.login(email, password);
     }
 
@@ -53,22 +73,22 @@ public class FormPodPageTest {
 
     @Test
     public void createNewPod_newPod() {
-        podModal = podsPage.clickNewPodButton();
-        formPod = podModal.createNewPod();
-
         HashMap<String, String> expected = new HashMap<>();
-        expected.put("podName", podName);
-        expected.put("startDate", "Feb 29, 2020");
-        expected.put("dueDate", "Mar 01, 2020");
-        expected.put("budgetTime", "0.30");
-        expected.put("client", "fundacion");
-        expected.put("projectLead", "You");
-        expected.put("description", "this a description");
-//        TaskListPage taskList = formPod.createNewPod(texts);
+        expected.put(POD_NAME, podName);
+        expected.put(START_DATE, "TODAY");
+        expected.put(DUE_DATE, "TODAY");
+        expected.put(BUDGET_TIME, "0.30");
+        expected.put(CLIENT, "Jala-Fundation");
+        expected.put(POD_LEAD, "juan martinez");
+        expected.put(DESCRIPTION, "this is a description");
+        pod.setPodInformation(podInformation);
+        podsPage = new PodsPage();
+        newPodModal = podsPage.clickNewPodButton();
+        formPod = newPodModal.createNewPod();
+        taskList = formPod.createNewPod(pod, podInformation.keySet());
         SettingTextLink setting = new SettingTextLink();
         setting.editPod();
-//        actualPodValues = formPod.getPodInformation();
-        formPod.goBackToTheDashboardButton();
+        actualPodValues = formPod.getPodInformation(pod.getPodInformation());
         for (String key : actualPodValues.keySet()) {
             Assert.assertEquals("message: ", expected.get(key), actualPodValues.get(key));
         }
@@ -76,25 +96,20 @@ public class FormPodPageTest {
 
     @Test
     public void updatePod_podUpdated() {
-        podModal = podsPage.clickNewPodButton();
-        formPod = podModal.createNewPod();
+        newPodModal = podsPage.clickNewPodButton();
+        formPod = newPodModal.createNewPod();
 //        taskList = formPod.createNewPod(texts);
         search = new SearchPod();
         search = search.searchElementByName(podName);
         setting = new SettingTextLink();
         setting.editPod();
-        texts = new HashMap<>();
-        texts.put("podName", podName);
-        texts.put("description", "updated description");
+        podInformation = new HashMap<>();
+        podInformation.put(POD_NAME, "updatedPod");
+        podInformation.put(DESCRIPTION, "updated description");
 
         HashMap<String, String> expected = new HashMap<>();
-        expected.put("podName", podName);
-        expected.put("startDate", "Feb 29, 2020");
-        expected.put("dueDate", "Mar 01, 2020");
-        expected.put("budgetTime", "0.30");
-        expected.put("client", "fundacion");
-        expected.put("projectLead", "You");
-        expected.put("description", "updated description");
+        expected.put(POD_NAME, "updatedPod");
+        expected.put(DESCRIPTION, "updated description");
         formPod = new FormPodPage();
 //        taskList = formPod.updatePod(texts);
         setting.editPod();

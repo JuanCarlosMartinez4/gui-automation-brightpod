@@ -2,13 +2,14 @@ package com.brightpod.selectsite.steps;
 
 import brightpod.AddTaskPage;
 import brightpod.TaskListPage;
-import brightpod.TaskPopup;
+
 import entities.Context;
-import entities.Pod;
 import entities.Task;
 import entities.TaskList;
+
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
 import org.junit.Assert;
 
 import java.util.HashMap;

@@ -165,6 +165,10 @@ public class Pod {
         this.description = description;
     }
 
+    /**
+     * Sets pod information values.
+     * @param podInformation map.
+     */
     public void setPodInformation(final Map<String, String> podInformation) {
         Map<String, String> currentPodInformation = new HashMap<>(podInformation);
         if (podInformation.get(START_DATE) != null)
@@ -176,6 +180,11 @@ public class Pod {
         modifiedPodFields.addAll(currentPodInformation.keySet());
     }
 
+    /**
+     * Allows to visit all setter methods.
+     * @param currentPodInformation map.
+     * @return map of visited methods.
+     */
     private HashMap<String, Runnable> composeStrategyMap(Map<String, String> currentPodInformation) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
@@ -190,6 +199,10 @@ public class Pod {
         return strategyMap;
     }
 
+    /**
+     * Gets pod information.
+     * @return map of pod values.
+     */
     public HashMap<String, String> getPodInformation() {
         HashMap<String, String> values = new HashMap<>();
         HashMap<String, Supplier> strategyMap = composeStrategyMapGet();
@@ -199,6 +212,10 @@ public class Pod {
         return values;
     }
 
+    /**
+     * Visits all getter methods.
+     * @return map of visited methods values.
+     */
     private HashMap<String, Supplier> composeStrategyMapGet() {
         HashMap<String, Supplier> strategyMap = new HashMap<>();
 

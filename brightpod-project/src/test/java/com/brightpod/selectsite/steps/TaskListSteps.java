@@ -56,7 +56,6 @@ public class TaskListSteps {
     @When("^Remove taskList by name \"([^\"]*)\"$")
     public void removeTaskListByName(String listName) {
         taskListPage.removeTaskListSearched(listName);
-
     }
 
     @And("^Search taskList by name \"([^\"]*)\"$")

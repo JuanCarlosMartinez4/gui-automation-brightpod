@@ -9,11 +9,14 @@ import brightpod.FormPodPage;
 import brightpod.NewPodModal;
 import brightpod.PageTransporter;
 import brightpod.LogoutPage;
+
 import entities.Context;
 import entities.Pod;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
 import org.junit.Assert;
 
 import java.util.HashMap;
@@ -96,6 +99,5 @@ public class PodSteps {
         String expected = "Oops, there is nothing to show here.";
         assert actual.equals(expected);
         ScreenShot.captureScreenShot(actual);
-
     }
 }

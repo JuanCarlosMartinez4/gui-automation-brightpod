@@ -8,11 +8,22 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Generates reports of scenarios.
+ */
 public class Report {
+
+    /**
+     * Allows to get report instance.
+     * @return report instance.
+     */
     public static Report getInstance() {
         return new Report();
     }
 
+    /**
+     * Generates reports.
+     */
     public void generateReport() {
         final File reportOutputDirectory = new File("target");
         final List<String> jsonFiles = new ArrayList<>();

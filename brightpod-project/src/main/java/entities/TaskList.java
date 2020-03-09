@@ -71,6 +71,11 @@ public class TaskList {
         modifiedTaskListFields.addAll(taskListInformation.keySet());
     }
 
+    /**
+     * Visits all setter methods of task list.
+     * @param taskListInformation map.
+     * @return map of visited setter methods.
+     */
     private HashMap<String, Runnable> composeStrategyMap(Map<String, String> taskListInformation) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
@@ -80,6 +85,10 @@ public class TaskList {
         return strategyMap;
     }
 
+    /**
+     * Gets task list information.
+     * @return task list values.
+     */
     public HashMap<String, String> getTaskListInformation() {
         HashMap<String, String> taskListValues = new HashMap<>();
         HashMap<String, Supplier> strategyMap = composeStrategyMapGet();
@@ -89,6 +98,10 @@ public class TaskList {
         return taskListValues;
     }
 
+    /**
+     * Visits all getter methods of task list.
+     * @return map of visited get methods.
+     */
     private HashMap<String, Supplier> composeStrategyMapGet() {
         HashMap<String, Supplier> strategyMap = new HashMap<>();
         strategyMap.put(NAME, () -> getName());

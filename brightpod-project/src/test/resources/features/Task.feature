@@ -21,8 +21,6 @@ Feature: Task
 #    And Search pod by name "Pod05"
 #    And Remove pod
 
-
-
 #  Scenario: Edit a Task
 #    Given "Create" a "Task" with the following
 #      | Name        | Task 01               |

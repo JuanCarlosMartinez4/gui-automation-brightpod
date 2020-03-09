@@ -1,5 +1,6 @@
 Feature: Pod
 
+
   Scenario: Create a Pod
     Given The application displays "/projects" page
     When Create a Pod with the following values
@@ -13,7 +14,8 @@ Feature: Pod
     Then Pod should contains
     And Search pod by name "Pod01"
     And Remove pod
-#
+
+
   Scenario: Archive a Pod
     Given Create a Pod with the following values
       | Pod Name    | Pod02              |
@@ -21,6 +23,7 @@ Feature: Pod
     And Search pod by name "Pod02"
     When Remove pod
     Then The "Pod02" Pod should not exist
+
 
   Scenario: Edit a Pod
     Given Create a Pod with the following values
