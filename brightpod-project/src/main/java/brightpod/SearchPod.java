@@ -40,6 +40,8 @@ public class SearchPod extends BasePage {
     }
 
     public String verifyDeletedElement(final String elementName) {
+        webDriverWait.until(ExpectedConditions.visibilityOf(searchField));
+        searchField.click();
         setSearchField(elementName);
         return searchErrorText.getText();
     }

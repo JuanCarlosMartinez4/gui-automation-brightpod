@@ -18,12 +18,12 @@ Feature: Task List
 
   Scenario: Delete a Task List
     Given Create a TaskList with the following values
-      | Name        | Task02                |
+      | Name        | TaskList00            |
       | Description | This is a description |
-      | Is Visible  | false                 |
-    And Search taskList by name "Task02"
-    When Remove taskList by name "Task02"
-    Then TaskList "Task02" should not exist
+      | Is Visible  | true                  |
+    And Search taskList by name "TaskList00"
+    When Remove taskList by name "TaskList00"
+    Then TaskList "TaskList00" should not exist
     And Search pod by name "Pod04"
     And Remove pod
 

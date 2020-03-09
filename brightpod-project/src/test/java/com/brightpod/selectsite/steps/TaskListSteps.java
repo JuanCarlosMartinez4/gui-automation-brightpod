@@ -25,6 +25,7 @@ public class TaskListSteps {
     // Pages
     private TaskListPage taskListPage;
     private AddTaskPage addTasKPage;
+    private SearchPod search;
 
     // Task List values.
     private HashMap<String, String> actualTaskListValues;
@@ -73,8 +74,8 @@ public class TaskListSteps {
     }
 
     @Then("TaskList {string} should not exist")
-    public void taskListShouldTExist(final String taskListName) {
-        SearchPod search = new SearchPod();
+    public void taskListShouldNotTExist(final String taskListName) {
+        search = new SearchPod();
         String actual = search.verifyDeletedElement(taskListName);
         String expected = "Oops, there is nothing to show here.";
         taskListPage.clickOnPodsTabIcon();
