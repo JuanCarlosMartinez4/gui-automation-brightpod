@@ -3,6 +3,7 @@ package com.brightpod.selectsite.steps;
 import brightpod.AddTaskPage;
 import brightpod.TaskListPage;
 
+import brightpod.TaskPopup;
 import entities.Context;
 import entities.Task;
 import entities.TaskList;
@@ -37,17 +38,22 @@ public class TaskSteps {
     public void createATaskWithTheFollowingValues(final Map<String, String> taskInformation) {
         task.setTaskInformation(taskInformation);
         addTasKPage = new AddTaskPage();
-//        addTasKPage = addTasKPage.addTaskInformation(task, taskInformation);
+        addTasKPage.addTaskInformation(task, taskInformation.keySet());
     }
 
     @Then("Task should contains")
     public void taskShouldContains() {
-//        actualTaskValues = addTaskPage.getCreatedTaskInformation(task.getTaskInformation());
-//        TaskPopup taskPopup = addTask.clickOnTaskNameLink(taskName);
-//        HashMap<String, String> actual = taskPopup.getFieldsText();
+        TaskPopup taskPopup = new TaskPopup();
+        actualTaskValues = taskPopup.getTaskInformation(task.getTaskInformation());
+        taskPopup.clickOnClosePopUp();
         for (String key : actualTaskValues.keySet()) {
             Assert.assertEquals(key + ": ", task.getTaskInformation().get(key),
                     actualTaskValues.get(key));
         }
+    }
+
+    @Then("Search task by name {string}")
+    public void searchTaskByName(final String taskName) {
+        StepUtil.searchElement(taskName);
     }
 }

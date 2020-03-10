@@ -1,10 +1,16 @@
 package brightpod;
 
+import entities.Task;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Supplier;
 
 /**
  * Manages tasks
@@ -24,7 +30,7 @@ public class AddTaskPage extends BasePage {
 
     private static final String TASK_NAME_LINK = "//a[contains(text(),'%s')]";
 
-    private static final String MEMBER_COMBOBOX = "//div//form[@id='task_form']/following::select[starts-with(@id,'task_assign_to_')]";
+    private static final String MEMBER_COMBOBOX = "//div//form[@id='task_form']//select[starts-with(@id,'task_assign_to_')]";
 
     private static final String SET_YEAR = "//span[text()[. = '%s']]";
 
@@ -44,16 +50,19 @@ public class AddTaskPage extends BasePage {
     private static final int DAY_VALUE = 1;
 
     @FindBy(css = "a[class='btn btn-default btn-xs btn-success add_new_task']")
-    WebElement addTaskButton;
+    private WebElement addTaskButton;
 
-    @FindBy(xpath = "//div//form[@id='task_form']/following::textarea[starts-with(@id,'task_name_')]")
-    WebElement taskNameTextArea;
+    @FindBy(xpath = "//div//form[@id='task_form']//textarea[starts-with(@id,'task_name_')]")
+    private WebElement taskNameTextArea;
 
-    @FindBy(xpath = "//div//form[@id='task_form']/following::input[starts-with(@id,'task_due_date_')]")
-    WebElement dueDateTextBox;
+    @FindBy(xpath = "//div//form[@id='task_form']//input[starts-with(@id,'task_due_date_')]")
+    private WebElement dueDateTextBox;
 
-    @FindBy(xpath = "//div//form[@id='task_form']/following::input[starts-with(@id,'mark_as_important_')]")
-    WebElement highPriorityCheckbox;
+    @FindBy(xpath = "//div//form[@id='task_form']//input[starts-with(@id,'mark_as_important_')]")
+    private WebElement highPriorityCheckbox;
+
+    @FindBy(xpath = "//div[starts-with(@class, 'add-task-area')]//input[@class='btn btn-default btn-success add-task-button']")
+    private WebElement addTaskButtonToSave;
 
     @FindBy(xpath = "//div[@class='datepicker-days']/table//th[@class='datepicker-switch']")
     private WebElement onDaysButton;
@@ -155,6 +164,7 @@ public class AddTaskPage extends BasePage {
      * @param taskName value.
      */
     private void setTaskNameTextArea(final String taskName) {
+        taskNameTextArea.clear();
         taskNameTextArea.sendKeys(taskName);
     }
 
@@ -255,29 +265,30 @@ public class AddTaskPage extends BasePage {
         setCalendarValues(SET_DAY, splitDate[DAY_VALUE]);
     }
 
-//    public AddTaskPage createNewTask(final String listName, final String taskName, final String memberName) {
-//        clickOnAddNewTaskButton(listName);
-//        setTaskTextArea(listName, taskName);
-//        setMemberToTask(listName, memberName);
-//        setHighPriorityCheckbox(listName);
-//        clickOnAddTaskButton(listName);
-//        return new AddTaskPage();
-//    }
+    private void clickOnHighPriorityCheckBox(boolean isVisible) {
+        if (isVisible)
+            highPriorityCheckbox.click();
+    }
 
-//    public TaskListPage addTaskInformation(final Task task, final HashMap<String, String> fields) {
-//        clickOnAddNewTaskButton(fields.get());
-//        HashMap<String, Runnable> strategyMap = composeStrategyMap(taskList);
-//        fields.forEach(field -> strategyMap.get(field).run());
-//        clickOnAddTaskListButton();
-//        return new TaskListPage();
-//    }
-//
-//    private HashMap<String, Runnable> composeStrategyMap(TaskList taskList) {
-//        HashMap<String, Runnable> strategyMap = new HashMap<>();
-//
-//        strategyMap.put(NAME, () -> setListNameTextBox(taskList.getName()));
-//        strategyMap.put(DESCRIPTION, () -> setDescriptionTextArea(taskList.getDescription()));
-//        strategyMap.put(IS_VISIBLE, () -> checkVisibleToClientsCheckBox(taskList.isVisibleToClients()));
-//        return strategyMap;
-//    }
+    private void clickOnAddTaskButtonToSave() {
+        webDriverWait.until(ExpectedConditions.visibilityOf(addTaskButtonToSave));
+        addTaskButtonToSave.click();
+    }
+
+    public void addTaskInformation(final Task task, final Set<String> fields) {
+        clickOnAddTaskButton();
+        HashMap<String, Runnable> strategyMap = composeStrategyMap(task);
+        fields.forEach(field -> strategyMap.get(field).run());
+        clickOnAddTaskButtonToSave();
+    }
+
+    private HashMap<String, Runnable> composeStrategyMap(final Task task) {
+        HashMap<String, Runnable> strategyMap = new HashMap<>();
+
+        strategyMap.put(TASK_NAME, () -> setTaskNameTextArea(task.getTaskName()));
+        strategyMap.put(MEMBER, () -> selectMemberComboBox(task.getMember()));
+        strategyMap.put(DUE_DATE, () -> clickOnDueDateTextBox(task.getDueDate()));
+        strategyMap.put(HIGH_PRIORITY, () -> clickOnHighPriorityCheckBox(task.isHighPriority()));
+        return strategyMap;
+    }
 }

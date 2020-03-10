@@ -148,15 +148,15 @@ public class TaskListPage extends BasePage {
     }
 
     private void setUpdateListNameTextBox(final String listName) {
-        if (listName == null)
-            return;
+//        if (listName == null)
+//            return;
         updateListNameTextBox.clear();
         updateListNameTextBox.sendKeys(listName);
     }
 
     private void setUpdateDescriptionTextArea(final String description) {
-        if (description == null)
-            return;
+//        if (description == null)
+//            return;
         updateDescriptionTextArea.clear();
         updateDescriptionTextArea.sendKeys(description);
     }
