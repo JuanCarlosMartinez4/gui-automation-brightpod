@@ -34,8 +34,8 @@ public class TaskListPageTest {
 
     @After
     public void tearDown() {
-        SearchPod searchPod = new SearchPod();
-        searchPod.searchElementByName(podName);
+        SearchElement searchElement = new SearchElement();
+        searchElement.searchElementByName(podName);
         SettingTextLink setting = new SettingTextLink();
         setting.archivePod();
         MenuNavbar navbar = new MenuNavbar();
@@ -67,7 +67,7 @@ public class TaskListPageTest {
         String listDescription = "This tasks are for week";
         boolean isVisible = true;
 //        taskList = taskList.addTaskListInformation(listName, listDescription, isVisible);
-        SearchPod search = new SearchPod();
+        SearchElement search = new SearchElement();
         search.searchElementByName(listName);
         taskList.editTaskListSearched(listName);
         texts = new HashMap<>();
@@ -91,7 +91,7 @@ public class TaskListPageTest {
         boolean isVisible = false;
         taskList = new TaskListPage();
 //        taskList = taskList.addTaskListInformation(listName, listDescription, isVisible);
-        SearchPod search = new SearchPod();
+        SearchElement search = new SearchElement();
         search.searchElementByName(listName);
         taskList.removeTaskListSearched(listName);
         String actual = search.verifyDeletedElement(listName);

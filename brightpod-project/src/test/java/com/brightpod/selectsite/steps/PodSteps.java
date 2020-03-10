@@ -1,8 +1,7 @@
 package com.brightpod.selectsite.steps;
 
 import brightpod.PodsPage;
-import brightpod.ScreenShot;
-import brightpod.SearchPod;
+import brightpod.SearchElement;
 import brightpod.SettingTextLink;
 import brightpod.TaskListPage;
 import brightpod.FormPodPage;
@@ -24,7 +23,7 @@ public class PodSteps {
 
     // Pages
     private PodsPage podsPage;
-    private TaskListPage taskList;
+    private TaskListPage taskListPage;
     private SettingTextLink setting;
     private FormPodPage formPod;
     private LogoutPage logoutPage;
@@ -50,7 +49,7 @@ public class PodSteps {
         podsPage = new PodsPage();
         newPodModal = podsPage.clickNewPodButton();
         formPod = newPodModal.createNewPod();
-        taskList = formPod.createNewPod(pod, podInformation.keySet());
+        taskListPage = formPod.createNewPod(pod, podInformation.keySet());
     }
 
     @Then("^Pod should contains input data values$")
@@ -62,7 +61,6 @@ public class PodSteps {
         for (String key: actualPodValues.keySet()) {
             Assert.assertEquals(key + ":: ", pod.getPodInformation().get(key),
                     actualPodValues.get(key));
-            ScreenShot.captureScreenShot(key);
         }
     }
 
@@ -82,15 +80,14 @@ public class PodSteps {
         setting = new SettingTextLink();
         setting.editPod();
         pod.setPodInformation(podInformation);
-        taskList = formPod.updatePod(pod, podInformation.keySet());
+        taskListPage = formPod.updatePod(pod, podInformation.keySet());
     }
 
     @Then("The {string} Pod should not exist")
     public void thePodShouldNotExist(final String podName) {
-        SearchPod searchPod = new SearchPod();
-        String actual = searchPod.verifyDeletedElement(podName);
+        SearchElement searchElement = new SearchElement();
+        String actual = searchElement.verifyDeletedElement(podName);
         String expected = "Oops, there is nothing to show here.";
         assert actual.equals(expected);
-        ScreenShot.captureScreenShot(actual);
     }
 }

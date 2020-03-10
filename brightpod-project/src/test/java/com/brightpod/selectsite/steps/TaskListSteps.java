@@ -1,7 +1,7 @@
 package com.brightpod.selectsite.steps;
 
 import brightpod.AddTaskPage;
-import brightpod.SearchPod;
+import brightpod.SearchElement;
 import brightpod.TaskListPage;
 
 import entities.Context;
@@ -25,7 +25,7 @@ public class TaskListSteps {
     // Pages
     private TaskListPage taskListPage;
     private AddTaskPage addTasKPage;
-    private SearchPod search;
+    private SearchElement search;
 
     // Task List values.
     private HashMap<String, String> actualTaskListValues;
@@ -72,7 +72,7 @@ public class TaskListSteps {
 
     @Then("TaskList {string} should not exist")
     public void taskListShouldNotTExist(final String taskListName) {
-        search = new SearchPod();
+        search = new SearchElement();
         String actual = search.verifyDeletedElement(taskListName);
         String expected = "Oops, there is nothing to show here.";
         taskListPage.clickOnPodsTabIcon();

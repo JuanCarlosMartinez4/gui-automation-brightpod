@@ -1,7 +1,7 @@
 package com.brightpod.selectsite.steps;
 
 import brightpod.AddTaskPage;
-import brightpod.SearchPod;
+import brightpod.SearchElement;
 import brightpod.TaskListPage;
 
 import brightpod.TaskPopup;
@@ -24,7 +24,7 @@ public class TaskSteps {
     // Pages
     private TaskListPage taskListPage;
     private AddTaskPage addTasKPage;
-    private SearchPod searchPod;
+    private SearchElement searchElement;
     private TaskPopup taskPopup;
 
     // Task List values.
@@ -56,7 +56,7 @@ public class TaskSteps {
 
     @And("Searches task by name {string}")
     public void searchTaskByName(final String taskName) {
-        searchPod = new SearchPod();
-        taskPopup = searchPod.displayElementByName(taskName);
+        searchElement = new SearchElement();
+        taskPopup = searchElement.displayElementByName(taskName);
     }
 }

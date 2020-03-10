@@ -16,7 +16,6 @@ public class WebDriverManager {
         try {
 //            String browser = System.getProperty("browser");
 //            String url = System.getProperty("url");
-
             initialize();
         } catch (Exception ex) {
             ex.printStackTrace();

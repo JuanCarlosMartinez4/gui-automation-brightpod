@@ -104,44 +104,48 @@ public class TaskListPage extends BasePage {
         addTaskListButton.click();
     }
 
-    private WebElement getTaskListNameByName(final String listName) {
-        return webDriver.findElement(By.xpath(String.format(TASK_LIST_NAME, listName)));
+    private WebElement getWebElement(final String xpathLocator, final String name) {
+        return webDriver.findElement(By.xpath(String.format(xpathLocator, name)));
     }
+
+//    private WebElement getTaskListNameByName(final String listName) {
+//        return webDriver.findElement(By.xpath(String.format(TASK_LIST_NAME, listName)));
+//    }
 
     private String getTaskListNameText(final String listName) {
-        return getTaskListNameByName(listName).getText();
+        return getWebElement(TASK_LIST_NAME, listName).getText();
     }
 
-    private WebElement getTaskListDescription(final String description) {
-        return webDriver.findElement(By.xpath(String.format(TASK_LIST_DESCRIPTION, description)));
-    }
+//    private WebElement getTaskListDescription(final String description) {
+//        return webDriver.findElement(By.xpath(String.format(TASK_LIST_DESCRIPTION, description)));
+//    }
 
     private String getTaskListDescriptionText(final String description) {
-        return getTaskListDescription(description).getText();
+        return getWebElement(TASK_LIST_DESCRIPTION, description).getText();
     }
 
-    private WebElement getTaskListDropdownList(final String listName) {
-        return webDriver.findElement(By.xpath(String.format(TASK_LIST_DROPDOWN_LIST, listName)));
-    }
+//    private WebElement getTaskListDropdownList(final String listName) {
+//        return webDriver.findElement(By.xpath(String.format(TASK_LIST_DROPDOWN_LIST, listName)));
+//    }
 
     private void clickOnTaskListDropdownList(final String listName) {
-        getTaskListDropdownList(listName).click();
+        getWebElement(TASK_LIST_DROPDOWN_LIST, listName).click();
     }
 
-    private WebElement getEditTaskListLink(final String listName) {
-        return webDriver.findElement(By.xpath(String.format(EDIT_TASK_LIST, listName)));
-    }
+//    private WebElement getEditTaskListLink(final String listName) {
+//        return webDriver.findElement(By.xpath(String.format(EDIT_TASK_LIST, listName)));
+//    }
 
     private void clickOnEditTaskListLink(final String listName) {
-        getEditTaskListLink(listName).click();
+        getWebElement(EDIT_TASK_LIST, listName).click();
     }
 
-    private WebElement getRemoveTaskListLink(final String listName) {
-        return webDriver.findElement(By.xpath(String.format(REMOVE_TASK_LIST, listName)));
-    }
+//    private WebElement getRemoveTaskListLink(final String listName) {
+//        return webDriver.findElement(By.xpath(String.format(REMOVE_TASK_LIST, listName)));
+//    }
 
     private void clickOnRemoveTaskListLink(final String listName) {
-        getRemoveTaskListLink(listName).click();
+        getWebElement(REMOVE_TASK_LIST, listName).click();
     }
 
     private void setUpdateListNameTextBox(final String listName) {
@@ -159,13 +163,13 @@ public class TaskListPage extends BasePage {
             updateVisibleToClientCheckBox.click();
     }
 
-    private WebElement getListFoundLink(final String listName) {
-        return webDriver.findElement(By.xpath(String.format(LIST_FOUND_LINK, listName)));
-    }
+//    private WebElement getListFoundLink(final String listName) {
+//        return webDriver.findElement(By.xpath(String.format(LIST_FOUND_LINK, listName)));
+//    }
 
     private void mouseOverFoundLink(final String listMame) {
         Actions actions = new Actions(webDriver);
-        actions.moveToElement(getListFoundLink(listMame)).perform();
+        actions.moveToElement(getWebElement(LIST_FOUND_LINK, listMame)).perform();
     }
 
     private void clickOnRemoveListLink() {

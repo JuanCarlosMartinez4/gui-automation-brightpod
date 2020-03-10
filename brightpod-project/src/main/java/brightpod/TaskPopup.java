@@ -1,5 +1,6 @@
 package brightpod;
 
+import brightpod.constants.TaskConstant;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,10 +12,10 @@ import java.util.function.Supplier;
 public class TaskPopup extends BasePage {
     private HashMap<String, String> taskInformation;
 
-    private static final String TASK_NAME = "Task Name";
-    private static final String MEMBER = "Member";
-    private static final String DUE_DATE = "Due Date";
-    private static final String HIGH_PRIORITY = "High Priority";
+//    private static final String TASK_NAME = "Task Name";
+//    private static final String MEMBER = "Member";
+//    private static final String DUE_DATE = "Due Date";
+//    private static final String HIGH_PRIORITY = "High Priority";
 
     @FindBy(css = "a[class='task_delete_sidebar']")
     private WebElement removeTaskLink;
@@ -97,10 +98,10 @@ public class TaskPopup extends BasePage {
 
     private HashMap<String, Supplier> composeStrategyMapGet() {
         HashMap<String, Supplier> strategyMapGet = new HashMap<>();
-        strategyMapGet.put(TASK_NAME, () -> getTaskName());
-        strategyMapGet.put(MEMBER, () -> getAssignedName());
-        strategyMapGet.put(DUE_DATE, () -> getDueDate());
-        strategyMapGet.put(HIGH_PRIORITY, () -> getHighPriority());
+        strategyMapGet.put(TaskConstant.TASK_NAME, () -> getTaskName());
+        strategyMapGet.put(TaskConstant.MEMBER, () -> getAssignedName());
+        strategyMapGet.put(TaskConstant.DUE_DATE, () -> getDueDate());
+        strategyMapGet.put(TaskConstant.HIGH_PRIORITY, () -> getHighPriority());
         return strategyMapGet;
     }
 }

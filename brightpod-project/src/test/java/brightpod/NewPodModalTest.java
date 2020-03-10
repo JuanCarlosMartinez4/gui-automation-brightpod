@@ -19,8 +19,8 @@ public class NewPodModalTest {
 
     @After
     public void tearDown() {
-        SearchPod searchPod = new SearchPod();
-        searchPod.searchElementByName(podName);
+        SearchElement searchElement = new SearchElement();
+        searchElement.searchElementByName(podName);
         SettingTextLink setting = new SettingTextLink();
         setting.archivePod();
         MenuNavbar navbar = new MenuNavbar();

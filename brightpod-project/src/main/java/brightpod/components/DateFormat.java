@@ -1,11 +1,11 @@
-package utils;
+package brightpod.components;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public final class Helper {
-    private Helper() {
+public final class DateFormat {
+    private DateFormat() {
 
     }
 
@@ -18,6 +18,7 @@ public final class Helper {
     private static final String BEFORE = "BEFORE";
     private static final String AFTER = "AFTER";
     private static String[] date;
+    private static final int LIST_SIZE = 3;
     private static Date today = new Date(System.currentTimeMillis());
 
     private static String formatToday() {
@@ -29,7 +30,7 @@ public final class Helper {
     }
 
     private static int[] replaceStringsAfter(String[] date) {
-        int[] result = new int[3];
+        int[] result = new int[LIST_SIZE];
         result[DAYS] = Integer.parseInt(date[DAYS].replaceAll("[^0-9]+", ""));
         result[MONTHS] = Integer.parseInt(date[MONTHS].replaceAll("[^0-9]+", ""));
         result[YEARS] = Integer.parseInt(date[YEARS].replaceAll("[^0-9]+", ""));
@@ -37,7 +38,7 @@ public final class Helper {
     }
 
     private static int[] replaceStringsBefore(String[] date) {
-        int[] result = new int[3];
+        int[] result = new int[LIST_SIZE];
         result[DAYS] = -Integer.parseInt(date[DAYS].replaceAll("[^0-9]+", ""));
         result[MONTHS] = -Integer.parseInt(date[MONTHS].replaceAll("[^0-9]+", ""));
         result[YEARS] = -Integer.parseInt(date[YEARS].replaceAll("[^0-9]+", ""));
@@ -54,7 +55,7 @@ public final class Helper {
 
     private static String before(String dateString) {
         date = spliter(dateString);
-        String[] dates = new String[3];
+        String[] dates = new String[LIST_SIZE];
         dates[DAYS] = date[DAYS];
         dates[MONTHS] = date[MONTHS];
         dates[YEARS] = date[YEARS];
@@ -65,7 +66,7 @@ public final class Helper {
 
     private static String after(String dateString) {
         date = spliter(dateString);
-        String[] dates = new String[3];
+        String[] dates = new String[LIST_SIZE];
         dates[DAYS] = date[DAYS];
         dates[MONTHS] = date[MONTHS];
         dates[YEARS] = date[YEARS];

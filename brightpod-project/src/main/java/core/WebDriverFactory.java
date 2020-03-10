@@ -7,10 +7,12 @@ import java.util.Map;
 
 public class WebDriverFactory {
 
+    private static final String CHROME = "Chrome";
+    private static final String FIREFOX = "Firefox";
     public static WebDriver getWebDriver(String browserName) {
         Map<String, IDriver> mapDrivers = new HashMap<>();
-        mapDrivers.put("Chrome", new Chrome());
-        mapDrivers.put("Firefox", new Firefox());
+        mapDrivers.put(CHROME, new Chrome());
+        mapDrivers.put(FIREFOX, new Firefox());
         return mapDrivers.get(browserName).initDriver();
     }
 }

@@ -1,11 +1,11 @@
 package com.brightpod.selectsite.steps;
 
-import brightpod.SearchPod;
+import brightpod.SearchElement;
 
 public class StepUtil {
 
     public static void searchElement(String element) {
-        SearchPod searchPod = new SearchPod();
-        searchPod.searchElementByName(element);
+        SearchElement searchElement = new SearchElement();
+        searchElement.searchElementByName(element);
     }
 }

@@ -28,7 +28,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
         MenuNavbar navbar = new MenuNavbar();
         LogoutPage logoutPage = navbar.logout();
         logoutPage.returnInitPage();
-        WebDriverManager.getInstance().quitDriver();
         Report.getInstance().generateReport();
+        WebDriverManager.getInstance().quitDriver();
     }
 }

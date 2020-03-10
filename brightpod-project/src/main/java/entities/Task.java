@@ -1,7 +1,7 @@
 package entities;
 
 import brightpod.constants.TaskConstant;
-import utils.Helper;
+import brightpod.components.DateFormat;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -102,7 +102,7 @@ public class Task {
         Map<String, String> currentTaskInformation = new HashMap<>(taskInformation);
         if (taskInformation.get(TaskConstant.DUE_DATE) != null) {
             currentTaskInformation.put(TaskConstant.DUE_DATE,
-                Helper.formatDate(taskInformation.get(TaskConstant.DUE_DATE)));
+                DateFormat.formatDate(taskInformation.get(TaskConstant.DUE_DATE)));
         }
 
         HashMap<String, Runnable> strategyMap = composeStrategyMap(currentTaskInformation);

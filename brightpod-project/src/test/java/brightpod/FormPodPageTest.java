@@ -16,7 +16,7 @@ public class FormPodPageTest {
     private Map<String, String> podInformation;
     private PodsPage podsPage;
     private FormPodPage formPod;
-    private SearchPod search;
+    private SearchElement search;
     private TaskListPage taskList;
     private SettingTextLink setting;
     private NewPodModal newPodModal;
@@ -60,8 +60,8 @@ public class FormPodPageTest {
 
     @After
     public void tearDown() {
-        SearchPod searchPod = new SearchPod();
-        searchPod.searchElementByName(podName);
+        SearchElement searchElement = new SearchElement();
+        searchElement.searchElementByName(podName);
         SettingTextLink setting = new SettingTextLink();
         setting.archivePod();
         MenuNavbar navbar = new MenuNavbar();
@@ -99,7 +99,7 @@ public class FormPodPageTest {
         newPodModal = podsPage.clickNewPodButton();
         formPod = newPodModal.createNewPod();
 //        taskList = formPod.createNewPod(texts);
-        search = new SearchPod();
+        search = new SearchElement();
         search = search.searchElementByName(podName);
         setting = new SettingTextLink();
         setting.editPod();

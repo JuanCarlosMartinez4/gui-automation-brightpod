@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class SearchPod extends BasePage {
+public class SearchElement extends BasePage {
 
     private static final String ELEMENT_FOUND = "//div[@class='search_result']//div[@class='search_link']//a[text()='%s']";
 
@@ -33,10 +33,10 @@ public class SearchPod extends BasePage {
         return webDriver.findElement(By.xpath(String.format(ELEMENT_FOUND, elementName)));
     }
 
-    public SearchPod searchElementByName(final String elementName) {
+    public SearchElement searchElementByName(final String elementName) {
         setSearchField(elementName);
         getFindElement(elementName).click();
-        return new SearchPod();
+        return new SearchElement();
     }
 
     public TaskPopup displayElementByName(final String elementName) {

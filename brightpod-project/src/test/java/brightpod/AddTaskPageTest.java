@@ -2,7 +2,6 @@ package brightpod;
 
 import core.WebDriverManager;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,8 +39,8 @@ public class AddTaskPageTest {
 
     @After
     public void tearDown() {
-        SearchPod searchPod = new SearchPod();
-        searchPod.searchElementByName(podName);
+        SearchElement searchElement = new SearchElement();
+        searchElement.searchElementByName(podName);
         SettingTextLink setting = new SettingTextLink();
         setting.archivePod();
         MenuNavbar navbar = new MenuNavbar();
@@ -73,7 +72,7 @@ public class AddTaskPageTest {
         String memberName = "juan martinez (Pod Lead)";
         AddTaskPage addTask = new AddTaskPage();
 //        addTask.createNewTask(listName, taskName, memberName);
-        SearchPod search = new SearchPod();
+        SearchElement search = new SearchElement();
         search.searchElementByName(taskName);
         TaskPopup taskPopup = new TaskPopup();
         taskPopup.removeTask();

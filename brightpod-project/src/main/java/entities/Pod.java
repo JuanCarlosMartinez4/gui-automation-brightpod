@@ -1,7 +1,7 @@
 package entities;
 
 import brightpod.constants.PodConstant;
-import utils.Helper;
+import brightpod.components.DateFormat;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -157,10 +157,10 @@ public class Pod {
         Map<String, String> currentPodInformation = new HashMap<>(podInformation);
         if (podInformation.get(PodConstant.START_DATE) != null) {
             currentPodInformation.put(PodConstant.START_DATE,
-                Helper.formatDate(podInformation.get(PodConstant.START_DATE)));
+                DateFormat.formatDate(podInformation.get(PodConstant.START_DATE)));
         }
         if (podInformation.get(PodConstant.DUE_DATE) != null)
-            currentPodInformation.put(PodConstant.DUE_DATE, Helper.formatDate(podInformation.get(PodConstant.DUE_DATE)));
+            currentPodInformation.put(PodConstant.DUE_DATE, DateFormat.formatDate(podInformation.get(PodConstant.DUE_DATE)));
         HashMap<String, Runnable> strategyMap = composeStrategyMap(currentPodInformation);
         currentPodInformation.keySet().forEach(key -> strategyMap.get(key).run());
         modifiedPodFields.addAll(currentPodInformation.keySet());
