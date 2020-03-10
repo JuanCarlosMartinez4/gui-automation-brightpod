@@ -39,6 +39,12 @@ public class SearchPod extends BasePage {
         return new SearchPod();
     }
 
+    public TaskPopup displayElementByName(final String elementName) {
+        setSearchField(elementName);
+        getFindElement(elementName).click();
+        return new TaskPopup();
+    }
+
     public String verifyDeletedElement(final String elementName) {
         webDriverWait.until(ExpectedConditions.visibilityOf(searchField));
         searchField.click();

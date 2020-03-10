@@ -2,44 +2,20 @@ Feature: Task
   Manages tasks
 
   Background: Create Task List
-    Given Create a Pod with the following values
+    Given Creates a Pod with the following values
       | Pod Name    | Pod05              |
       | Description | this a description |
-    When Create a TaskList with the following values
+    When Creates a TaskList with the following values
       | Name        | Task05                |
       | Description | This is a description |
       | Is Visible  | true                  |
 
-
+  @Task @Del
   Scenario: Create a Task
-    Given Search taskList by name "Task05"
-    When Create a Task with the following values
+    Given Searches taskList by name "Task05"
+    When Creates a Task with the following values
       | Task Name     | Task011                  |
       | Member        | juan martinez (Pod Lead) |
       | Due Date      | TODAY                    |
-#    Then Search task by name "Task011"
-#    And Task should contains
-    And Search pod by name "Pod05"
-    And Remove pod
-
-#  Scenario: Edit a Task
-#    Given "Create" a "Task" with the following
-#      | Name        | Task 01               |
-#      | Description | This is a description |
-#    And The application displays "TaskListPage" page
-#    And The "Description" should be "This is a description"
-#    When "Edit" a "Task" with the following
-#      | Name        | Task 01             |
-#      | Description | Description updated |
-#    Then The application displays "TaskListPage" page
-#    And The "Description" should be "Description updated"
-#
-#  Scenario: Remove a Task
-#    Given "Create" a "Task" with the following
-#      | Name        | Task 01               |
-#      | Description | This is a description |
-#    And The application displays "TaskListPage" page
-#    And The "Description" should be "This is a description"
-#    When "Remove" a "Task" with the following
-#      | Name        | Task 01             |
-#    Then The application displays "TaskListPage" page
+    And Searches task by name "Task011"
+    Then Task should contains input data values

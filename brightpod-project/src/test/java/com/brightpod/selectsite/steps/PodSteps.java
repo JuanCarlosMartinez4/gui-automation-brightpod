@@ -7,13 +7,11 @@ import brightpod.SettingTextLink;
 import brightpod.TaskListPage;
 import brightpod.FormPodPage;
 import brightpod.NewPodModal;
-import brightpod.PageTransporter;
 import brightpod.LogoutPage;
 
 import entities.Context;
 import entities.Pod;
 
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -46,12 +44,7 @@ public class PodSteps {
         this.pod = context.getPod();
     }
 
-    @Then("^The application displays \"([^\"]*)\" page$")
-    public void theApplicationDisplaysPage(String page) {
-        PageTransporter.goToUrl(page);
-    }
-
-    @When("Create a Pod with the following values$")
+    @When("Creates a Pod with the following values$")
     public void createAPodWithTheFollowingValues(final Map<String, String> podInformation) {
         pod.setPodInformation(podInformation);
         podsPage = new PodsPage();
@@ -60,7 +53,7 @@ public class PodSteps {
         taskList = formPod.createNewPod(pod, podInformation.keySet());
     }
 
-    @And("^Pod should contains$")
+    @Then("^Pod should contains input data values$")
     public void podShouldContains() {
         setting = new SettingTextLink();
         setting.editPod();
@@ -73,18 +66,18 @@ public class PodSteps {
         }
     }
 
-    @When("^Search pod by name \"([^\"]*)\"$")
+    @When("^Searches pod by name \"([^\"]*)\"$")
     public void searchPodByName(final String podName) {
         StepUtil.searchElement(podName);
     }
 
-    @When("^Remove pod$")
+    @When("^Removes pod$")
     public void removePod() {
         setting = new SettingTextLink();
         setting.archivePod();
     }
 
-    @When("^Edit a Pod with the following$")
+    @When("^Edits a Pod with the following$")
     public void editAPodWithTheFollowing(final Map<String, String> podInformation) {
         setting = new SettingTextLink();
         setting.editPod();

@@ -1,42 +1,36 @@
 Feature: Task List
 
   Background: Create Pod
-    When Create a Pod with the following values
+    When Creates a Pod with the following values
       | Pod Name    | Pod04              |
       | Description | this a description |
 
-
+  @TaskList @Del
   Scenario: Create a Task List
-    When Create a TaskList with the following values
+    When Creates a TaskList with the following values
       | Name        | Task01                |
       | Description | This is a description |
       | Is Visible  | true                  |
-    Then TaskList should contains
-    And Search pod by name "Pod04"
-    And Remove pod
+    Then TaskList should contains input data values
 
-
+  @TaskList @Del
   Scenario: Delete a Task List
-    Given Create a TaskList with the following values
+    Given Creates a TaskList with the following values
       | Name        | TaskList00            |
       | Description | This is a description |
       | Is Visible  | true                  |
-    And Search taskList by name "TaskList00"
-    When Remove taskList by name "TaskList00"
+    And Searches taskList by name "TaskList00"
+    When Removes taskList by name "TaskList00"
     Then TaskList "TaskList00" should not exist
-    And Search pod by name "Pod04"
-    And Remove pod
 
-
+  @TaskList @Del
   Scenario: Edit a Task List
-    Given Create a TaskList with the following values
+    Given Creates a TaskList with the following values
       | Name        | Task03                |
       | Description | This is a description |
-    And TaskList should contains
-    And Search taskList by name "Task03"
-    When Edit a TaskList with the following values
+    And TaskList should contains input data values
+    And Searches taskList by name "Task03"
+    When Edits a TaskList with the following values
       | Name        | Task0333            |
       | Description | Description updated |
-    Then TaskList should contains
-    And Search pod by name "Pod04"
-    And Remove pod
+    Then TaskList should contains input data values

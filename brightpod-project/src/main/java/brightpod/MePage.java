@@ -23,20 +23,16 @@ public class MePage extends BasePage {
         webDriverWait.until(ExpectedConditions.visibilityOf(meTab));
     }
 
-    private WebElement getUserName(final String userName) {
-        return webDriver.findElement(By.xpath(String.format(USER_NAME, userName)));
+    private WebElement getWebElement(final String locator, final String name) {
+        return webDriver.findElement(By.xpath(String.format(locator, name)));
     }
 
     private String matchUserName(final String userName) {
-        return getUserName(userName).getText();
-    }
-
-    private WebElement getUserEmail(final String userEmail) {
-        return webDriver.findElement(By.xpath(String.format(USER_EMAIL, userEmail)));
+        return getWebElement(USER_NAME, userName).getText();
     }
 
     private String matchUserEmail(final String userEmail) {
-        return getUserEmail(userEmail).getText();
+        return getWebElement(USER_EMAIL, userEmail).getText();
     }
 
     public String verifyUserLogged(final String userName, final String userEmail) {

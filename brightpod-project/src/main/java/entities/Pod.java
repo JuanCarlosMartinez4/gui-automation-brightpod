@@ -1,5 +1,6 @@
 package entities;
 
+import brightpod.constants.PodConstant;
 import utils.Helper;
 
 import java.util.HashMap;
@@ -19,15 +20,6 @@ public class Pod {
     private String description;
 
     private Set<String> modifiedPodFields = new HashSet<>();
-
-    final static private String POD_NAME = "Pod Name";
-    final static private String START_DATE = "Start Date";
-    final static private String DUE_DATE = "Due Date";
-    final static private String BUDGET_TIME = "Budget Time";
-    final static private String CLIENT = "Client";
-    final static private String POD_LEAD = "Project Lead";
-    final static private String POD_COLOR = "Color";
-    final static private String DESCRIPTION = "Description";
 
     /**
      * Gets pod name.
@@ -91,14 +83,6 @@ public class Pod {
      */
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * Gets modified pod fields.
-     * @return a list of key.
-     */
-    public Set<String> getModifiedPodFields() {
-        return modifiedPodFields;
     }
 
     /**
@@ -171,10 +155,12 @@ public class Pod {
      */
     public void setPodInformation(final Map<String, String> podInformation) {
         Map<String, String> currentPodInformation = new HashMap<>(podInformation);
-        if (podInformation.get(START_DATE) != null)
-            currentPodInformation.put(START_DATE, Helper.formatDate(podInformation.get(START_DATE)));
-        if (podInformation.get(DUE_DATE) != null)
-            currentPodInformation.put(DUE_DATE, Helper.formatDate(podInformation.get(DUE_DATE)));
+        if (podInformation.get(PodConstant.START_DATE) != null) {
+            currentPodInformation.put(PodConstant.START_DATE,
+                Helper.formatDate(podInformation.get(PodConstant.START_DATE)));
+        }
+        if (podInformation.get(PodConstant.DUE_DATE) != null)
+            currentPodInformation.put(PodConstant.DUE_DATE, Helper.formatDate(podInformation.get(PodConstant.DUE_DATE)));
         HashMap<String, Runnable> strategyMap = composeStrategyMap(currentPodInformation);
         currentPodInformation.keySet().forEach(key -> strategyMap.get(key).run());
         modifiedPodFields.addAll(currentPodInformation.keySet());
@@ -188,14 +174,14 @@ public class Pod {
     private HashMap<String, Runnable> composeStrategyMap(Map<String, String> currentPodInformation) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
-        strategyMap.put(POD_NAME, () -> setPodName(currentPodInformation.get(POD_NAME)));
-        strategyMap.put(START_DATE, () ->  setStartDate(currentPodInformation.get(START_DATE)));
-        strategyMap.put(DUE_DATE, () -> setDueDate(currentPodInformation.get(DUE_DATE)));
-        strategyMap.put(BUDGET_TIME, () -> setBudgetedTime(currentPodInformation.get(BUDGET_TIME)));
-        strategyMap.put(CLIENT, () -> setClient(currentPodInformation.get(CLIENT)));
-        strategyMap.put(POD_LEAD, () -> setPodLead(currentPodInformation.get(POD_LEAD)));
-        strategyMap.put(POD_COLOR, () -> setPodColor(currentPodInformation.get(POD_COLOR)));
-        strategyMap.put(DESCRIPTION, () -> setDescription(currentPodInformation.get(DESCRIPTION)));
+        strategyMap.put(PodConstant.POD_NAME, () -> setPodName(currentPodInformation.get(PodConstant.POD_NAME)));
+        strategyMap.put(PodConstant.START_DATE, () ->  setStartDate(currentPodInformation.get(PodConstant.START_DATE)));
+        strategyMap.put(PodConstant.DUE_DATE, () -> setDueDate(currentPodInformation.get(PodConstant.DUE_DATE)));
+        strategyMap.put(PodConstant.BUDGET_TIME, () -> setBudgetedTime(currentPodInformation.get(PodConstant.BUDGET_TIME)));
+        strategyMap.put(PodConstant.CLIENT, () -> setClient(currentPodInformation.get(PodConstant.CLIENT)));
+        strategyMap.put(PodConstant.POD_LEAD, () -> setPodLead(currentPodInformation.get(PodConstant.POD_LEAD)));
+        strategyMap.put(PodConstant.POD_COLOR, () -> setPodColor(currentPodInformation.get(PodConstant.POD_COLOR)));
+        strategyMap.put(PodConstant.DESCRIPTION, () -> setDescription(currentPodInformation.get(PodConstant.DESCRIPTION)));
         return strategyMap;
     }
 
@@ -219,14 +205,14 @@ public class Pod {
     private HashMap<String, Supplier> composeStrategyMapGet() {
         HashMap<String, Supplier> strategyMap = new HashMap<>();
 
-        strategyMap.put(POD_NAME, () -> getPodName());
-        strategyMap.put(START_DATE, () ->  getStartDate());
-        strategyMap.put(DUE_DATE, () -> getDueDate());
-        strategyMap.put(BUDGET_TIME, () -> getBudgetedTime());
-        strategyMap.put(CLIENT, () -> getClient());
-        strategyMap.put(POD_LEAD, () -> getPodLead());
-        strategyMap.put(POD_COLOR, () -> getPodColor());
-        strategyMap.put(DESCRIPTION, () -> getDescription());
+        strategyMap.put(PodConstant.POD_NAME, () -> getPodName());
+        strategyMap.put(PodConstant.START_DATE, () ->  getStartDate());
+        strategyMap.put(PodConstant.DUE_DATE, () -> getDueDate());
+        strategyMap.put(PodConstant.BUDGET_TIME, () -> getBudgetedTime());
+        strategyMap.put(PodConstant.CLIENT, () -> getClient());
+        strategyMap.put(PodConstant.POD_LEAD, () -> getPodLead());
+        strategyMap.put(PodConstant.POD_COLOR, () -> getPodColor());
+        strategyMap.put(PodConstant.DESCRIPTION, () -> getDescription());
         return strategyMap;
     }
 }

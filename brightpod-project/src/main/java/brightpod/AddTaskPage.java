@@ -1,5 +1,6 @@
 package brightpod;
 
+import brightpod.constants.TaskConstant;
 import entities.Task;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -8,9 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
-import java.util.function.Supplier;
 
 /**
  * Manages tasks
@@ -37,11 +36,6 @@ public class AddTaskPage extends BasePage {
     private static final String SET_MONTH = "//span[text()[. = '%s']]";
 
     private static final String SET_DAY = "//td[text()[. = '%s']]";
-
-    private static final String TASK_NAME = "Task Name";
-    private static final String MEMBER = "Member";
-    private static final String DUE_DATE = "Due Date";
-    private static final String HIGH_PRIORITY = "High Priority";
 
     private static final int YEAR_VALUE = 2;
 
@@ -270,7 +264,7 @@ public class AddTaskPage extends BasePage {
             highPriorityCheckbox.click();
     }
 
-    private void clickOnAddTaskButtonToSave() {
+    public void clickOnAddTaskButtonToSave() {
         webDriverWait.until(ExpectedConditions.visibilityOf(addTaskButtonToSave));
         addTaskButtonToSave.click();
     }
@@ -279,16 +273,15 @@ public class AddTaskPage extends BasePage {
         clickOnAddTaskButton();
         HashMap<String, Runnable> strategyMap = composeStrategyMap(task);
         fields.forEach(field -> strategyMap.get(field).run());
-        clickOnAddTaskButtonToSave();
     }
 
     private HashMap<String, Runnable> composeStrategyMap(final Task task) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
-        strategyMap.put(TASK_NAME, () -> setTaskNameTextArea(task.getTaskName()));
-        strategyMap.put(MEMBER, () -> selectMemberComboBox(task.getMember()));
-        strategyMap.put(DUE_DATE, () -> clickOnDueDateTextBox(task.getDueDate()));
-        strategyMap.put(HIGH_PRIORITY, () -> clickOnHighPriorityCheckBox(task.isHighPriority()));
+        strategyMap.put(TaskConstant.TASK_NAME, () -> setTaskNameTextArea(task.getTaskName()));
+        strategyMap.put(TaskConstant.MEMBER, () -> selectMemberComboBox(task.getMember()));
+        strategyMap.put(TaskConstant.DUE_DATE, () -> clickOnDueDateTextBox(task.getDueDate()));
+        strategyMap.put(TaskConstant.HIGH_PRIORITY, () -> clickOnHighPriorityCheckBox(task.isHighPriority()));
         return strategyMap;
     }
 }

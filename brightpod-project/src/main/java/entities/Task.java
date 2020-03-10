@@ -1,5 +1,6 @@
 package entities;
 
+import brightpod.constants.TaskConstant;
 import utils.Helper;
 
 import java.util.HashMap;
@@ -14,12 +15,6 @@ public class Task {
     private String dueDate;
     private boolean HighPriority;
     private String taskListName;
-
-    private static final String TASK_NAME = "Task Name";
-    private static final String MEMBER = "Member";
-    private static final String DUE_DATE = "Due Date";
-    private static final String HIGH_PRIORITY = "High Priority";
-    private static final String TASK_LIST_NAME = "Task List Name";
 
     private Set<String> modifiedTaskFields = new HashSet<>();
 
@@ -105,8 +100,11 @@ public class Task {
 
     public void setTaskInformation(final Map<String, String> taskInformation) {
         Map<String, String> currentTaskInformation = new HashMap<>(taskInformation);
-        if (taskInformation.get(DUE_DATE) != null)
-            currentTaskInformation.put(DUE_DATE, Helper.formatDate(taskInformation.get(DUE_DATE)));
+        if (taskInformation.get(TaskConstant.DUE_DATE) != null) {
+            currentTaskInformation.put(TaskConstant.DUE_DATE,
+                Helper.formatDate(taskInformation.get(TaskConstant.DUE_DATE)));
+        }
+
         HashMap<String, Runnable> strategyMap = composeStrategyMap(currentTaskInformation);
         currentTaskInformation.keySet().forEach(key -> strategyMap.get(key).run());
         modifiedTaskFields.addAll(currentTaskInformation.keySet());
@@ -115,17 +113,18 @@ public class Task {
     private HashMap<String, Runnable> composeStrategyMap(Map<String, String> taskInformation) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
-        strategyMap.put(TASK_NAME, () -> setTaskName(taskInformation.get(TASK_NAME)));
-        strategyMap.put(MEMBER, () -> setMember(taskInformation.get(MEMBER)));
-        strategyMap.put(DUE_DATE, () -> setDueDate(taskInformation.get(DUE_DATE)));
-        strategyMap.put(HIGH_PRIORITY, () -> setHighPriority(Boolean.parseBoolean(taskInformation.get(HIGH_PRIORITY))));
-//        strategyMap.put(TASK_LIST_NAME, () -> setTaskListName(taskInformation.get(TASK_LIST_NAME)));
+        strategyMap.put(TaskConstant.TASK_NAME, () -> setTaskName(taskInformation.get(TaskConstant.TASK_NAME)));
+        strategyMap.put(TaskConstant.MEMBER, () -> setMember(taskInformation.get(TaskConstant.MEMBER)));
+        strategyMap.put(TaskConstant.DUE_DATE, () -> setDueDate(taskInformation.get(TaskConstant.DUE_DATE)));
+        strategyMap.put(TaskConstant.HIGH_PRIORITY, () ->
+                setHighPriority(Boolean.parseBoolean(taskInformation.get(TaskConstant.HIGH_PRIORITY))));
         return strategyMap;
     }
 
     public HashMap<String, String> getTaskInformation() {
         HashMap<String, String> taskValues = new HashMap<>();
         HashMap<String, Supplier> strategyMap = composeStrategyMapGet();
+
         for (String field : modifiedTaskFields) {
             taskValues.put(field, strategyMap.get(field).get().toString());
         }
@@ -134,10 +133,10 @@ public class Task {
 
     private HashMap<String, Supplier> composeStrategyMapGet() {
         HashMap<String, Supplier> strategyMap = new HashMap<>();
-        strategyMap.put(TASK_NAME, () -> getTaskName());
-        strategyMap.put(MEMBER, () -> getMember());
-        strategyMap.put(DUE_DATE, () -> getDueDate());
-        strategyMap.put(HIGH_PRIORITY, () -> Boolean.toString(isHighPriority()));
+        strategyMap.put(TaskConstant.TASK_NAME, () -> getTaskName());
+        strategyMap.put(TaskConstant.MEMBER, () -> getMember());
+        strategyMap.put(TaskConstant.DUE_DATE, () -> getDueDate());
+        strategyMap.put(TaskConstant.HIGH_PRIORITY, () -> Boolean.toString(isHighPriority()));
         return strategyMap;
     }
 }

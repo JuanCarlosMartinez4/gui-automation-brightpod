@@ -39,7 +39,7 @@ public class TaskPopup extends BasePage {
 
     @Override
     protected void waitUntilPageObjectIsLoaded() {
-
+        webDriverWait.until(ExpectedConditions.visibilityOf(taskNameLabel));
     }
 
     private void clickOnRemoveTaskLink() {
@@ -87,7 +87,7 @@ public class TaskPopup extends BasePage {
 
     public HashMap<String, String> getTaskInformation(final HashMap<String, String> taskInformationValues) {
         taskInformation = new HashMap<>();
-        HashMap<String, Supplier> strategyMapGet = composeStrategyMapGet(taskInformationValues);
+        HashMap<String, Supplier> strategyMapGet = composeStrategyMapGet();
 
         for (String field : taskInformationValues.keySet()) {
             taskInformation.put(field, strategyMapGet.get(field).get().toString());
@@ -95,7 +95,7 @@ public class TaskPopup extends BasePage {
         return taskInformation;
     }
 
-    private HashMap<String, Supplier> composeStrategyMapGet(final HashMap<String, String>listInformationValues) {
+    private HashMap<String, Supplier> composeStrategyMapGet() {
         HashMap<String, Supplier> strategyMapGet = new HashMap<>();
         strategyMapGet.put(TASK_NAME, () -> getTaskName());
         strategyMapGet.put(MEMBER, () -> getAssignedName());

@@ -36,16 +36,14 @@ public class TaskListSteps {
         this.taskList = context.getTaskList();
     }
 
-    @When("^Create a TaskList with the following values$")
+    @When("^Creates a TaskList with the following values$")
     public void createATaskListWithTheFollowingValues(final Map<String, String> taskListInformation) {
         taskList.setTaskListInformation(taskListInformation);
         taskListPage = new TaskListPage();
         taskListPage = taskListPage.addTaskListInformation(taskList, taskListInformation.keySet());
-
-//        actualTaskListValues = taskListPage.getCreatedTaskListInformation();
     }
 
-    @And("^TaskList should contains$")
+    @And("^TaskList should contains input data values$")
     public void taskListShouldContains() {
         actualTaskListValues = taskListPage.getCreatedTaskListInformation(taskList.getTaskListInformation());
         for (String key : actualTaskListValues.keySet()) {
@@ -54,21 +52,20 @@ public class TaskListSteps {
         }
     }
 
-    @When("^Remove taskList by name \"([^\"]*)\"$")
+    @When("^Removes taskList by name \"([^\"]*)\"$")
     public void removeTaskListByName(String listName) {
         taskListPage.removeTaskListSearched(listName);
     }
 
-    @And("^Search taskList by name \"([^\"]*)\"$")
+    @And("^Searches taskList by name \"([^\"]*)\"$")
     public void searchTaskListByName(final String listName) {
         StepUtil.searchElement(listName);
     }
 
-    @When("^Edit a TaskList with the following values$")
+    @When("^Edits a TaskList with the following values$")
     public void editATaskListWithTheFollowing(final Map<String, String> taskListInformation) {
         taskListPage.editTaskListSearched(taskList.getName());
         taskList.setTaskListInformation(taskListInformation);
-//        addTasKPage = new AddTaskPage();
 
         addTasKPage = taskListPage.updateTaskListInformation(taskList, taskListInformation.keySet());
     }

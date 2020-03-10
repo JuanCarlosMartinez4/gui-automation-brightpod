@@ -1,5 +1,7 @@
 package entities;
 
+import brightpod.constants.TaskListConstant;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -10,10 +12,6 @@ public class TaskList {
     private String name;
     private String description;
     private boolean isVisibleToClients;
-
-    private static final String NAME = "Name";
-    private static final String DESCRIPTION = "Description";
-    private static final String IS_VISIBLE = "Is Visible";
 
     private Set<String> modifiedTaskListFields = new HashSet<>();
 
@@ -79,9 +77,11 @@ public class TaskList {
     private HashMap<String, Runnable> composeStrategyMap(Map<String, String> taskListInformation) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
-        strategyMap.put(NAME, () -> setName(taskListInformation.get(NAME)));
-        strategyMap.put(DESCRIPTION, () -> setDescription(taskListInformation.get(DESCRIPTION)));
-        strategyMap.put(IS_VISIBLE, () -> setVisibleToClients(Boolean.parseBoolean(taskListInformation.get(IS_VISIBLE))));
+        strategyMap.put(TaskListConstant.NAME, () -> setName(taskListInformation.get(TaskListConstant.NAME)));
+        strategyMap.put(TaskListConstant.DESCRIPTION, () ->
+            setDescription(taskListInformation.get(TaskListConstant.DESCRIPTION)));
+        strategyMap.put(TaskListConstant.IS_VISIBLE, () ->
+            setVisibleToClients(Boolean.parseBoolean(taskListInformation.get(TaskListConstant.IS_VISIBLE))));
         return strategyMap;
     }
 
@@ -104,9 +104,9 @@ public class TaskList {
      */
     private HashMap<String, Supplier> composeStrategyMapGet() {
         HashMap<String, Supplier> strategyMap = new HashMap<>();
-        strategyMap.put(NAME, () -> getName());
-        strategyMap.put(DESCRIPTION, () -> getDescription());
-        strategyMap.put(IS_VISIBLE, () -> Boolean.toString(isVisibleToClients()));
+        strategyMap.put(TaskListConstant.NAME, () -> getName());
+        strategyMap.put(TaskListConstant.DESCRIPTION, () -> getDescription());
+        strategyMap.put(TaskListConstant.IS_VISIBLE, () -> Boolean.toString(isVisibleToClients()));
         return strategyMap;
     }
 }

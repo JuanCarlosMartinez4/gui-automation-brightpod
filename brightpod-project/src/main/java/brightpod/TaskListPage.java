@@ -1,5 +1,6 @@
 package brightpod;
 
+import brightpod.constants.TaskListConstant;
 import entities.TaskList;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -28,10 +29,6 @@ public class TaskListPage extends BasePage {
     private static final String TASK_LIST_DESCRIPTION = "//div[contains(text(),'%s')]";
 
     private HashMap<String, String> taskListInformation;
-
-    private static final String NAME = "Name";
-    private static final String DESCRIPTION = "Description";
-    private static final String IS_VISIBLE = "Is Visible";
 
     @FindBy(css = "input[type='button'][value='New Task List']")
     private WebElement newTaskListButton;
@@ -148,15 +145,11 @@ public class TaskListPage extends BasePage {
     }
 
     private void setUpdateListNameTextBox(final String listName) {
-//        if (listName == null)
-//            return;
         updateListNameTextBox.clear();
         updateListNameTextBox.sendKeys(listName);
     }
 
     private void setUpdateDescriptionTextArea(final String description) {
-//        if (description == null)
-//            return;
         updateDescriptionTextArea.clear();
         updateDescriptionTextArea.sendKeys(description);
     }
@@ -215,16 +208,17 @@ public class TaskListPage extends BasePage {
 
     private HashMap<String, Supplier> composeStrategyMapGet(final HashMap<String, String>listInformation) {
         HashMap<String, Supplier> strategyMapGet = new HashMap<>();
-        strategyMapGet.put(NAME, () -> getTaskListNameText(listInformation.get(NAME)));
-        strategyMapGet.put(DESCRIPTION, () -> getTaskListDescriptionText(listInformation.get(DESCRIPTION)));
-        strategyMapGet.put(IS_VISIBLE, () -> listInformation.get(IS_VISIBLE));
+        strategyMapGet.put(TaskListConstant.NAME, () -> getTaskListNameText(listInformation.get(TaskListConstant.NAME)));
+        strategyMapGet.put(TaskListConstant.DESCRIPTION, () ->
+            getTaskListDescriptionText(listInformation.get(TaskListConstant.DESCRIPTION)));
+        strategyMapGet.put(TaskListConstant.IS_VISIBLE, () -> listInformation.get(TaskListConstant.IS_VISIBLE));
         return strategyMapGet;
     }
 
     public Map<String, String> getUpdatedTaskListInformation() {
         taskListInformation = new HashMap<>();
-        taskListInformation.put(NAME, getListName());
-        taskListInformation.put(DESCRIPTION, getListDescription());
+        taskListInformation.put(TaskListConstant.NAME, getListName());
+        taskListInformation.put(TaskListConstant.DESCRIPTION, getListDescription());
         return taskListInformation;
     }
 
@@ -239,9 +233,9 @@ public class TaskListPage extends BasePage {
     private HashMap<String, Runnable> composeStrategyMap(TaskList taskList) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
-        strategyMap.put(NAME, () -> setListNameTextBox(taskList.getName()));
-        strategyMap.put(DESCRIPTION, () -> setDescriptionTextArea(taskList.getDescription()));
-        strategyMap.put(IS_VISIBLE, () -> checkVisibleToClientsCheckBox(taskList.isVisibleToClients()));
+        strategyMap.put(TaskListConstant.NAME, () -> setListNameTextBox(taskList.getName()));
+        strategyMap.put(TaskListConstant.DESCRIPTION, () -> setDescriptionTextArea(taskList.getDescription()));
+        strategyMap.put(TaskListConstant.IS_VISIBLE, () -> checkVisibleToClientsCheckBox(taskList.isVisibleToClients()));
         return strategyMap;
     }
 
@@ -255,9 +249,10 @@ public class TaskListPage extends BasePage {
     private HashMap<String, Runnable> composeStrategyMapUpdate(TaskList taskList) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 
-        strategyMap.put(NAME, () -> setUpdateListNameTextBox(taskList.getName()));
-        strategyMap.put(DESCRIPTION, () -> setUpdateDescriptionTextArea(taskList.getDescription()));
-        strategyMap.put(IS_VISIBLE, () -> checkUpdateVisibleToClientsCheckBox(taskList.isVisibleToClients()));
+        strategyMap.put(TaskListConstant.NAME, () -> setUpdateListNameTextBox(taskList.getName()));
+        strategyMap.put(TaskListConstant.DESCRIPTION, () -> setUpdateDescriptionTextArea(taskList.getDescription()));
+        strategyMap.put(TaskListConstant.IS_VISIBLE, () ->
+            checkUpdateVisibleToClientsCheckBox(taskList.isVisibleToClients()));
         return strategyMap;
     }
 
@@ -265,11 +260,6 @@ public class TaskListPage extends BasePage {
         webDriverWait.until(ExpectedConditions.alertIsPresent());
         Alert alert = webDriver.switchTo().alert();
         alert.accept();
-    }
-
-    public void removeTaskList(final String listName) {
-        clickOnRemoveTaskListLink(listName);
-        clickOnAcceptAlert();
     }
 
     public void removeTaskListSearched(final String listName) {

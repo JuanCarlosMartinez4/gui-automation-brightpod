@@ -1,10 +1,8 @@
 package com.brightpod.selectsite.hooks.scenarios;
 
-import brightpod.LoginPage;
-import brightpod.LogoutPage;
-import brightpod.MenuNavbar;
 import brightpod.PageTransporter;
-import brightpod.PodsPage;
+import brightpod.SettingTextLink;
+import com.brightpod.selectsite.steps.StepUtil;
 import entities.Context;
 import entities.Pod;
 import io.cucumber.java.After;
@@ -14,8 +12,13 @@ import io.cucumber.java.Before;
  * Executes actions for scenarios.
  */
 public class Hook {
+
+    // Entities
     private Context context;
     private Pod pod;
+
+    // Pages
+    private SettingTextLink setting;
 
     /**
      * Generates instance of Hook.
@@ -26,20 +29,17 @@ public class Hook {
         this.pod = context.getPod();
     }
 
-    @Before
+    @Before("@Pod or @TaskList or @Task")
     public void beforeScenario() {
-        String page = "/user";
-        String email = "juan.martinez.at11cc@gmail.com";
-        String password = "at11account2020";
+        String page = "/projects";
         PageTransporter.goToUrl(page);
-        LoginPage loginPage = new LoginPage();
-        PodsPage podsPage = loginPage.login(email, password);
     }
 
-    @After
+    @After("@Del")
     public void afterScenario() {
-        MenuNavbar navbar = new MenuNavbar();
-        LogoutPage logoutPage = navbar.logout();
-        logoutPage.returnInitPage();
+        StepUtil.searchElement(pod.getPodName());
+        setting = new SettingTextLink();
+        setting = new SettingTextLink();
+        setting.archivePod();
     }
 }
