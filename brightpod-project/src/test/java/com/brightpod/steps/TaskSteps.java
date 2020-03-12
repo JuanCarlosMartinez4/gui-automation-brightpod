@@ -1,4 +1,4 @@
-package com.brightpod.selectsite.steps;
+package com.brightpod.steps;
 
 import brightpod.AddTaskPage;
 import brightpod.SearchElement;
@@ -37,7 +37,7 @@ public class TaskSteps {
     }
 
     @When("Creates a Task with the following values")
-    public void createATaskWithTheFollowingValues(final Map<String, String> taskInformation) {
+    public void createATask(final Map<String, String> taskInformation) {
         task.setTaskInformation(taskInformation);
         addTasKPage = new AddTaskPage();
         addTasKPage.addTaskInformation(task, taskInformation.keySet());
@@ -55,7 +55,7 @@ public class TaskSteps {
     }
 
     @And("Searches task by name {string}")
-    public void searchTaskByName(final String taskName) {
+    public void searchTask(final String taskName) {
         searchElement = new SearchElement();
         taskPopup = searchElement.displayElementByName(taskName);
     }

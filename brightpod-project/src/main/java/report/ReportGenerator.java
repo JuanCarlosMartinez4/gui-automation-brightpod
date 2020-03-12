@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * Generates reports of scenarios.
  */
-public class Report {
+public class ReportGenerator {
 
     /**
      * Allows to get report instance.
      * @return report instance.
      */
-    public static Report getInstance() {
-        return new Report();
+    public static ReportGenerator getInstance() {
+        return new ReportGenerator();
     }
 
     /**

@@ -30,7 +30,7 @@ task executeFeatures(type: Test) {
     useTestNG()
     options {
         useDefaultListeners = false
-        jvmArgs = ['-Dcucumber.options= --glue com.brightpod.selectsite --plugin pretty '
+        jvmArgs = ['-Dcucumber.options= --glue com.brightpod --plugin pretty '
                            + '--plugin json:target/cucumber.json --plugin rerun:build/cucumber/rerun.txt '
                            + 'classpath:' + '']
     }

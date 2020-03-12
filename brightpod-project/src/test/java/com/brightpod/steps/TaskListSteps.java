@@ -1,4 +1,4 @@
-package com.brightpod.selectsite.steps;
+package com.brightpod.steps;
 
 import brightpod.AddTaskPage;
 import brightpod.SearchElement;
@@ -36,14 +36,14 @@ public class TaskListSteps {
         this.taskList = context.getTaskList();
     }
 
-    @When("^Creates a TaskList with the following values$")
-    public void createATaskListWithTheFollowingValues(final Map<String, String> taskListInformation) {
+    @When("^I create a TaskList with the following values$")
+    public void createTaskList(final Map<String, String> taskListInformation) {
         taskList.setTaskListInformation(taskListInformation);
         taskListPage = new TaskListPage();
         taskListPage = taskListPage.addTaskListInformation(taskList, taskListInformation.keySet());
     }
 
-    @And("^TaskList should contains input data values$")
+    @And("^The TaskList should contains inserted data values$")
     public void taskListShouldContains() {
         actualTaskListValues = taskListPage.getCreatedTaskListInformation(taskList.getTaskListInformation());
         for (String key : actualTaskListValues.keySet()) {
@@ -52,25 +52,25 @@ public class TaskListSteps {
         }
     }
 
-    @When("^Removes taskList by name \"([^\"]*)\"$")
-    public void removeTaskListByName(String listName) {
+    @When("^I remove the taskList by name \"([^\"]*)\"$")
+    public void removeTaskList(String listName) {
         taskListPage.removeTaskListSearched(listName);
     }
 
-    @And("^Searches taskList by name \"([^\"]*)\"$")
+    @And("^I search the taskList by name \"([^\"]*)\"$")
     public void searchTaskListByName(final String listName) {
         StepUtil.searchElement(listName);
     }
 
-    @When("^Edits a TaskList with the following values$")
-    public void editATaskListWithTheFollowing(final Map<String, String> taskListInformation) {
+    @When("^I edit the TaskList with the following values$")
+    public void editTaskList(final Map<String, String> taskListInformation) {
         taskListPage.editTaskListSearched(taskList.getName());
         taskList.setTaskListInformation(taskListInformation);
 
         addTasKPage = taskListPage.updateTaskListInformation(taskList, taskListInformation.keySet());
     }
 
-    @Then("TaskList {string} should not exist")
+    @Then("The TaskList {string} should not exist")
     public void taskListShouldNotTExist(final String taskListName) {
         search = new SearchElement();
         String actual = search.verifyDeletedElement(taskListName);

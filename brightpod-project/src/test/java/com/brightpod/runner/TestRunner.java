@@ -1,4 +1,4 @@
-package com.brightpod.selectsite.runner;
+package com.brightpod.runner;
 
 import brightpod.LoginPage;
 import brightpod.LogoutPage;
@@ -9,7 +9,7 @@ import core.WebDriverManager;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import report.Report;
+import report.ReportGenerator;
 
 public class TestRunner extends AbstractTestNGCucumberTests {
 
@@ -28,7 +28,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
         MenuNavbar navbar = new MenuNavbar();
         LogoutPage logoutPage = navbar.logout();
         logoutPage.returnInitPage();
-        Report.getInstance().generateReport();
+        ReportGenerator.getInstance().generateReport();
         WebDriverManager.getInstance().quitDriver();
     }
 }

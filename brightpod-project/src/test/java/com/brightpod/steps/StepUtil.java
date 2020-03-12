@@ -1,4 +1,4 @@
-package com.brightpod.selectsite.steps;
+package com.brightpod.steps;
 
 import brightpod.SearchElement;
 

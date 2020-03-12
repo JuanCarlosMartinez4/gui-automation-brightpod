@@ -1,4 +1,4 @@
-package com.brightpod.selectsite.steps;
+package com.brightpod.steps;
 
 import brightpod.PodsPage;
 import brightpod.SearchElement;
@@ -43,8 +43,8 @@ public class PodSteps {
         this.pod = context.getPod();
     }
 
-    @When("Creates a Pod with the following values$")
-    public void createAPodWithTheFollowingValues(final Map<String, String> podInformation) {
+    @When("I create a Pod with the following values$")
+    public void createAPod(final Map<String, String> podInformation) {
         pod.setPodInformation(podInformation);
         podsPage = new PodsPage();
         newPodModal = podsPage.clickNewPodButton();
@@ -52,7 +52,7 @@ public class PodSteps {
         taskListPage = formPod.createNewPod(pod, podInformation.keySet());
     }
 
-    @Then("^Pod should contains input data values$")
+    @Then("^The Pod should contains inserted data values$")
     public void podShouldContains() {
         setting = new SettingTextLink();
         setting.editPod();
@@ -64,26 +64,26 @@ public class PodSteps {
         }
     }
 
-    @When("^Searches pod by name \"([^\"]*)\"$")
-    public void searchPodByName(final String podName) {
+    @When("^I search the pod by name \"([^\"]*)\"$")
+    public void searchPod(final String podName) {
         StepUtil.searchElement(podName);
     }
 
-    @When("^Removes pod$")
+    @When("^I remove pod$")
     public void removePod() {
         setting = new SettingTextLink();
         setting.archivePod();
     }
 
-    @When("^Edits a Pod with the following$")
-    public void editAPodWithTheFollowing(final Map<String, String> podInformation) {
+    @When("^I edit the Pod with the following values$")
+    public void editAPod(final Map<String, String> podInformation) {
         setting = new SettingTextLink();
         setting.editPod();
         pod.setPodInformation(podInformation);
         taskListPage = formPod.updatePod(pod, podInformation.keySet());
     }
 
-    @Then("The {string} Pod should not exist")
+    @Then("The Pod {string} should not exist")
     public void thePodShouldNotExist(final String podName) {
         SearchElement searchElement = new SearchElement();
         String actual = searchElement.verifyDeletedElement(podName);

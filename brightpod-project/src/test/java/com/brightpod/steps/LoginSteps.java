@@ -1,4 +1,4 @@
-package com.brightpod.selectsite.steps;
+package com.brightpod.steps;
 
 import brightpod.MenuNavbar;
 import brightpod.LogoutPage;
@@ -12,8 +12,8 @@ import org.junit.Assert;
 
 public class LoginSteps {
 
-    @When("^Login with user credentials in \"([^\"]*)\"$")
-    public void loginWithUserCredentials(String page) {
+    @When("^I login with user credentials in \"([^\"]*)\"$")
+    public void login(String page) {
         String email = "juan.martinez.at11cc@gmail.com";
         String password = "at11account2020";
         PageTransporter.goToUrl(page);
@@ -21,7 +21,7 @@ public class LoginSteps {
         PodsPage podsPage = loginPage.login(email, password);
     }
 
-    @And("^Verify user authenticated$")
+    @And("^I verify authenticated user$")
     public void verifyUserAuthenticated() {
         String userName = "juan martinez";
         String email = "juan.martinez.at11cc@gmail.com";
@@ -30,8 +30,8 @@ public class LoginSteps {
         Assert.assertEquals(": ", email, actual);
     }
 
-    @When("^Selects on Logout$")
-    public void selectsOnLogout() {
+    @When("^I selects on Logout$")
+    public void Logout() {
         MenuNavbar navbar = new MenuNavbar();
         LogoutPage logoutPage = navbar.logout();
         logoutPage.returnInitPage();

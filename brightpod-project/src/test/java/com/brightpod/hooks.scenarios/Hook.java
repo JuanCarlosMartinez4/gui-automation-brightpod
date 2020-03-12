@@ -1,8 +1,8 @@
-package com.brightpod.selectsite.hooks.scenarios;
+package com.brightpod.hooks.scenarios;
 
 import brightpod.PageTransporter;
 import brightpod.SettingTextLink;
-import com.brightpod.selectsite.steps.StepUtil;
+import com.brightpod.steps.StepUtil;
 import core.WebDriverManager;
 import entities.Context;
 import entities.Pod;
