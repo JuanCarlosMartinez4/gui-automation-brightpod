@@ -12,7 +12,10 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Manages tasks
+ * Manages tasks.
+ *
+ * @author Juan Martinez.
+ * @version 1.0 04 april 2020.
  */
 public class AddTaskPage extends BasePage {
     private static final String ADD_NEW_TASK_BUTTON = "//span[text()='%s']//ancestor::li//a[contains(@class,'add_new_task')]";
@@ -259,22 +262,39 @@ public class AddTaskPage extends BasePage {
         setCalendarValues(SET_DAY, splitDate[DAY_VALUE]);
     }
 
+    /**
+     * Clicks hight priority.
+     * @param isVisible value
+     */
     private void clickOnHighPriorityCheckBox(boolean isVisible) {
         if (isVisible)
             highPriorityCheckbox.click();
     }
 
+    /**
+     * Clicks on add task button.
+     */
     public void clickOnAddTaskButtonToSave() {
         webDriverWait.until(ExpectedConditions.visibilityOf(addTaskButtonToSave));
         addTaskButtonToSave.click();
     }
 
+    /**
+     * Adds task information.
+     * @param task value.
+     * @param fields values.
+     */
     public void addTaskInformation(final Task task, final Set<String> fields) {
         clickOnAddTaskButton();
         HashMap<String, Runnable> strategyMap = composeStrategyMap(task);
         fields.forEach(field -> strategyMap.get(field).run());
     }
 
+    /**
+     * Register values visits.
+     * @param task value.
+     * @return a map.
+     */
     private HashMap<String, Runnable> composeStrategyMap(final Task task) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
 

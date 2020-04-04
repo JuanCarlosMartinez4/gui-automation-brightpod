@@ -66,7 +66,6 @@ public class TaskListSteps {
     public void editTaskList(final Map<String, String> taskListInformation) {
         taskListPage.editTaskListSearched(taskList.getName());
         taskList.setTaskListInformation(taskListInformation);
-
         addTasKPage = taskListPage.updateTaskListInformation(taskList, taskListInformation.keySet());
     }
 

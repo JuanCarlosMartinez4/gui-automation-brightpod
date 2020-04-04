@@ -4,12 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Defines opportunities products pages.
+ *
+ * @author Juan Martinez.
+ * @version 1.0 04 april 2020.
+ */
 public final class DateFormat {
-    private DateFormat() {
-
-    }
-
-    private static SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+    private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     private static Calendar calendar = Calendar.getInstance();
     private static final int DAYS = 0;
     private static final int MONTHS = 1;
@@ -21,14 +23,35 @@ public final class DateFormat {
     private static final int LIST_SIZE = 3;
     private static Date today = new Date(System.currentTimeMillis());
 
+    /**
+     * Date format constructor
+     */
+    private DateFormat() {
+
+    }
+
+    /**
+     * Formats date.
+     * @return formated date.
+     */
     private static String formatToday() {
         return formatter.format(today);
     }
 
+    /**
+     * Splits date format.
+     * @param dateString value.
+     * @return split date.
+     */
     private static String[] spliter(String dateString) {
         return dateString.split("-");
     }
 
+    /**
+     * Replaces String after.
+     * @param date value.
+     * @return string value.
+     */
     private static int[] replaceStringsAfter(String[] date) {
         int[] result = new int[LIST_SIZE];
         result[DAYS] = Integer.parseInt(date[DAYS].replaceAll("[^0-9]+", ""));
@@ -37,6 +60,11 @@ public final class DateFormat {
         return result;
     }
 
+    /**
+     * Replaces string before.
+     * @param date value.
+     * @return string value.
+     */
     private static int[] replaceStringsBefore(String[] date) {
         int[] result = new int[LIST_SIZE];
         result[DAYS] = -Integer.parseInt(date[DAYS].replaceAll("[^0-9]+", ""));
@@ -45,6 +73,11 @@ public final class DateFormat {
         return result;
     }
 
+    /**
+     * Sets values to calendar
+     * @param dateNumber value.
+     * @return calendar values
+     */
     private static Date setValuesToCalendar(int[] dateNumber) {
         calendar.setTime(today);
         calendar.add(Calendar.DATE, dateNumber[DAYS]);
@@ -53,6 +86,11 @@ public final class DateFormat {
         return calendar.getTime();
     }
 
+    /**
+     * Formats before date.
+     * @param dateString value
+     * @return before value.
+     */
     private static String before(String dateString) {
         date = spliter(dateString);
         String[] dates = new String[LIST_SIZE];
@@ -64,6 +102,11 @@ public final class DateFormat {
         return formatter.format(dateValue);
     }
 
+    /**
+     * Formats after date.
+     * @param dateString value.
+     * @return after format date.
+     */
     private static String after(String dateString) {
         date = spliter(dateString);
         String[] dates = new String[LIST_SIZE];
@@ -75,6 +118,11 @@ public final class DateFormat {
         return formatter.format(dateValue);
     }
 
+    /**
+     * Formats date.
+     * @param date value.
+     * @return formated date.
+     */
     public static String formatDate(String date) {
         String value = null;
         if (date == null)

@@ -2,6 +2,9 @@ package brightpod.constants;
 
 /**
  * Content Pod constants.
+ *
+ * @author Juan Martinez.
+ * @version 1.0 04 april 2020.
  */
 public class PodConstant {
     public static final String POD_NAME = "Pod Name";
